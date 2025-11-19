@@ -1,0 +1,23 @@
+{
+  "id": "requisition_geolocalisation",
+  "title": "Réquisition de géolocalisation (en temps réel)",
+  "order": 21,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "[[230-32 à 230-44]]\nAutorisation [[PR]] puis [[JLD]] sous [[24h]]"
+    },
+    {
+      "frameworkId": "ef",
+      "cadreLegal": "[[230-32 à 230-44]]\nAutorisation [[PR]] puis [[JLD]] sous [[24h]]"
+    },
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "[[230-32 à 230-44]]\nAutorisation [[JI]]"
+    }
+  ],
+  "motivation": "Il s'agit de [[localiser en temps réel]] (identité de l'intéressé) / (véhicule, téléphone, objet).",
+  "elementsFond": "Annexion de l'[[ordonnance]] du [[PR/JLD/JI]].\n[[Résultat de la géolocalisation]]."
+}

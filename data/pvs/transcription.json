@@ -1,0 +1,15 @@
+{
+  "id": "transcription",
+  "title": "Transcription",
+  "order": 24,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": null,
+      "cadreLegal": "[[100-5]], [[706-95-18]], [[230-39]]"
+    }
+  ],
+  "motivation": "Il s'agit de [[transcrire]] les [[enregistrements]] obtenus dans le cadre de (interceptions / sonorisation / géolocalisation).",
+  "elementsFond": "[[Transcription]] des enregistrements utiles à la [[manifestation de la vérité]].\n[[Mise sous scellé]] des [[supports d'enregistrement]]."
+}

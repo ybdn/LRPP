@@ -1,0 +1,39 @@
+{
+  "id": "saisie",
+  "title": "Saisie",
+  "order": 3,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "[[76]], [[76-3]] 🖥️"
+    },
+    {
+      "frameworkId": "ef",
+      "cadreLegal": "[[56]], [[57]], [[58]], [[59]] 🏠\n[[57-1]] 🖥️"
+    },
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "[[94]], [[97]], [[98]], [[95]] 🏠\n[[96]] hors 🏠\n[[97-1]] 🖥️"
+    },
+    {
+      "frameworkId": "dc",
+      "cadreLegal": "[[74, al.4]]"
+    },
+    {
+      "frameworkId": "dpgb",
+      "cadreLegal": "[[74, al. 6]]"
+    },
+    {
+      "frameworkId": "di",
+      "cadreLegal": "[[74-1]]"
+    },
+    {
+      "frameworkId": "rpf",
+      "cadreLegal": "[[74-2]]"
+    }
+  ],
+  "motivation": "Le ou les objets saisis constituent une [[preuve matérielle]] relative à l'infraction commise à l'encontre de … ou par …",
+  "elementsFond": "[[Présence constante]] de : (identité de l'intéressé).\n\nCas particuliers\nEnquête préliminaire :\n[[Assentiment exprès]] de (identité) ou autorisation du [[JLD]].\n\n[[Présentation]], [[saisie]], [[mise sous scellés]] des pièces à conviction et inscription sur l'[[IPAC]].\n\nCas particuliers\nEnquête préliminaire :\nAnnexion de l'[[assentiment exprès]] ou de l'[[ordonnance du JLD]] au présent PV."
+}

@@ -1,0 +1,39 @@
+{
+  "id": "audition_temoin",
+  "title": "Audition de témoin",
+  "order": 9,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "[[78]]\n[[706-57]] 🔄🏠"
+    },
+    {
+      "frameworkId": "ef",
+      "cadreLegal": "[[61]], [[62]]\n[[706-57]] 🔄🏠"
+    },
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "[[103]], [[153]]\n[[113-7]] (témoin assisté)\n[[108]] (mineur de 16 ans)\n[[706-57]] 🔄🏠"
+    },
+    {
+      "frameworkId": "dc",
+      "cadreLegal": "[[74, al. 4]]\n[[706-57]] 🔄🏠"
+    },
+    {
+      "frameworkId": "dpgb",
+      "cadreLegal": "[[74, al. 6]]\n[[706-57]] 🔄🏠"
+    },
+    {
+      "frameworkId": "di",
+      "cadreLegal": "[[74-1]]\n[[706-57]] 🔄🏠"
+    },
+    {
+      "frameworkId": "rpf",
+      "cadreLegal": "[[74-2]]\n[[706-57]] 🔄🏠"
+    }
+  ],
+  "motivation": "🔄🏠 : Autorisation du [[PR/JI]] de déclarer comme domicile l'adresse de la brigade et inscription de l'adresse personnelle du témoin sur un [[registre]] ouvert à cet effet et tenu sous format papier ou numérique ([[art. 706-57]] CPP).\n\nIl s'agit de [[recueillir le témoignage]] de (nom, prénom), de relater les circonstances de …",
+  "elementsFond": "Identité du témoin\n⚠️ CR : [[Prestation de serment]]\nLe témoin déclare :"
+}

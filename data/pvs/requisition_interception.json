@@ -1,0 +1,23 @@
+{
+  "id": "requisition_interception",
+  "title": "Réquisition d'interception",
+  "order": 23,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "[[706-95 à 706-95-20]]\n[[Crime organisé]] uniquement\nAutorisation [[JLD]]"
+    },
+    {
+      "frameworkId": "ef",
+      "cadreLegal": "[[706-95 à 706-95-20]]\n[[Crime organisé]] uniquement\nAutorisation [[JLD]]"
+    },
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "[[100 à 100-7]]\nAutorisation [[JI]]"
+    }
+  ],
+  "motivation": "Il s'agit d'[[intercepter]] les [[correspondances]] émises par la voie des [[communications électroniques]] de (identité de l'intéressé) / (numéro de ligne).",
+  "elementsFond": "Annexion de l'[[ordonnance]] du [[JLD/JI]].\n[[Transcription des interceptions]]."
+}

@@ -1,0 +1,36 @@
+{
+  "id": "audition_victime",
+  "title": "Audition de victime",
+  "order": 6,
+  "hasNotification": true,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "[[78]]\n[[10-2 à 10-6]] et [[15-3]] (majeur)"
+    },
+    {
+      "frameworkId": "ef",
+      "cadreLegal": "[[61]], [[62]]\n[[10-2 à 10-6]] et [[15-3]] (majeur)"
+    },
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "[[103]], [[153]]\n[[10-2 à 10-6]] (majeur)\n[[152, al. 2]] (partie civile)\n[[108]] (-16 ans)"
+    },
+    {
+      "frameworkId": "dpgb",
+      "cadreLegal": "[[74, al. 6]]\n[[10-2 à 10-6]] et [[15-3]] (majeur)"
+    },
+    {
+      "frameworkId": "di",
+      "cadreLegal": "[[706-57]] 🔄🏠\n[[706-58]] 🥷\n[[15-3-4]] (dépôt plainte employeur pro santé)\nInfractions contre mineurs ([[706-47]])\n[[706-52]], [[706-53]] (mineur)\n[[706-47-2]] (mineur ou majeur)"
+    },
+    {
+      "frameworkId": "rpf",
+      "cadreLegal": "[[706-57]] 🔄🏠\n[[706-58]] 🥷"
+    }
+  ],
+  "motivation": "Il s'agit de [[recueillir la plainte]] de la victime et les éléments sur la [[manière d'opérer]] du ou des auteurs ainsi que le [[préjudice subi]] (majeur).\nIl s'agit de [[recueillir l'audition]] de la victime, les éléments sur la [[manière d'opérer]] du ou des auteurs ainsi que le [[préjudice subi]] (mineur).\nIl s'agit de [[recueillir la plainte de l'employeur]] (professionnel de santé victime).\n\nCas particuliers : [[Enregistrement audiovisuel ou sonore]] (infractions contre mineurs [[706-47]])\nLe cas échéant : accompagnée de (nom, prénom)\n🔄🏠 Autorisation du [[PR/JI]] de déclarer comme domicile l'adresse de la brigade et inscription de l'adresse personnelle du témoin sur un [[registre]] ouvert à cet effet et tenu sous format papier ou numérique ([[art. 706-57]] CPP).",
+  "notification": "La victime [[porte plainte]] et reçoit [[notification de ses droits]] (+18).\n[[Pas de plainte]] ni de notification des droits (-18).\nL'employeur [[dépose plainte]] mais ne reçoit pas de notification des droits (employeur pro de santé victime).",
+  "elementsFond": "Identité de la victime.\n⚠️ CR : [[Prestation de serment]]\nLa victime déclare : (contenu de l'audition).\n\nCas particuliers : Remise ultérieure à la victime, à sa demande, du [[certificat médical]] (en cas de violences, suite réquisition enquêteur) ; Annexion [[questionnaire évaluation du danger]] (violences conjugales) ;\nAnnexion [[grille d'évaluation du danger]] face au harcèlement entre jeunes ; Annexion [[délégation de pouvoir]] (représentation d'une pers. morale) ;\nAnnexion du [[consentement écrit]] de la victime (dépôt plainte par employeur d'un pro de la santé victime).\nInformation au [[PR/JI]]."
+}

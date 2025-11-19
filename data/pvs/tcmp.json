@@ -1,0 +1,39 @@
+{
+  "id": "tcmp",
+  "title": "Transport, constatation et mesures prises (TCMP)",
+  "order": 1,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "[[14]], [[75]]"
+    },
+    {
+      "frameworkId": "ef",
+      "cadreLegal": "[[14]], [[54]], [[55]] (crime), [[67]] (délit)\n[[61, al.1]] (interdiction s'éloigner)"
+    },
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "[[14]], [[152]]"
+    },
+    {
+      "frameworkId": "dc",
+      "cadreLegal": "[[14]], [[74 al.1]]"
+    },
+    {
+      "frameworkId": "dpgb",
+      "cadreLegal": "[[74 al.2]]"
+    },
+    {
+      "frameworkId": "di",
+      "cadreLegal": "[[14]], [[74-1]]"
+    },
+    {
+      "frameworkId": "rpf",
+      "cadreLegal": "[[14]], [[74-2]]"
+    }
+  ],
+  "motivation": "Nécessité de procéder aux [[constatations]] et [[relevés de traces et indices]] suite à : (appel, signalement, soit-transmis, plainte).",
+  "elementsFond": "SITUATION À L'ARRIVÉE DES ENQUÊTEURS\n[[Personnes présentes]]\n[[Contrôle (+vérif) d'identité]]\nDisposition ayant été éventuellement prise avant l'arrivée des enquêteurs par des tiers pour [[porter secours]], [[assurer l'ordre]], [[préserver les indices]], [[assurer la sécurité]]\nPremier renseignement, recueilli sur le déroulement des faits, la culpabilité des protagonistes, les témoins, l'état des lieux et le corps du délit\nModifications apportées volontairement ou involontairement par des tiers\nAutres renseignements utiles à la description de la situation et des lieux à l'arrivée des enquêteurs.\n\nMESURES PRISES\n[[Gel des lieux]].\nInformation des différentes autorités concernées : Information au [[PR]] + [[CR]] aux [[CCB]] et [[CCIE]]\n[[Concours demandés et reçus]].\nDésignation des personnes dont l'identité a été contrôlées ou vérifiées et mention des procès-verbaux éventuellement établis.\nDésignation des personnes auxquelles [[défense expresse]] est faite de s'éloigner du lieu de l'infraction.\n[[Enquête d'environnement]].\n\nÉTAT DES LIEUX\nSituation générale des lieux de l'infraction : [[plans]], [[clichés]].\nDescription de l'état des lieux : [[plans]], [[croquis]], [[clichés]].\n\nCORPS DU DÉLIT\n[[Photographies]].\nDescription de la scène. Description et [[saisie des pièces à conviction]].\nOpération de [[PTS]] et constatations effectuées. [[Saisie]], [[mise sous scellé]] des pièces à conviction et inscription sur l'[[IPAC]].\n\nMESURES DIVERSES\nConclusion du [[médecin requis]] sur les lieux.\nEnlèvement du corps de la victime vers [[IML]].\nDestination donnée à la personne gardée à vue. Convocation de la victime, des témoins pour audition à l'unité. Mise en place d'un [[scellé sur la housse mortuaire]].\nMise en place de [[scellés condamnant l'accès au domicile]].\nInformation au [[maire]]."
+}

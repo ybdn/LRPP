@@ -1,0 +1,39 @@
+{
+  "id": "perquisition",
+  "title": "Perquisition",
+  "order": 2,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "[[76]], [[76-3]] 🖥️"
+    },
+    {
+      "frameworkId": "ef",
+      "cadreLegal": "[[56]], [[57]], [[58]], [[59]] 🏠\n[[57-1]] 🖥️"
+    },
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "[[94]], [[97]], [[98]], [[95]] 🏠\n[[96]] hors 🏠\n[[97-1]] 🖥️"
+    },
+    {
+      "frameworkId": "dc",
+      "cadreLegal": "[[74, al.4]]"
+    },
+    {
+      "frameworkId": "dpgb",
+      "cadreLegal": "[[74, al. 6]]"
+    },
+    {
+      "frameworkId": "di",
+      "cadreLegal": "[[74-1]]"
+    },
+    {
+      "frameworkId": "rpf",
+      "cadreLegal": "[[74-2]]"
+    }
+  ],
+  "motivation": "Il s'agit de [[rechercher des indices]] susceptibles de servir à la [[manifestation de la vérité]], au [[domicile du suspect]] ou dans le [[véhicule du suspect]].",
+  "elementsFond": "[[Présence constante]] de : (identité de la personne domiciliée) ou d'un [[représentant de son choix]] ou de [[2 témoins]] requis à cet effet.\n\nCas particuliers\nRetenue sur place (sur décision de l'OPJ) :\n(identité de l'intéressé) est retenu sur place : notification de l'[[art. 56, al. 11]] du CPP (EP, EF, CR).\nInformation au [[PR/JI]].\n\nEnquête préliminaire : [[Assentiment exprès]] de (identité de la personne domiciliée).\nou\nAutorisation du [[JLD]] (absence d'assentiment).\n\nPerquisitions hors des heures légales :\nEP : [[59-1]] Autorisation du JLD\nEF : [[97-2]] Autorisation du JI\nCR : [[Crime livre II]] - Autorisation du JLD\nCrime org. : [[706-90]] Autorisation du JLD (EP), [[706-89]] Autorisation du JLD (EF), [[706-91]] Autorisation du JLD (CR)\nStups, assoc. malfaiteurs, organisation crim. : [[706-28]]\nTraite êtres humains, proxénétisme, prostitution des mineurs, asso. malfaiteurs : [[706-35]]\n\nAdresse.\nLes recherches permettent de découvrir dans … le …\n[[Présentation]], [[saisie]], [[mise sous scellé]] des pièces à conviction et inscription sur l'[[IPAC]].\n[[Photographies]] des scellés et de l'environnement dans lesquelles ils ont été découverts.\n\nCas particuliers\nEnquête préliminaire : Annexion de l'[[assentiment exprès]] ou de l'[[ordonnance du JLD]] au présent PV.\nPerquisitions hors des heures légales : Nécessités de l'EF ou de la CR relative à l'un des crimes prévus par le [[livre II du CP]] ou Crime ORG. : Annexion de l'ordonnance JLD, JI au présent PV."
+}

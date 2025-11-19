@@ -1,0 +1,47 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: lrpp-postgres
+    environment:
+      POSTGRES_USER: lrpp
+      POSTGRES_PASSWORD: lrpp
+      POSTGRES_DB: lrpp
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lrpp"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Uncomment when ready for production-like setup
+  # api:
+  #   build:
+  #     context: .
+  #     dockerfile: apps/lrpp-api/Dockerfile
+  #   container_name: lrpp-api
+  #   environment:
+  #     DATABASE_URL: postgresql://lrpp:lrpp@postgres:5432/lrpp
+  #     NODE_ENV: production
+  #   ports:
+  #     - "3001:3001"
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+
+  # web:
+  #   build:
+  #     context: .
+  #     dockerfile: apps/lrpp-web/Dockerfile
+  #   container_name: lrpp-web
+  #   environment:
+  #     NEXT_PUBLIC_API_URL: http://api:3001
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - api
+
+volumes:
+  postgres_data:

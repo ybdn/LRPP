@@ -1,0 +1,25 @@
+{
+  "id": "audition_libre_mec",
+  "title": "Audition libre MEC",
+  "order": 11,
+  "hasNotification": true,
+  "hasDeroulement": true,
+  "contents": [
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "[[77]]\n[[L412-1]] et [[L412-2]] du CJPM (mineur)"
+    },
+    {
+      "frameworkId": "ef",
+      "cadreLegal": "[[61-1]]\n[[L412-1]] et [[L412-2]] du CJPM (mineur)"
+    },
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "[[154]]\n[[L412-1]] et [[L412-2]] du CJPM (mineur)"
+    }
+  ],
+  "motivation": "Il existe [[des raisons plausibles]] de soupçonner que la personne a [[commis ou tenté de commettre]] une infraction. (Identité de l'intéressé) n'a subi [[aucune mesure coercitive]].",
+  "notification": "(Identité de l'intéressé) [[accepte d'être entendu librement]] ; Reçoit [[notification de ses droits]] ; Qualification, date et lieu de l'infraction : (infraction), (délit ou crime), commis à (lieu) le (date).",
+  "deroulement": "[[Art. 706-56]], [[706-55]], [[706-54]], [[55-1]] (FD), [[76-2]] (EP), [[154-1]] (CR) du CPP : [[anthropométrie]] et [[prélèvement biologique]].\nSi l'infraction n'est pas prévue au [[706-55]] du CPP : [[relevés signalétiques]] : art. [[55-1]] (FD), [[76-2]] (EP), [[154-1]] (CR) du CPP ou [[art. L413-16]] du CJPM (mineur).\nMention de la fin de l'audition le (date) à (heure).",
+  "elementsFond": "Identité du MEC : (identité)\nLe MEC déclare :\nInformation au [[PR/JI]]"
+}

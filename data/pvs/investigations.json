@@ -1,0 +1,15 @@
+{
+  "id": "investigations",
+  "title": "Investigations",
+  "order": 14,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": null,
+      "cadreLegal": "[[17]]\nCas particuliers :\n- [[Agent expressément habilité]] (si consultation de fichiers centraux : cf. [[art. 15-5]] du CPP)\n- Information au autorisation [[PR]] ou [[JI]] (Inscription [[FPR]])"
+    }
+  ],
+  "motivation": "Il s'agit d'[[acter en procédure]] le résultat de (nature des investigations), d'effectuer une [[enquête d'environnement]] sur (identité de l'intéressé), d'effectuer une [[surveillance]] de (identité de l'intéressé).",
+  "elementsFond": "[[Résultat des investigations]]."
+}

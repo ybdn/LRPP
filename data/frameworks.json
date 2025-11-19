@@ -1,0 +1,51 @@
+[
+  {
+    "id": "ep",
+    "name": "Enquête préliminaire",
+    "cadreLegal": "75 à 78 du CPP + enquêteurs",
+    "justification": "Nous sommes saisis le (date) à (heure) et les faits se sont produits le (date) à (heure).\nLes faits ne viennent pas de se commettre.\nIls n'entrent pas dans le cas de la flagrance prévu à l'art. 53 du CPP.",
+    "competence": "Les faits se déroulent sur (la commune) placée dans le ressort territorial où l'enquêteur exerce ses fonctions habituelles (art. 18, al.1 et R.15-24 du CPP)."
+  },
+  {
+    "id": "ef",
+    "name": "Enquête de flagrance",
+    "cadreLegal": "53 à 67 du CPP + enquêteurs",
+    "justification": "Nous sommes saisis le (date) à (heure) et les faits se sont produits le (date) à (heure).\nLes faits se commettent actuellement ou viennent de se commettre ou dans un temps très voisin de l'action, la personne soupçonnée est poursuivie par la clameur publique ou est trouvée en possession d'objets ou présente des traces ou indices, laissant penser qu'elle a participé au crime ou au délit (art.53 du CPP).\nCes faits sont punis d'une peine d'emprisonnement.",
+    "competence": "Les faits se déroulent sur (la commune) placée dans le ressort territorial où l'enquêteur exerce ses fonctions habituelles (art. 18, al.1 et R.15-24 du CPP)."
+  },
+  {
+    "id": "cr",
+    "name": "Commission rogatoire",
+    "cadreLegal": "151 à 154-2 du CPP + enquêteurs",
+    "justification": "Le juge d'instruction de (ville du siège du JI) saisit le (chef de service), par commission rogatoire n° (n° de la CR) en date du (date) qui la subdélègue à (enquêteur désigné).\nCette CR est attribuée à : (enquêteur désigné) en qualité de DE. Infraction(s) : (citer)",
+    "competence": "Les faits se déroulent sur (la commune) placée dans le ressort territorial où l'enquêteur exerce ses fonctions habituelles (art. 18, al.1 et R.15-24 du CPP)."
+  },
+  {
+    "id": "dc",
+    "name": "Enquête de découverte de cadavre",
+    "cadreLegal": "74 du CPP + enquêteurs\nSur instruction du PR",
+    "justification": "Nous sommes saisis le (date) à (heure) et les faits se sont produits le (date) à (heure).\nIl s'agit de la découverte d'une personne dont la mort ne peut être expliquée, ni par l'examen de clinique initial, ni par des constatations. La cause du décès est inconnue ou suspecte.",
+    "competence": "Les faits se déroulent sur (la commune) placée dans le ressort territorial où l'enquêteur exerce ses fonctions habituelles (art. 18, al.1 et R.15-24 du CPP)."
+  },
+  {
+    "id": "dpgb",
+    "name": "Enquête de découverte de personne grièvement blessée",
+    "cadreLegal": "74 du CPP + enquêteurs\nSur instruction du PR",
+    "justification": "Nous sommes saisis le (date) à (heure) et les faits se sont produits le (date) à (heure).\nIl s'agit de la découverte ou du signalement d'une personne grièvement blessée dont la cause des blessures est inexpliquée voire suspecte.",
+    "competence": "Les faits se déroulent sur (la commune) placée dans le ressort territorial où l'enquêteur exerce ses fonctions habituelles (art. 18, al.1 et R.15-24 du CPP)."
+  },
+  {
+    "id": "di",
+    "name": "Enquête de disparition inquiétante",
+    "cadreLegal": "74-1 du CPP + enquêteurs.\nSur instruction du PR",
+    "justification": "Nous sommes saisis le (date) à (heure) et les faits se sont produits le (date) à (heure).\nDisparition inquiétante d'une personne. Le caractère de la disparition est inquiétant ou suspect eu égard aux circonstances, ou à l'âge de l'intéressé ou à son état de santé.",
+    "competence": "Les faits se déroulent sur (la commune) placée dans le ressort territorial où l'enquêteur exerce ses fonctions habituelles (art. 18, al.1 et R.15-24 du CPP)."
+  },
+  {
+    "id": "rpf",
+    "name": "Enquête de recherche de personne en fuite",
+    "cadreLegal": "74-2 du CPP + enquêteurs\nSur instruction du PR",
+    "justification": "Recherche dans le cadre d'un mandat d'arrêt ou d'une peine privative de liberté.",
+    "competence": "Les faits se déroulent sur (la commune) placée dans le ressort territorial où l'enquêteur exerce ses fonctions habituelles (art. 18, al.1 et R.15-24 du CPP)."
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "id": "gav_majeur",
+  "title": "GAV majeur",
+  "order": 13,
+  "hasNotification": true,
+  "hasDeroulement": true,
+  "header": "Procès-verbal de notification des droits et d'audition de personne gardée à vue (Nom, prénom) / (majeur)\nDurée de la GAV : (durée)\nMesure prise et notifiée par : grade, identité, OPJ, unité.",
+  "contents": [
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "[[77]],\n[[78]] (autorisation PR contrainte par la force publique)\n[[62-2 à 64]]\nArt. à ajouter :\n[[706-88]] (prolongation)\n[[706-88-1]] (terrorisme)\n[[706-88-2]] (ingestion de stupéfiants)\nCas particulier : autorisation PR. (Identité du GAV) est contraint à comparaître par la force publique."
+    },
+    {
+      "frameworkId": "ef",
+      "cadreLegal": "[[62-2 à 64]]\nArt. à ajouter :\n[[706-88]] (prolongation)\n[[706-88-1]] (terrorisme)\n[[706-88-2]] (ingestion de stupéfiants)\nCas particulier : autorisation PR. (Identité du GAV) est contraint à comparaître par la force publique."
+    },
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "[[153, al.3]], [[154]],\n[[105]] (indices graves et concordants)\n[[62-2 à 64]]\nArt. à ajouter :\n[[706-88]] (prolongation)\n[[706-88-1]] (terrorisme)\n[[706-88-2]] (ingestion de stupéfiants)"
+    }
+  ],
+  "motivation": "Il existe [[une ou plusieurs raisons plausibles]] de soupçonner que la personne a [[commis ou tenté de commettre]] un [[crime ou un délit]] puni d'une [[peine d'emprisonnement]].\nCette mesure constitue l'[[unique moyen]] de parvenir à l'un au moins des objectifs suivants : (choisir au moins un des [[six cas]] mentionnés à l'[[article 62-2]] du CPP)",
+  "notification": "Le (date) à (heure), à (lieu), (identité du GAV) est informé, dans une [[langue qu'il comprend]], de son placement en garde à vue pour une durée initiale de [[24 heures]] susceptible d'être prolongée de [[24 heures]] ;\n(Identité du GAV) reçoit [[notification de ses droits]] ; Qualification, date et lieu des infractions : (infraction), (délit ou crime), commis à (lieu), le (date). Pour le motif de (choix d'un ou plusieurs des [[6 cas]] prévus à l'[[art. 62-2]] du CPP) remise d'un document énonçant ses droits ([[art. 803-6]] du CPP).",
+  "deroulement": "Information [[PR/JI]] de (ville du siège du magistrat) : [[sans délai]], une fois la notification des droits effectuée (heure précise) ;\nMention de l'[[exercice effectif]] de ses droits et des heures auxquelles ils ont été exercés ;\nMention des temps de [[repos]], de [[repas]] et d'[[auditions]] ;\nMention de la [[fouille de sécurité]] ou de la [[fouille judiciaire]] (fouille à corps intégrale ou fouille in corpore) ;\nMention des temps de perquisition effectué au domicile/lieu de travail de l'intéressé ;\nMention du transfert de l'intéressé dans les locaux de la COB de (lieu) ;\nMention de l'[[enregistrement des auditions]] s'agissant d'un crime ([[art. 64-1]] du CPP) ;\n[[art. 706-56]], [[706-55]], [[706-54]], [[55-1]] (FD), [[76-2]] (EP), [[154-1]] (CR) du CPP : [[anthropométrie]] et [[prélèvement biologique]] (si l'infraction n'est pas prévue au 706-55 : [[relevés signalétiques]] : art. [[55-1]] (FD) ou [[76-2]] (EP) ou [[154-1]] (CR) du CPP) ;\nMention de la [[prolongation]] accordée le (date) à (heure) par PR/JI, [[avec ou sans présentation]]. (Identité du GAV), qui ne présente aucune observation, reçoit notification de ses droits à (heure) ;\nMention de la [[levée de la GAV]] le (date) à (heure). (Identité du GAV) est mise en route pour être présenté au PR/JI de (ville du siège du magistrat) à (heure).",
+  "elementsFond": "Identité de la personne gardée à vue : (identité du GAV)\nLe MEC déclare :"
+}

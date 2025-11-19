@@ -1,0 +1,23 @@
+{
+  "id": "requisition_sonorisation",
+  "title": "Réquisition de sonorisation et de fixation d'images",
+  "order": 22,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "[[706-96 à 706-102]]\n[[Crime organisé]] uniquement\nAutorisation [[JLD]]"
+    },
+    {
+      "frameworkId": "ef",
+      "cadreLegal": "[[706-96 à 706-102]]\n[[Crime organisé]] uniquement\nAutorisation [[JLD]]"
+    },
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "[[706-96 à 706-102]]\nAutorisation [[JI]]"
+    }
+  ],
+  "motivation": "Il s'agit de [[capter]], [[fixer]], [[transmettre]] et [[enregistrer]] des paroles ou des images de (identité de l'intéressé) dans (lieu).",
+  "elementsFond": "Annexion de l'[[ordonnance]] du [[JLD/JI]].\n[[Transcription des enregistrements]]."
+}

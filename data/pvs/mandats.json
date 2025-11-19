@@ -1,0 +1,19 @@
+{
+  "id": "mandats",
+  "title": "Mandats",
+  "order": 25,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "[[122 à 136]] (mandats JI)\n[[Mandat de comparution]] : [[122]]\n[[Mandat d'amener]] : [[122]], [[123]]\n[[Mandat d'arrêt]] : [[122]], [[131]]\n[[Mandat de recherche]] : [[122]], [[134]]"
+    },
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "[[70 à 74-2]] (mandats PR)"
+    }
+  ],
+  "motivation": "[[Mandat de comparution]] : [[mise en demeure]] de se présenter devant le [[JI]].\n[[Mandat d'amener]] : [[ordre donné à la force publique]] de [[conduire]] la personne devant le [[JI]].\n[[Mandat d'arrêt]] : [[ordre donné à la force publique]] de [[rechercher et conduire]] la personne devant le [[JI]].\n[[Mandat de recherche]] : [[ordre donné à la force publique]] de [[rechercher]] une personne.",
+  "elementsFond": "[[Exécution du mandat]].\n[[Notification à l'intéressé]].\n[[Remise ou présentation]] au [[magistrat]]."
+}

@@ -1,0 +1,15 @@
+{
+  "id": "requisition_prestataire",
+  "title": "Réquisition à prestataire de service",
+  "order": 17,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": null,
+      "cadreLegal": "[[R. 642-1]] du CP,\n[[57, al. 2]] du CPP (réquisition témoins perquisition)"
+    }
+  ],
+  "motivation": "La personne requise doit :\n- [[accepter la mission]] ;\n- [[exécuter la mission]] qui lui est confiée.\n\nIl s'agit de :",
+  "elementsFond": "[[Exécution de la mission]]."
+}

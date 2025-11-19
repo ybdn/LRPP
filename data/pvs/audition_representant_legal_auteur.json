@@ -1,0 +1,24 @@
+{
+  "id": "audition_representant_legal_auteur",
+  "title": "Audition représentant légal (mineur auteur)",
+  "order": 8,
+  "hasNotification": true,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "[[78]]"
+    },
+    {
+      "frameworkId": "ef",
+      "cadreLegal": "[[61]], [[62]]"
+    },
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "[[103]], [[153]]\n[[L412-1]] et [[L412-2]] (audition libre) ou\n[[L413-3]], [[L413-5]] (retenue judiciaire) ou\n[[L413-7]], [[L413-8]], [[L413-9]] (GAV mineur) du CJPM"
+    }
+  ],
+  "motivation": "Il s'agit de [[recueillir l'audition]] du [[représentant légal]] du [[mineur mis en cause]].",
+  "notification": "Le représentant légal reçoit [[notification de ses droits]].",
+  "elementsFond": "Identité du représentant légal\n⚠️ CR : [[Prestation de serment]]\nLe représentant légal déclare :"
+}

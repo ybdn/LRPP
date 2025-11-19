@@ -1,0 +1,23 @@
+{
+  "id": "audition_anonymat",
+  "title": "Audition sous couvert d'anonymat",
+  "order": 10,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "Audition victime ou témoin + [[706-58]] 🥷"
+    },
+    {
+      "frameworkId": "ef",
+      "cadreLegal": "Audition victime ou témoin + [[706-58]] 🥷"
+    },
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "Audition victime ou témoin + [[706-58]] 🥷"
+    }
+  ],
+  "motivation": "Sur autorisation du [[JLD]]\nOriginal de l'audition conservée au [[TJ]] sous le numéro d'ordre : (n° d'ordre)\n\nIl s'agit de [[recueillir le témoignage]] du témoin [[sous couvert d'anonymat]].",
+  "elementsFond": "⚠️ CR : [[Prestation de serment]].\nLe témoin déclare :\nAnnexion de l'[[ordonnance du JLD]]"
+}

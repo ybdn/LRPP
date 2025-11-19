@@ -1,0 +1,36 @@
+{
+  "id": "audition_representant_legal_victime",
+  "title": "Audition représentant légal (mineur victime)",
+  "order": 7,
+  "hasNotification": true,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "[[78]]\n[[10-2 à 10-6]] et [[15-3]] (majeur)"
+    },
+    {
+      "frameworkId": "ef",
+      "cadreLegal": "[[61]], [[62]]\n[[10-2 à 10-6]] et [[15-3]] (majeur)"
+    },
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "[[103]], [[153]]\n[[10-2 à 10-6]] (majeur)\n[[152, al. 2]] (partie civile)\n[[108]] (-16 ans)"
+    },
+    {
+      "frameworkId": "dpgb",
+      "cadreLegal": "[[74, al. 6]]\n[[10-2 à 10-6]] et [[15-3]] (majeur)"
+    },
+    {
+      "frameworkId": "di",
+      "cadreLegal": "[[706-57]] 🔄🏠\n[[706-58]] 🥷\n[[15-3-4]] (dépôt plainte employeur pro santé)\nInfractions contre mineurs ([[706-47]])\n[[706-52]], [[706-53]] (mineur)\n[[706-47-2]] (mineur ou majeur)"
+    },
+    {
+      "frameworkId": "rpf",
+      "cadreLegal": "[[706-57]] 🔄🏠\n[[706-58]] 🥷"
+    }
+  ],
+  "motivation": "Il s'agit de [[recueillir la plainte]] et l'audition du [[représentant légal]] du [[mineur victime]].",
+  "notification": "Le représentant légal [[porte plainte]] et reçoit [[notification de ses droits]].",
+  "elementsFond": "Identité du représentant légal.\n⚠️ CR : [[Prestation de serment]]\nLe représentant légal déclare :\nInformation du [[PR/JI]]"
+}

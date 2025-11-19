@@ -1,0 +1,19 @@
+{
+  "id": "autopsie",
+  "title": "Assistance autopsie",
+  "order": 16,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": null,
+      "cadreLegal": "[[230-28]]"
+    },
+    {
+      "frameworkId": "dc",
+      "cadreLegal": "[[230-28]]"
+    }
+  ],
+  "motivation": "Présence du [[médecin légiste]].\n\nIl s'agit de recueillir les [[éléments médico-légaux]] avec [[prise de notes]] et [[mise sous scellés]] des prélèvements effectués par le médecin légiste. Le but est de [[rechercher les causes de la mort]] de : (identité de l'intéressé).",
+  "elementsFond": "[[Ouverture du scellé]] et [[confection du scellé]] à l'issue de l'autopsie par le médecin légiste.\nIdentité de la victime.\nPrésence de l'[[OPJ]] et du [[TIC]] pour l'assister durant les constatations et effectuer des [[prises de photographies]].\nConstatations du médecin légiste faisant ressortir que la [[date du décès]] remonte à (jour, nombre d'heures) et que celui-ci n'a pas de [[cause connue]] ou que les causes sont : (nature de la ou des causes). [[Saisie]], [[mise sous scellés]] des prélèvements biologiques et inscription sur l'[[IPAC]] Destination des scellés ?\nInformation au [[PR/JI]] qui demande : (directives magistrat. Exemple : le PR requiert l'ouverture d'une information.\nRemise ultérieure au [[procureur de la République]] du [[rapport]] établi par le médecin légiste."
+}

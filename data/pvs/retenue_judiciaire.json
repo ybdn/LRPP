@@ -1,0 +1,26 @@
+{
+  "id": "retenue_judiciaire",
+  "title": "Retenue judiciaire (10-13 ans)",
+  "order": 12,
+  "hasNotification": true,
+  "hasDeroulement": true,
+  "header": "Procès-verbal de retenue judiciaire (Nom, prénom) / (mineur de 10-13)\nDurée de la retenue : (durée)\nMesure prise et notifiée par : grade, identité, OPJ, unité.",
+  "contents": [
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "[[77]]\n[[L413-1 à L413-5]] du CJPM (retenue judiciaire)\n[[78]] (autorisation PR contrainte par la force publique)"
+    },
+    {
+      "frameworkId": "ef",
+      "cadreLegal": "[[62-2 à 64]]\n[[L413-1 à L413-5]] du CJPM (retenue judiciaire)"
+    },
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "[[153, al.3]], [[154]]\n[[L413-1 à L413-5]] du CJPM (retenue judiciaire)\n[[105]] (indices graves et concordants)\nArt. à ajouter :\nProlongation : [[706-88]]\nTerrorisme : [[706-88-1]]\nIngestion de stups : [[706-88-2]]"
+    }
+  ],
+  "motivation": "Sur [[autorisation obligatoire]] du [[PR/JI]].\nCas particulier : Autorisation [[PR]]. (identité) est contraint à comparaître par la [[force publique]].\n\nIl existe [[une ou plusieurs raisons plausibles]] de soupçonner que la personne a [[commis ou tenté de commettre]] un [[crime ou un délit]] puni d'au moins [[5 ans d'emprisonnement]].\nCette mesure, prise avec l'[[accord du magistrat]], constitue l'[[unique moyen]] de parvenir à l'un ou moins des objectifs suivants : (citer cas [[62-2]] du CPP).",
+  "notification": "Le (date), à (heure), à (lieu), (identité) est informé, dans une langue qu'il comprend, de son placement en retenue judiciaire pour une durée initiale de 12h susceptible d'être prolongée de 12 heures ;\n(Identité) reçoit notification de ses droits ;\nQualification, date et lieu des infractions : (infraction), (délit/crime), commis à (lieu), le (date).\nPour le motif de : (choix 62-2 du CPP) ;\nRemise d'un document énonçant ses droits (art. 803-6 du CPP).",
+  "deroulement": "Information PR/JI de (ville du siège du magistrat) : sans délai, une fois la notification des droits effectuée.\nMention de l'exercice effectif de ses droits et des heures auxquelles ils ont été exercés ;\nMention des temps de repos, de repas et d'auditions ;\nMention de la fouille de sécurité ou de la fouille judiciaire (fouille à corps intégrale ou fouille in corpore) ;\nMention des temps de perquisition effectuée au domicile/lieu de travail de l'intéressé ;\nMention du transfert de l'intéressé dans les locaux de la COB de (lieu) ;\nMention de l'enregistrement des auditions s'agissant d'un mineur auteur : art. L413-12 à L413-15 du CJPM ;\nRelevés signalétiques : art. L413-16 du CJPM ;\nMention de la prolongation accordée le (date) à (heure) par PR ou JI sur présentation(obligatoire). (Identité du retenu), qui ne présente aucune observation, reçoit notification de ses droits à (heure) ;\nMention de la levée de la retenue le (date) à (heure). (Identité du retenu) est mis en route pour être présenté au PR/JI de (ville du siège du magistrat) à (heure).",
+  "elementsFond": "Identité de la personne retenue.\nLe MEC déclare :"
+}

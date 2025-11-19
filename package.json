@@ -1,0 +1,32 @@
+{
+  "name": "lrpp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Logiciel de Révision de la Procédure Pénale",
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "dev:api": "pnpm --filter lrpp-api dev",
+    "dev:web": "pnpm --filter lrpp-web dev",
+    "build": "pnpm -r build",
+    "build:api": "pnpm --filter lrpp-api build",
+    "build:web": "pnpm --filter lrpp-web build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "clean": "pnpm -r clean && rm -rf node_modules",
+    "db:migrate": "pnpm --filter lrpp-api migration:run",
+    "db:generate": "pnpm --filter lrpp-api migration:generate"
+  },
+  "keywords": [
+    "opj",
+    "procedure-penale",
+    "learning",
+    "gamification"
+  ],
+  "author": "Yoann",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.14.2"
+}

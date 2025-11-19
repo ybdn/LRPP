@@ -1,0 +1,16 @@
+{
+  "id": "requisition_militaire",
+  "title": "Réquisition à autorité militaire",
+  "order": 20,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "header": "Procès-verbal de réquisition à autorité militaire\n(perquisition ou interpellation de X à la caserne de Y)",
+  "contents": [
+    {
+      "frameworkId": null,
+      "cadreLegal": "[[698-3]]"
+    }
+  ],
+  "motivation": "La personne requise doit :\n- [[accepter la mission]] ;",
+  "elementsFond": ""
+}

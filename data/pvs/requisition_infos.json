@@ -1,0 +1,39 @@
+{
+  "id": "requisition_infos",
+  "title": "Réquisition aux fins de remise d'informations",
+  "order": 19,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "[[77-1-1]] et/ou [[77-1-2]]\nAutorisation [[PR]] (EP).\nAutorisation [[JLD]] (EP, FD), [[JI]] (CR) ❄️💽\nAutorisation [[JLD]] (EP, FD, CR) (données de connexion émises par un avocat)"
+    },
+    {
+      "frameworkId": "ef",
+      "cadreLegal": "[[60-1]] et/ou [[60-2]]"
+    },
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "[[99-3]] et/ou [[99-4]]"
+    },
+    {
+      "frameworkId": "dc",
+      "cadreLegal": "[[74, al. 4]] (DC)"
+    },
+    {
+      "frameworkId": "dpgb",
+      "cadreLegal": "[[74, al. 6]] (DPGB)"
+    },
+    {
+      "frameworkId": "di",
+      "cadreLegal": "[[74-1]]"
+    },
+    {
+      "frameworkId": "rpf",
+      "cadreLegal": "[[74-2]]"
+    }
+  ],
+  "motivation": "La personne requise doit :\n- [[accepter la mission]] ;\n- [[exécuter la mission]] et remettre une réponse.\n\nIl s'agit d'[[obtenir]] (nature de la demande), d'[[identifier]] (identité de l'intéressé), de [[localiser]] (identité de l'intéressé).",
+  "elementsFond": "Annexion de la [[réponse]] au présent PV ou à un PV d'investigations.\n\nCas particuliers : Enquête préliminaire, enquête de flagrance et commission rogatoire ([[gel des données]]) : annexion de l'[[ordonnance du JLD]] (EP, FD) ou de la [[commission rogatoire particulière]] du JI (CR)\nEnquête préliminaire, enquête de flagrance, commission rogatoire (données de connexion émises par un avocat) : annexion de l'[[ordonnance du JLD]] (EP, FD, CR)"
+}

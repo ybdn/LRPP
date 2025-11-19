@@ -1,0 +1,39 @@
+{
+  "id": "bris_scelle",
+  "title": "Bris de scellé et restitution ou destruction",
+  "order": 5,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "[[41-4]] 💥\n[[41-5]] 🤝"
+    },
+    {
+      "frameworkId": "ef",
+      "cadreLegal": "[[41-4]] 💥\n[[41-5]] 🤝"
+    },
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "[[99]] 💥\n[[99-2]] 🤝"
+    },
+    {
+      "frameworkId": "dc",
+      "cadreLegal": "[[74, al. 4]]"
+    },
+    {
+      "frameworkId": "dpgb",
+      "cadreLegal": "[[74, al. 6]]"
+    },
+    {
+      "frameworkId": "di",
+      "cadreLegal": "[[74-1]]"
+    },
+    {
+      "frameworkId": "rpf",
+      "cadreLegal": "[[74-2]]"
+    }
+  ],
+  "motivation": "Sur autorisation du [[PR]] ou [[JI]].\n[[Briser le scellé]] et [[restituer l'objet]] à son [[propriétaire légal]] ou le [[détruire]].",
+  "elementsFond": "Restitution : La propriété de l'objet [[n'est pas sérieusement contestée]] ;\n[[Photographie du scellé]] ; [[Bris de scellé]] ;\n[[Restitution]] de l'objet suivant : (désignation) à (identité) ;\n[[Émargement du propriétaire]].\n\nDestruction : La propriété de l'objet [[n'est pas sérieusement contestée]] ;\nMention du [[droit à exercer un recours]] contre cette décision ;\nMention de l'information au MEC que l'objet va être détruit ;\n[[Bris de scellé]] ;\n[[Destruction]] de l'objet suivant : (désignation) ;\n[[Émargement du MEC]]\n\nCas particuliers\nCommission rogatoire :\nAnnexion de l'[[ordonnance du JI]]."
+}

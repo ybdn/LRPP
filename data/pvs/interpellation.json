@@ -1,0 +1,15 @@
+{
+  "id": "interpellation",
+  "title": "Interpellation et remise à OPJ",
+  "order": 15,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": null,
+      "cadreLegal": "[[73]]"
+    }
+  ],
+  "motivation": "Il s'agit d'[[interpeller]] la personne soupçonnée d'avoir [[commis ou tenté de commettre]] un [[crime ou un délit]] et de le [[remettre à l'OPJ]].",
+  "elementsFond": "[[Date, heure, lieu]] d'arrestation ;\nDescription des [[raisons et conditions]] de l'interpellation ;\n[[Identité]] de la personne interpellée ;\nDescription de l'[[état physique]] de la personne ;\n[[Fouille de sécurité]] ;\nDestination donnée : [[remise immédiatement]] à l'[[OPJ-TC]]."
+}

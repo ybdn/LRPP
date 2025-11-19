@@ -1,0 +1,39 @@
+{
+  "id": "saisie_incidente",
+  "title": "Saisie incidente",
+  "order": 4,
+  "hasNotification": false,
+  "hasDeroulement": false,
+  "contents": [
+    {
+      "frameworkId": "ep",
+      "cadreLegal": "[[76]], [[76-3]] 🖥️"
+    },
+    {
+      "frameworkId": "ef",
+      "cadreLegal": "[[56]], [[57]], [[58]], [[59]] 🏠\n[[57-1]] 🖥️"
+    },
+    {
+      "frameworkId": "cr",
+      "cadreLegal": "[[94]], [[97]], [[98]], [[95]] 🏠\n[[96]] hors 🏠\n[[97-1]] 🖥️"
+    },
+    {
+      "frameworkId": "dc",
+      "cadreLegal": "[[74, al.4]]"
+    },
+    {
+      "frameworkId": "dpgb",
+      "cadreLegal": "[[74, al. 6]]"
+    },
+    {
+      "frameworkId": "di",
+      "cadreLegal": "[[74-1]]"
+    },
+    {
+      "frameworkId": "rpf",
+      "cadreLegal": "[[74-2]]"
+    }
+  ],
+  "motivation": "Il s'agit d'une [[saisie incidente]] en (cadre d'enquête) suite à une [[perquisition]] en (cadre d'enquête).",
+  "elementsFond": "[[Présence constante]] de : (identité de l'intéressé).\n\nCas particuliers\nEnquête préliminaire :\n[[Assentiment exprès]] de (identité) ou autorisation du [[JLD]].\n\nLe (date), à (adresse), à (heure), au cours de la perquisition, dans le cadre de (cadre d'enquête, UNA), découverte de l'objet suivant qui bien que de [[provenance frauduleuse]], ne se rapporte pas à l'enquête en cours : (objet, description).\nSa détention est une [[infraction à la loi pénale]] ou se rapporte à la commission d'un [[crime ou d'un délit]] et est susceptible de constituer une [[pièce à conviction]] dans le cadre de (cadre d'enquête) de référence.\n[[Présentation]], [[saisie]], [[mise sous scellés]] des pièces à conviction et inscription sur l'[[IPAC]].\n\nCas particuliers\nEnquête préliminaire :\nAnnexion de l'[[assentiment exprès]] ou de l'[[ordonnance du JLD]] au présent PV."
+}
