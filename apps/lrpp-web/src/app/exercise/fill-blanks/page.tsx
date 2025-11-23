@@ -33,6 +33,7 @@ function FillBlanksContent() {
   const [rewriteAnswers, setRewriteAnswers] = useState<Record<string, string>>({});
   const [corrections, setCorrections] = useState<Record<string, CorrectionResult>>({});
   const [lastScore, setLastScore] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const { data: pvs } = useQuery({
     queryKey: ['pvs'],
@@ -56,6 +57,11 @@ function FillBlanksContent() {
       setRewriteAnswers({});
       setCorrections({});
       setLastScore(null);
+      setError(null);
+    },
+    onError: (err: unknown) => {
+      const message = err instanceof Error ? err.message : 'Erreur lors de la génération';
+      setError(message);
     },
   });
 
@@ -72,6 +78,7 @@ function FillBlanksContent() {
   const handleSubmit = async () => {
     if (!document) return;
     setIsChecking(true);
+    setError(null);
     try {
       const gapBlocks = document.sections.flatMap((section) =>
         section.blocks.filter((block) => block.completionMode === 'GAPS'),
@@ -109,6 +116,9 @@ function FillBlanksContent() {
 
       setCorrections(nextCorrections);
       setLastScore(responses.length > 0 ? Math.round(totalScore / responses.length) : null);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Erreur pendant la correction';
+      setError(message);
     } finally {
       setIsChecking(false);
     }
@@ -134,6 +144,13 @@ function FillBlanksContent() {
         <p className="text-lg text-gray-600 mb-8">
           Complétez les trous pour mémoriser les articles et formulations.
         </p>
+
+        {error && (
+          <div className="card border-red-200 bg-red-50 text-red-800 mb-6">
+            <p className="font-semibold">Impossible de terminer l&apos;action</p>
+            <p className="text-sm mt-1">{error}</p>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <div>

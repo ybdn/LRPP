@@ -1,9 +1,9 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { Block } from "@/common/entities";
-import { GenerateFillBlanksDto } from "./dto/generate-fill-blanks.dto";
-import { CheckAnswersDto } from "./dto/check-answers.dto";
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Block } from '@/common/entities';
+import { GenerateFillBlanksDto } from './dto/generate-fill-blanks.dto';
+import { CheckAnswersDto } from './dto/check-answers.dto';
 
 export interface Blank {
   id: string;
@@ -30,8 +30,8 @@ export class ExerciseService {
   ): Promise<FillBlanksExercise[]> {
     const blocks = await this.blockRepository.find({
       where: { pvId: dto.pvId },
-      relations: ["section"],
-      order: { sectionId: "ASC" },
+      relations: ['section'],
+      order: { sectionId: 'ASC' },
     });
 
     if (blocks.length === 0) {
@@ -45,7 +45,7 @@ export class ExerciseService {
   async generateDictation(blockId: string) {
     const block = await this.blockRepository.findOne({
       where: { id: blockId },
-      relations: ["pv", "section"],
+      relations: ['pv', 'section'],
     });
 
     if (!block) {
@@ -53,7 +53,7 @@ export class ExerciseService {
     }
 
     // Remove the [[...]] markers to get clean text
-    const cleanText = block.textTemplate.replace(/\[\[([^\]]+)\]\]/g, "$1");
+    const cleanText = block.textTemplate.replace(/\[\[([^\]]+)\]\]/g, '$1');
 
     return {
       blockId: block.id,
@@ -71,6 +71,7 @@ export class ExerciseService {
     }
 
     const blanks = this.extractBlanks(block.textTemplate, block.id);
+    const answers = dto.answers ?? {};
     const targetSet = new Set(
       dto.targetBlankIds && dto.targetBlankIds.length > 0
         ? dto.targetBlankIds
@@ -80,7 +81,7 @@ export class ExerciseService {
     const selectedBlanks = blanks.filter((blank) => targetSet.has(blank.id));
 
     const results = selectedBlanks.map((blank) => {
-      const userAnswer = dto.answers[blank.id] || "";
+      const userAnswer = answers[blank.id] || '';
       const correct = this.compareAnswers(blank.expected, userAnswer);
 
       return {
@@ -111,7 +112,7 @@ export class ExerciseService {
     if (level === 3) {
       return {
         blockId: block.id,
-        maskedText: "",
+        maskedText: '',
         blanks: blanks.map((b, i) => ({
           id: `${block.id}_${i}`,
           position: i,
