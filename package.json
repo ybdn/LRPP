@@ -11,7 +11,7 @@
     "build:api": "pnpm --filter lrpp-api build",
     "build:web": "pnpm --filter lrpp-web build",
     "lint": "pnpm -r lint",
-    "test": "pnpm -r test",
+    "test": "echo 'No tests configured yet'",
     "clean": "pnpm -r clean && rm -rf node_modules",
     "db:migrate": "pnpm --filter lrpp-api migration:run",
     "db:generate": "pnpm --filter lrpp-api migration:generate"

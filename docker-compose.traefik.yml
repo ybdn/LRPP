@@ -15,7 +15,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-lrpp}"]
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-lrpp}" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -46,10 +46,9 @@ services:
       - proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.lrpp-api.rule=Host(`lrpp.ybdn.fr`) || Host(`137.74.41.101`) && PathPrefix(`/api`)"
-      - "traefik.http.routers.lrpp-api.entrypoints=websecure"
+      - "traefik.http.routers.lrpp-api.rule=Host(`lrpp.ybdn.fr`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.lrpp-api.entrypoints=web,websecure"
       - "traefik.http.routers.lrpp-api.tls=true"
-      - "traefik.http.routers.lrpp-api.tls.certresolver=letsencrypt"
       - "traefik.http.services.lrpp-api.loadbalancer.server.port=3001"
       - "traefik.http.routers.lrpp-api.priority=10"
 
@@ -70,15 +69,15 @@ services:
       - proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.lrpp-web.rule=Host(`lrpp.ybdn.fr`) || Host(`137.74.41.101`)"
-      - "traefik.http.routers.lrpp-web.entrypoints=websecure"
+      - "traefik.http.routers.lrpp-web.rule=Host(`lrpp.ybdn.fr`)"
+      - "traefik.http.routers.lrpp-web.entrypoints=web,websecure"
       - "traefik.http.routers.lrpp-web.tls=true"
-      - "traefik.http.routers.lrpp-web.tls.certresolver=letsencrypt"
       - "traefik.http.services.lrpp-web.loadbalancer.server.port=3000"
       - "traefik.http.routers.lrpp-web.priority=1"
 
 volumes:
   postgres_data:
+
 
 networks:
   lrpp-internal:
