@@ -46,7 +46,7 @@ services:
       - traefik-public
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.lrpp-api.rule=Host(`137.74.41.101`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.lrpp-api.rule=Host(`lrpp.ybdn.fr`) || Host(`137.74.41.101`) && PathPrefix(`/api`)"
       - "traefik.http.routers.lrpp-api.entrypoints=web"
       - "traefik.http.services.lrpp-api.loadbalancer.server.port=3001"
       - "traefik.http.routers.lrpp-api.priority=10"
@@ -56,7 +56,7 @@ services:
       context: .
       dockerfile: apps/lrpp-web/Dockerfile
       args:
-        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://137.74.41.101/api}
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://lrpp.ybdn.fr/api}
     container_name: lrpp-web
     restart: unless-stopped
     environment:
@@ -68,7 +68,7 @@ services:
       - traefik-public
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.lrpp-web.rule=Host(`137.74.41.101`)"
+      - "traefik.http.routers.lrpp-web.rule=Host(`lrpp.ybdn.fr`) || Host(`137.74.41.101`)"
       - "traefik.http.routers.lrpp-web.entrypoints=web"
       - "traefik.http.services.lrpp-web.loadbalancer.server.port=3000"
       - "traefik.http.routers.lrpp-web.priority=1"

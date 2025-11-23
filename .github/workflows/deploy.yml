@@ -77,9 +77,12 @@ jobs:
             POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }}
             POSTGRES_DB=lrpp
             JWT_SECRET=${{ secrets.JWT_SECRET }}
-            NEXT_PUBLIC_API_URL=http://${{ secrets.VPS_HOST }}/api
+            NEXT_PUBLIC_API_URL=http://lrpp.ybdn.fr/api
             ENVEOF
             fi
+
+            # Cleanup potential old stack (ignore errors if not running)
+            docker compose -f docker-compose.prod.yml down || true
 
             # Build and restart containers
             docker compose -f docker-compose.traefik.yml down
