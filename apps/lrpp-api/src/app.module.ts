@@ -25,14 +25,24 @@ import { CompletionModule } from "./modules/completion/completion.module";
 
         if (client === "postgres") {
           const url = configService.get<string>("DATABASE_URL");
-          if (!url) {
-            throw new Error(
-              "DATABASE_URL must be defined when DATABASE_CLIENT=postgres",
-            );
+
+          if (url) {
+            return {
+              type: "postgres",
+              url,
+              autoLoadEntities: true,
+              synchronize: isDev,
+              logging: configService.get("NODE_ENV") === "development",
+            };
           }
+
           return {
             type: "postgres",
-            url,
+            host: configService.get<string>("DATABASE_HOST"),
+            port: parseInt(configService.get<string>("DATABASE_PORT") || "5432", 10),
+            username: configService.get<string>("DATABASE_USER"),
+            password: configService.get<string>("DATABASE_PASSWORD"),
+            database: configService.get<string>("DATABASE_NAME"),
             autoLoadEntities: true,
             synchronize: isDev,
             logging: configService.get("NODE_ENV") === "development",
@@ -65,4 +75,4 @@ import { CompletionModule } from "./modules/completion/completion.module";
     CompletionModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }
