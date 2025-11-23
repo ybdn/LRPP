@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { api, PvSection } from '@/lib/api';
 
-export default function PvDetailPage(props: any) {
+export default function PvDetailPage(props: { params: { id: string } }) {
   const params = props.params as { id: string };
   const {
     data: pv,

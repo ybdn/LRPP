@@ -1,9 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, In } from 'typeorm';
-import { ExamSession, Block, UserBlockStats } from '@/common/entities';
-import { CreateExamDto } from './dto/create-exam.dto';
-import { UserService } from '../user/user.service';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository, In } from "typeorm";
+import { ExamSession, Block, UserBlockStats } from "@/common/entities";
+import { CreateExamDto } from "./dto/create-exam.dto";
+import { UserService } from "../user/user.service";
 
 @Injectable()
 export class ExamService {
@@ -49,7 +49,7 @@ export class ExamService {
   async findOne(id: string) {
     const exam = await this.examRepository.findOne({
       where: { id },
-      relations: ['attempts', 'attempts.block'],
+      relations: ["attempts", "attempts.block"],
     });
 
     if (!exam) {
@@ -62,7 +62,7 @@ export class ExamService {
   async complete(id: string) {
     const exam = await this.examRepository.findOne({
       where: { id },
-      relations: ['attempts'],
+      relations: ["attempts"],
     });
 
     if (!exam) {
@@ -88,10 +88,10 @@ export class ExamService {
     count: number,
   ): Promise<Block[]> {
     // Get blocks matching themes
-    const query = this.blockRepository.createQueryBuilder('block');
+    const query = this.blockRepository.createQueryBuilder("block");
 
     if (themes.length > 0) {
-      query.where('block.tags && :themes', { themes });
+      query.where("block.tags && :themes", { themes });
     }
 
     const allBlocks = await query.getMany();

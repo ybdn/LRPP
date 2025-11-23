@@ -1,5 +1,5 @@
-import { IsArray, IsEnum, IsOptional, IsString } from 'class-validator';
-import { SectionKind, TrainingMode } from '../completion.types';
+import { IsArray, IsEnum, IsOptional, IsString } from "class-validator";
+import { SectionKind, TrainingMode } from "../completion.types";
 
 export class GenerateCompletionDto {
   @IsString()

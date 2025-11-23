@@ -1,7 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Pv, PvSection, InvestigationFramework } from '@/common/entities';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Pv, PvSection, InvestigationFramework } from "@/common/entities";
 
 @Injectable()
 export class PvService {
@@ -16,7 +16,7 @@ export class PvService {
 
   async findAll(): Promise<Pv[]> {
     return this.pvRepository.find({
-      order: { order: 'ASC' },
+      order: { order: "ASC" },
     });
   }
 
@@ -27,7 +27,7 @@ export class PvService {
   async findOne(id: string): Promise<Pv> {
     const pv = await this.pvRepository.findOne({
       where: { id },
-      relations: ['sections', 'sections.blocks'],
+      relations: ["sections", "sections.blocks"],
     });
 
     if (!pv) {
@@ -40,8 +40,8 @@ export class PvService {
   async findSections(pvId: string): Promise<PvSection[]> {
     return this.sectionRepository.find({
       where: { pvId },
-      relations: ['blocks'],
-      order: { order: 'ASC' },
+      relations: ["blocks"],
+      order: { order: "ASC" },
     });
   }
 }

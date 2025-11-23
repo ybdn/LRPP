@@ -1,12 +1,12 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { CompletionService } from './completion.service';
-import { GenerateCompletionDto } from './dto/generate-completion.dto';
+import { Body, Controller, Post } from "@nestjs/common";
+import { CompletionService } from "./completion.service";
+import { GenerateCompletionDto } from "./dto/generate-completion.dto";
 
-@Controller('completion')
+@Controller("completion")
 export class CompletionController {
   constructor(private readonly completionService: CompletionService) {}
 
-  @Post('document')
+  @Post("document")
   generateDocument(@Body() dto: GenerateCompletionDto) {
     return this.completionService.generateDocument(dto);
   }

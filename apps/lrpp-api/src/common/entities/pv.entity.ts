@@ -1,8 +1,8 @@
-import { Entity, PrimaryColumn, Column, OneToMany } from 'typeorm';
-import { PvContent } from './pv-content.entity';
-import { PvSection } from './pv-section.entity';
+import { Entity, PrimaryColumn, Column, OneToMany } from "typeorm";
+import { PvContent } from "./pv-content.entity";
+import { PvSection } from "./pv-section.entity";
 
-@Entity('pvs')
+@Entity("pvs")
 export class Pv {
   @PrimaryColumn({ length: 50 })
   id: string;
@@ -14,11 +14,11 @@ export class Pv {
   order: number;
 
   // Indique si ce PV a une section "Notification des droits"
-  @Column({ name: 'has_notification', default: false })
+  @Column({ name: "has_notification", default: false })
   hasNotification: boolean;
 
   // Indique si ce PV a une section "Déroulement de la mesure"
-  @Column({ name: 'has_deroulement', default: false })
+  @Column({ name: "has_deroulement", default: false })
   hasDeroulement: boolean;
 
   @OneToMany(() => PvContent, (content) => content.pv)

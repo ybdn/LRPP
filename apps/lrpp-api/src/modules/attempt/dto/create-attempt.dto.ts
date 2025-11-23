@@ -1,5 +1,12 @@
-import { IsString, IsNumber, IsOptional, IsObject, Min, Max } from 'class-validator';
-import { AttemptMode } from '@/common/entities';
+import {
+  IsString,
+  IsNumber,
+  IsOptional,
+  IsObject,
+  Min,
+  Max,
+} from "class-validator";
+import { AttemptMode } from "@/common/entities";
 
 export class CreateAttemptDto {
   @IsString()

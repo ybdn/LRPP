@@ -1,7 +1,7 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { PvService } from './pv.service';
+import { Controller, Get, Param } from "@nestjs/common";
+import { PvService } from "./pv.service";
 
-@Controller('pvs')
+@Controller("pvs")
 export class PvController {
   constructor(private readonly pvService: PvService) {}
 
@@ -10,18 +10,18 @@ export class PvController {
     return this.pvService.findAll();
   }
 
-  @Get('frameworks')
+  @Get("frameworks")
   findAllFrameworks() {
     return this.pvService.findAllFrameworks();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get(":id")
+  findOne(@Param("id") id: string) {
     return this.pvService.findOne(id);
   }
 
-  @Get(':id/sections')
-  findSections(@Param('id') id: string) {
+  @Get(":id/sections")
+  findSections(@Param("id") id: string) {
     return this.pvService.findSections(id);
   }
 }

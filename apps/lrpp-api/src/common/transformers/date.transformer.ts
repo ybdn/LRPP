@@ -1,4 +1,4 @@
-import { ValueTransformer } from 'typeorm';
+import { ValueTransformer } from "typeorm";
 
 export const isoDateTransformer: ValueTransformer = {
   to: (value?: Date | null) => (value ? value.toISOString() : null),
@@ -12,7 +12,7 @@ export const jsonTransformer: ValueTransformer = {
     if (!value) return null;
     try {
       return JSON.parse(value);
-    } catch (error) {
+    } catch {
       return null;
     }
   },

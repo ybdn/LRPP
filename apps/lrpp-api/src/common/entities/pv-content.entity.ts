@@ -4,42 +4,42 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
-} from 'typeorm';
-import { Pv } from './pv.entity';
-import { InvestigationFramework } from './investigation-framework.entity';
+} from "typeorm";
+import { Pv } from "./pv.entity";
+import { InvestigationFramework } from "./investigation-framework.entity";
 
-@Entity('pv_contents')
+@Entity("pv_contents")
 export class PvContent {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ name: 'pv_id', length: 50 })
+  @Column({ name: "pv_id", length: 50 })
   pvId: string;
 
-  @Column({ name: 'framework_id', length: 10, nullable: true })
+  @Column({ name: "framework_id", length: 10, nullable: true })
   frameworkId: string | null; // null si contenu commun à tous les cadres
 
   // Les parties du PV
-  @Column({ name: 'cadre_legal', type: 'text' })
+  @Column({ name: "cadre_legal", type: "text" })
   cadreLegal: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: "text" })
   motivation: string;
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ type: "text", nullable: true })
   notification: string | null;
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ type: "text", nullable: true })
   deroulement: string | null;
 
-  @Column({ name: 'elements_fond', type: 'text' })
+  @Column({ name: "elements_fond", type: "text" })
   elementsFond: string;
 
   @ManyToOne(() => Pv, (pv) => pv.contents)
-  @JoinColumn({ name: 'pv_id' })
+  @JoinColumn({ name: "pv_id" })
   pv: Pv;
 
   @ManyToOne(() => InvestigationFramework, { nullable: true })
-  @JoinColumn({ name: 'framework_id' })
+  @JoinColumn({ name: "framework_id" })
   framework: InvestigationFramework | null;
 }

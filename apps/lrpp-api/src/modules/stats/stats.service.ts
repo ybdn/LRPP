@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { UserBlockStats, Attempt } from '@/common/entities';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { UserBlockStats, Attempt } from "@/common/entities";
 
 @Injectable()
 export class StatsService {
@@ -15,7 +15,7 @@ export class StatsService {
   async getUserStats(userId: string) {
     const stats = await this.statsRepository.find({
       where: { userId },
-      relations: ['block', 'block.pv', 'block.section'],
+      relations: ["block", "block.pv", "block.section"],
     });
 
     const totalBlocks = stats.length;
@@ -40,19 +40,33 @@ export class StatsService {
         }
         acc[pvId].blocks.push({
           blockId: s.blockId,
-          sectionLabel: s.block.section?.label || '',
+          sectionLabel: s.block.section?.label || "",
           masteryScore: s.masteryScore,
           attemptCount: s.attemptCount,
         });
         return acc;
       },
-      {} as Record<string, { pvId: string; pvTitle: string; blocks: { blockId: string; sectionLabel: string; masteryScore: number; attemptCount: number }[]; avgMastery: number }>,
+      {} as Record<
+        string,
+        {
+          pvId: string;
+          pvTitle: string;
+          blocks: {
+            blockId: string;
+            sectionLabel: string;
+            masteryScore: number;
+            attemptCount: number;
+          }[];
+          avgMastery: number;
+        }
+      >,
     );
 
     // Calculate avg per PV
     Object.values(byPv).forEach((pv) => {
       pv.avgMastery = Math.round(
-        pv.blocks.reduce((sum, b) => sum + b.masteryScore, 0) / pv.blocks.length,
+        pv.blocks.reduce((sum, b) => sum + b.masteryScore, 0) /
+          pv.blocks.length,
       );
     });
 
@@ -66,8 +80,8 @@ export class StatsService {
   async getWeakBlocks(userId: string, limit: number) {
     return this.statsRepository.find({
       where: { userId },
-      relations: ['block', 'block.pv', 'block.section'],
-      order: { masteryScore: 'ASC' },
+      relations: ["block", "block.pv", "block.section"],
+      order: { masteryScore: "ASC" },
       take: limit,
     });
   }
@@ -75,13 +89,13 @@ export class StatsService {
   async getProgress(userId: string) {
     // Get attempts grouped by date
     const attempts = await this.attemptRepository
-      .createQueryBuilder('attempt')
-      .select("DATE(attempt.created_at)", 'date')
-      .addSelect('COUNT(*)', 'count')
-      .addSelect('AVG(attempt.score)', 'avgScore')
-      .where('attempt.userId = :userId', { userId })
-      .groupBy('date')
-      .orderBy('date', 'ASC')
+      .createQueryBuilder("attempt")
+      .select("DATE(attempt.created_at)", "date")
+      .addSelect("COUNT(*)", "count")
+      .addSelect("AVG(attempt.score)", "avgScore")
+      .where("attempt.userId = :userId", { userId })
+      .groupBy("date")
+      .orderBy("date", "ASC")
       .getRawMany();
 
     return attempts;

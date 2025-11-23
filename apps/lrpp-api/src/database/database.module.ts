@@ -1,13 +1,13 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
 import {
   Block,
   InvestigationFramework,
   Pv,
   PvContent,
   PvSection,
-} from '@/common/entities';
-import { DatabaseSeedService } from './seed.service';
+} from "@/common/entities";
+import { DatabaseSeedService } from "./seed.service";
 
 @Module({
   imports: [

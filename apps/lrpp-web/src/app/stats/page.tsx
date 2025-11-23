@@ -25,11 +25,11 @@ export default function StatsPage() {
   });
 
   const formattedProgress = Array.isArray(progress)
-    ? progress.map((entry: any) => ({
-        date: entry.date,
-        avgScore: Math.round(Number(entry.avgscore || entry.avgScore || 0)),
-        count: Number(entry.count || 0),
-      }))
+    ? progress.map((entry) => ({
+      date: entry.date,
+      avgScore: Math.round(Number(entry.avgscore || entry.avgScore || 0)),
+      count: Number(entry.count || 0),
+    }))
     : [];
 
   return (
@@ -80,7 +80,7 @@ export default function StatsPage() {
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Blocs à retravailler</h2>
             {Array.isArray(weakBlocks) && weakBlocks.length > 0 ? (
               <ul className="space-y-3">
-                {weakBlocks.map((block: any) => (
+                {weakBlocks.map((block) => (
                   <li key={block.blockId} className="border border-gray-100 rounded-lg p-3">
                     <p className="text-sm font-semibold text-gray-900">{block.block?.pv?.title || block.blockId}</p>
                     <p className="text-xs text-gray-500">

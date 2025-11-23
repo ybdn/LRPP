@@ -5,26 +5,26 @@ import {
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
-} from 'typeorm';
-import { User } from './user.entity';
-import { Block } from './block.entity';
-import { ExamSession } from './exam-session.entity';
-import { jsonTransformer } from '../transformers/date.transformer';
+} from "typeorm";
+import { User } from "./user.entity";
+import { Block } from "./block.entity";
+import { ExamSession } from "./exam-session.entity";
+import { jsonTransformer } from "../transformers/date.transformer";
 
-export type AttemptMode = 'fill_blanks' | 'dictation' | 'exam';
+export type AttemptMode = "fill_blanks" | "dictation" | "exam";
 
-@Entity('attempts')
+@Entity("attempts")
 export class Attempt {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ name: 'user_id', type: 'uuid' })
+  @Column({ name: "user_id", type: "uuid" })
   userId: string;
 
-  @Column({ name: 'block_id', type: 'uuid' })
+  @Column({ name: "block_id", type: "uuid" })
   blockId: string;
 
-  @Column({ name: 'exam_session_id', type: 'uuid', nullable: true })
+  @Column({ name: "exam_session_id", type: "uuid", nullable: true })
   examSessionId: string | null;
 
   @Column({ length: 20 })
@@ -36,21 +36,21 @@ export class Attempt {
   @Column()
   score: number;
 
-  @Column({ type: 'text', nullable: true, transformer: jsonTransformer })
+  @Column({ type: "text", nullable: true, transformer: jsonTransformer })
   answers: Record<string, string> | null;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
 
   @ManyToOne(() => User, (user) => user.attempts)
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: "user_id" })
   user: User;
 
   @ManyToOne(() => Block)
-  @JoinColumn({ name: 'block_id' })
+  @JoinColumn({ name: "block_id" })
   block: Block;
 
   @ManyToOne(() => ExamSession, (exam) => exam.attempts, { nullable: true })
-  @JoinColumn({ name: 'exam_session_id' })
+  @JoinColumn({ name: "exam_session_id" })
   examSession: ExamSession | null;
 }

@@ -1,8 +1,8 @@
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
-import { AttemptService } from './attempt.service';
-import { CreateAttemptDto } from './dto/create-attempt.dto';
+import { Controller, Post, Body, Get, Param } from "@nestjs/common";
+import { AttemptService } from "./attempt.service";
+import { CreateAttemptDto } from "./dto/create-attempt.dto";
 
-@Controller('attempts')
+@Controller("attempts")
 export class AttemptController {
   constructor(private readonly attemptService: AttemptService) {}
 
@@ -11,8 +11,8 @@ export class AttemptController {
     return this.attemptService.create(createAttemptDto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get(":id")
+  findOne(@Param("id") id: string) {
     return this.attemptService.findOne(id);
   }
 }

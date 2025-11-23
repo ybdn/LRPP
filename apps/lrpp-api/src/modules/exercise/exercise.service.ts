@@ -1,9 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Block } from '@/common/entities';
-import { GenerateFillBlanksDto } from './dto/generate-fill-blanks.dto';
-import { CheckAnswersDto } from './dto/check-answers.dto';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Block } from "@/common/entities";
+import { GenerateFillBlanksDto } from "./dto/generate-fill-blanks.dto";
+import { CheckAnswersDto } from "./dto/check-answers.dto";
 
 export interface Blank {
   id: string;
@@ -15,7 +15,7 @@ export interface Blank {
 export interface FillBlanksExercise {
   blockId: string;
   maskedText: string;
-  blanks: Omit<Blank, 'expected'>[];
+  blanks: Omit<Blank, "expected">[];
 }
 
 @Injectable()
@@ -23,13 +23,15 @@ export class ExerciseService {
   constructor(
     @InjectRepository(Block)
     private blockRepository: Repository<Block>,
-  ) { }
+  ) {}
 
-  async generateFillBlanks(dto: GenerateFillBlanksDto): Promise<FillBlanksExercise[]> {
+  async generateFillBlanks(
+    dto: GenerateFillBlanksDto,
+  ): Promise<FillBlanksExercise[]> {
     const blocks = await this.blockRepository.find({
       where: { pvId: dto.pvId },
-      relations: ['section'],
-      order: { sectionId: 'ASC' },
+      relations: ["section"],
+      order: { sectionId: "ASC" },
     });
 
     if (blocks.length === 0) {
@@ -43,7 +45,7 @@ export class ExerciseService {
   async generateDictation(blockId: string) {
     const block = await this.blockRepository.findOne({
       where: { id: blockId },
-      relations: ['pv', 'section'],
+      relations: ["pv", "section"],
     });
 
     if (!block) {
@@ -51,7 +53,7 @@ export class ExerciseService {
     }
 
     // Remove the [[...]] markers to get clean text
-    const cleanText = block.textTemplate.replace(/\[\[([^\]]+)\]\]/g, '$1');
+    const cleanText = block.textTemplate.replace(/\[\[([^\]]+)\]\]/g, "$1");
 
     return {
       blockId: block.id,
@@ -78,7 +80,7 @@ export class ExerciseService {
     const selectedBlanks = blanks.filter((blank) => targetSet.has(blank.id));
 
     const results = selectedBlanks.map((blank) => {
-      const userAnswer = dto.answers[blank.id] || '';
+      const userAnswer = dto.answers[blank.id] || "";
       const correct = this.compareAnswers(blank.expected, userAnswer);
 
       return {
@@ -90,7 +92,10 @@ export class ExerciseService {
     });
 
     const correctCount = results.filter((r) => r.correct).length;
-    const score = selectedBlanks.length > 0 ? Math.round((correctCount / selectedBlanks.length) * 100) : 100;
+    const score =
+      selectedBlanks.length > 0
+        ? Math.round((correctCount / selectedBlanks.length) * 100)
+        : 100;
 
     return {
       score,
@@ -101,13 +106,12 @@ export class ExerciseService {
   private maskBlock(block: Block, level: number): FillBlanksExercise {
     const blanks: Blank[] = this.extractBlanks(block.textTemplate, block.id);
     let maskedText = block.textTemplate;
-    let offset = 0;
 
     // For level 3, mask everything
     if (level === 3) {
       return {
         blockId: block.id,
-        maskedText: '',
+        maskedText: "",
         blanks: blanks.map((b, i) => ({
           id: `${block.id}_${i}`,
           position: i,
@@ -118,8 +122,10 @@ export class ExerciseService {
 
     // Replace [[...]] with blanks
     blanks.forEach((blank) => {
-      const placeholder = '_'.repeat(Math.min(blank.length, 20));
-      const regex = new RegExp(`\\[\\[${this.escapeRegex(blank.expected)}\\]\\]`);
+      const placeholder = "_".repeat(Math.min(blank.length, 20));
+      const regex = new RegExp(
+        `\\[\\[${this.escapeRegex(blank.expected)}\\]\\]`,
+      );
       maskedText = maskedText.replace(regex, placeholder);
     });
 
@@ -142,7 +148,7 @@ export class ExerciseService {
 
     while ((match = regex.exec(template)) !== null) {
       blanks.push({
-        id: blockId ? `${blockId}_${position}` : '',
+        id: blockId ? `${blockId}_${position}` : "",
         position: position++,
         length: match[1].length,
         expected: match[1],
@@ -156,10 +162,10 @@ export class ExerciseService {
     const normalize = (s: string) =>
       s
         .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/[^a-z0-9]/g, ' ')
-        .replace(/\s+/g, ' ')
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, " ")
+        .replace(/\s+/g, " ")
         .trim();
 
     const exp = normalize(expected);
@@ -202,6 +208,6 @@ export class ExerciseService {
   }
 
   private escapeRegex(string: string): string {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 }

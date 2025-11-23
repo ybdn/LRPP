@@ -1,7 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Block } from '@/common/entities';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Block } from "@/common/entities";
 
 interface FindAllOptions {
   pvId?: string;
@@ -16,14 +16,14 @@ export class BlockService {
   ) {}
 
   async findAll(options: FindAllOptions = {}): Promise<Block[]> {
-    const query = this.blockRepository.createQueryBuilder('block');
+    const query = this.blockRepository.createQueryBuilder("block");
 
     if (options.pvId) {
-      query.andWhere('block.pvId = :pvId', { pvId: options.pvId });
+      query.andWhere("block.pvId = :pvId", { pvId: options.pvId });
     }
 
     if (options.tag) {
-      query.andWhere(':tag = ANY(block.tags)', { tag: options.tag });
+      query.andWhere(":tag = ANY(block.tags)", { tag: options.tag });
     }
 
     return query.getMany();
@@ -32,7 +32,7 @@ export class BlockService {
   async findOne(id: string): Promise<Block> {
     const block = await this.blockRepository.findOne({
       where: { id },
-      relations: ['pv', 'section'],
+      relations: ["pv", "section"],
     });
 
     if (!block) {

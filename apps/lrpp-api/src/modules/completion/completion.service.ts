@@ -1,7 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Block, Pv, PvSection, UserBlockStats } from '@/common/entities';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Block, Pv, PvSection, UserBlockStats } from "@/common/entities";
 import {
   CompletionMode,
   GapStrategy,
@@ -9,9 +9,12 @@ import {
   SectionCompletionResult,
   SectionKind,
   TrainingMode,
-} from './completion.types';
-import { GenerateCompletionDto } from './dto/generate-completion.dto';
-import { MODE_COMPLETION_PROFILES, resolveGapDensity } from './completion-profiles';
+} from "./completion.types";
+import { GenerateCompletionDto } from "./dto/generate-completion.dto";
+import {
+  MODE_COMPLETION_PROFILES,
+  resolveGapDensity,
+} from "./completion-profiles";
 
 interface Blank {
   id: string;
@@ -36,21 +39,25 @@ export class CompletionService {
   async generateDocument(dto: GenerateCompletionDto) {
     const pv = await this.pvRepository.findOne({
       where: { id: dto.pvId },
-      relations: ['sections', 'sections.blocks'],
+      relations: ["sections", "sections.blocks"],
     });
 
     if (!pv) {
       throw new NotFoundException(`PV ${dto.pvId} not found`);
     }
 
-    const requestedSections = dto.sections ? new Set<SectionKind>(dto.sections) : null;
+    const requestedSections = dto.sections
+      ? new Set<SectionKind>(dto.sections)
+      : null;
     const sectionStatsMap = await this.loadStats(dto.userId, pv.id);
     const baseProfiles = MODE_COMPLETION_PROFILES[dto.mode] || [];
 
     const sections = (pv.sections || [])
       .sort((a, b) => a.order - b.order)
       .filter((section) =>
-        requestedSections ? requestedSections.has(section.label as SectionKind) : true,
+        requestedSections
+          ? requestedSections.has(section.label as SectionKind)
+          : true,
       )
       .map((section) =>
         this.buildSectionResult(section, {
@@ -80,15 +87,25 @@ export class CompletionService {
       sectionStats?: SectionStats;
     },
   ): SectionCompletionResult {
-    const kind = (section.label as SectionKind) ?? 'elements_fond';
+    const kind = (section.label as SectionKind) ?? "elements_fond";
     const baseProfile =
       params.baseProfiles.find((profile) => profile.sectionKind === kind) ||
-      ({ sectionKind: kind, completionMode: CompletionMode.READ_ONLY } as SectionCompletionProfile);
+      ({
+        sectionKind: kind,
+        completionMode: CompletionMode.READ_ONLY,
+      } as SectionCompletionProfile);
 
-    const adaptedMode = this.adaptCompletionMode(baseProfile.completionMode, params.sectionStats, params.mode);
+    const adaptedMode = this.adaptCompletionMode(
+      baseProfile.completionMode,
+      params.sectionStats,
+      params.mode,
+    );
     const baseDensity =
       adaptedMode === CompletionMode.GAPS
-        ? this.adaptGapDensity(resolveGapDensity(params.level, baseProfile), params.sectionStats)
+        ? this.adaptGapDensity(
+            resolveGapDensity(params.level, baseProfile),
+            params.sectionStats,
+          )
         : undefined;
 
     const blocks = (section.blocks || [])
@@ -120,7 +137,10 @@ export class CompletionService {
       gapStrategy?: GapStrategy;
     },
   ) {
-    if (params.completionMode === CompletionMode.GAPS && params.gapDensity !== undefined) {
+    if (
+      params.completionMode === CompletionMode.GAPS &&
+      params.gapDensity !== undefined
+    ) {
       const { maskedText, blanks, targetBlankIds } = this.maskBlockWithProfile(
         block,
         params.gapDensity,
@@ -160,7 +180,11 @@ export class CompletionService {
     };
   }
 
-  private maskBlockWithProfile(block: Block, gapDensity: number, strategy?: GapStrategy) {
+  private maskBlockWithProfile(
+    block: Block,
+    gapDensity: number,
+    strategy?: GapStrategy,
+  ) {
     const blanks = this.extractBlanks(block.textTemplate, block.id);
     if (blanks.length === 0) {
       return {
@@ -172,7 +196,11 @@ export class CompletionService {
 
     const selectedBlanks = this.selectBlanks(blanks, gapDensity, strategy);
     const blankIds = new Set(selectedBlanks.map((blank) => blank.id));
-    const maskedText = this.buildMaskedText(block.textTemplate, blanks, blankIds);
+    const maskedText = this.buildMaskedText(
+      block.textTemplate,
+      blanks,
+      blankIds,
+    );
 
     return {
       maskedText,
@@ -185,14 +213,22 @@ export class CompletionService {
     };
   }
 
-  private selectBlanks(blanks: Blank[], density: number, strategy?: GapStrategy) {
+  private selectBlanks(
+    blanks: Blank[],
+    density: number,
+    strategy?: GapStrategy,
+  ) {
     const count = Math.max(1, Math.round(blanks.length * density));
     let pool = blanks;
 
     if (strategy === GapStrategy.ARTICLES_ONLY) {
-      pool = blanks.filter((blank) => /\d/.test(blank.expected) || /art/i.test(blank.expected));
+      pool = blanks.filter(
+        (blank) => /\d/.test(blank.expected) || /art/i.test(blank.expected),
+      );
     } else if (strategy === GapStrategy.KEYWORDS) {
-      pool = blanks.filter((blank) => !/\d/.test(blank.expected) && blank.expected.length >= 4);
+      pool = blanks.filter(
+        (blank) => !/\d/.test(blank.expected) && blank.expected.length >= 4,
+      );
     }
 
     if (pool.length < count) {
@@ -216,7 +252,11 @@ export class CompletionService {
       return CompletionMode.FULL_REWRITE;
     }
 
-    if (stats.avgMastery >= 85 && baseMode === CompletionMode.GAPS && mode !== TrainingMode.DICTEE) {
+    if (
+      stats.avgMastery >= 85 &&
+      baseMode === CompletionMode.GAPS &&
+      mode !== TrainingMode.DICTEE
+    ) {
       return CompletionMode.READ_ONLY;
     }
 
@@ -239,13 +279,16 @@ export class CompletionService {
     return base;
   }
 
-  private async loadStats(userId: string | undefined, pvId: string) {
+  private async loadStats(userId: string | undefined, _pvId: string) {
     const map = new Map<string, SectionStats>();
     if (!userId) {
       return map;
     }
 
-    const stats = await this.statsRepository.find({ where: { userId }, relations: ['block'] });
+    const stats = await this.statsRepository.find({
+      where: { userId },
+      relations: ["block"],
+    });
     const bySection = new Map<string, number[]>();
 
     stats.forEach((stat) => {
@@ -262,7 +305,9 @@ export class CompletionService {
       if (scores.length === 0) {
         return;
       }
-      const avg = Math.round(scores.reduce((sum, value) => sum + value, 0) / scores.length);
+      const avg = Math.round(
+        scores.reduce((sum, value) => sum + value, 0) / scores.length,
+      );
       map.set(sectionId, { avgMastery: avg });
     });
 
@@ -287,9 +332,13 @@ export class CompletionService {
     return blanks;
   }
 
-  private buildMaskedText(template: string, blanks: Blank[], blankIds: Set<string>) {
+  private buildMaskedText(
+    template: string,
+    blanks: Blank[],
+    blankIds: Set<string>,
+  ) {
     const regex = /\[\[([^\]]+)\]\]/g;
-    let result = '';
+    let result = "";
     let lastIndex = 0;
     let match;
     let index = 0;
@@ -298,7 +347,7 @@ export class CompletionService {
       result += template.slice(lastIndex, match.index);
       const blank = blanks[index];
       const content = blankIds.has(blank.id)
-        ? '_'.repeat(Math.min(blank.length, 20))
+        ? "_".repeat(Math.min(blank.length, 20))
         : match[1];
       result += content;
       lastIndex = regex.lastIndex;
@@ -310,6 +359,6 @@ export class CompletionService {
   }
 
   private removeMarkers(text: string) {
-    return text.replace(/\[\[([^\]]+)\]\]/g, '$1');
+    return text.replace(/\[\[([^\]]+)\]\]/g, "$1");
   }
 }

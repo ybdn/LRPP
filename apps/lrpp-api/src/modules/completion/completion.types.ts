@@ -1,27 +1,27 @@
 export enum TrainingMode {
-  TEXTE_TROU = 'TEXTE_TROU',
-  DICTEE = 'DICTEE',
-  EXAMEN = 'EXAMEN',
+  TEXTE_TROU = "TEXTE_TROU",
+  DICTEE = "DICTEE",
+  EXAMEN = "EXAMEN",
 }
 
 export enum CompletionMode {
-  READ_ONLY = 'READ_ONLY',
-  GAPS = 'GAPS',
-  FULL_REWRITE = 'FULL_REWRITE',
+  READ_ONLY = "READ_ONLY",
+  GAPS = "GAPS",
+  FULL_REWRITE = "FULL_REWRITE",
 }
 
 export enum GapStrategy {
-  ARTICLES_ONLY = 'ARTICLES_ONLY',
-  KEYWORDS = 'KEYWORDS',
-  ALL = 'ALL',
+  ARTICLES_ONLY = "ARTICLES_ONLY",
+  KEYWORDS = "KEYWORDS",
+  ALL = "ALL",
 }
 
 export type SectionKind =
-  | 'cadre_legal'
-  | 'motivation'
-  | 'notification'
-  | 'deroulement'
-  | 'elements_fond';
+  | "cadre_legal"
+  | "motivation"
+  | "notification"
+  | "deroulement"
+  | "elements_fond";
 
 export interface SectionCompletionProfile {
   sectionKind: SectionKind;

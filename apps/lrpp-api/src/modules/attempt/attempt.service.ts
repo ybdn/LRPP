@@ -1,9 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Attempt, UserBlockStats } from '@/common/entities';
-import { CreateAttemptDto } from './dto/create-attempt.dto';
-import { UserService } from '../user/user.service';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Attempt, UserBlockStats } from "@/common/entities";
+import { CreateAttemptDto } from "./dto/create-attempt.dto";
+import { UserService } from "../user/user.service";
 
 @Injectable()
 export class AttemptService {
@@ -29,7 +29,7 @@ export class AttemptService {
   async findOne(id: string): Promise<Attempt> {
     const attempt = await this.attemptRepository.findOne({
       where: { id },
-      relations: ['block'],
+      relations: ["block"],
     });
 
     if (!attempt) {
