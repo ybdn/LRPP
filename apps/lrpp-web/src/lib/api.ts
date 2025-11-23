@@ -18,12 +18,17 @@ async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> 
 }
 
 // Types
-export interface Pv {
+export interface PV {
   id: string;
   title: string;
   order: number;
+  hasNotification?: boolean;
+  hasDeroulement?: boolean;
   sections?: PvSection[];
 }
+
+// Alias pour compatibilité
+export type Pv = PV;
 
 export interface PvSection {
   id: string;
