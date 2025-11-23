@@ -16,7 +16,16 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Link href="/exercise/recitation" className="card hover:shadow-lg transition-shadow border-2 border-blue-200 bg-blue-50">
+            <h3 className="text-lg font-semibold text-blue-900 mb-2">
+              Récitation par cœur
+            </h3>
+            <p className="text-blue-700">
+              Apprenez les PV mot pour mot avec comparaison stricte et diff visuel.
+            </p>
+          </Link>
+
           <Link href="/exercise/fill-blanks" className="card hover:shadow-lg transition-shadow">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
               PV à trous
