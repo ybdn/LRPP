@@ -1,12 +1,13 @@
 'use client';
 
+import { use } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { api, PvSection } from '@/lib/api';
 
-export default function PvDetailPage(props: { params: { id: string } }) {
-  const params = props.params as { id: string };
+export default function PvDetailPage(props: { params: Promise<{ id: string }> }) {
+  const params = use(props.params);
   const {
     data: pv,
     isLoading,
