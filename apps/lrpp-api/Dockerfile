@@ -43,7 +43,8 @@ RUN addgroup --system --gid 1001 nodejs && \
 COPY --from=builder /app/apps/lrpp-api/dist ./dist
 COPY --from=builder /app/apps/lrpp-api/package.json ./
 COPY --from=builder /app/data ../data
-COPY --from=deps /app/apps/lrpp-api/node_modules ./node_modules
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/apps/lrpp-api/node_modules ./apps/lrpp-api/node_modules
 
 USER nestjs
 
