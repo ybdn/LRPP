@@ -1,13 +1,13 @@
-import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
-import type { Request, Response } from 'express';
-import { AppModule } from './app.module';
+import { NestFactory } from "@nestjs/core";
+import { ValidationPipe } from "@nestjs/common";
+import type { Request, Response } from "express";
+import { AppModule } from "./app.module";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Global prefix
-  app.setGlobalPrefix('api');
+  app.setGlobalPrefix("api");
 
   // Validation
   app.useGlobalPipes(
@@ -20,14 +20,14 @@ async function bootstrap() {
 
   // CORS
   app.enableCors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+    origin: process.env.CORS_ORIGIN || "http://localhost:3000",
     credentials: true,
   });
 
-  app.getHttpAdapter().get('/', (_req: Request, res: Response) => {
+  app.getHttpAdapter().get("/", (_req: Request, res: Response) => {
     res.json({
-      status: 'ok',
-      service: 'lrpp-api',
+      status: "ok",
+      service: "lrpp-api",
       timestamp: new Date().toISOString(),
     });
   });
