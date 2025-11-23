@@ -81,8 +81,13 @@ jobs:
             ENVEOF
             fi
 
+            # Ensure Traefik network exists (using existing 'proxy' network)
+            # docker network create traefik-public || true
+
             # Cleanup potential old stack (ignore errors if not running)
+            # We force remove containers by name to avoid conflicts if compose down fails
             docker compose -f docker-compose.prod.yml down || true
+            docker rm -f lrpp-nginx lrpp-web lrpp-api lrpp-postgres || true
 
             # Build and restart containers
             docker compose -f docker-compose.traefik.yml down

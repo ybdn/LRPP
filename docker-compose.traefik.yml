@@ -43,7 +43,7 @@ services:
         condition: service_healthy
     networks:
       - lrpp-internal
-      - traefik-public
+      - proxy
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.lrpp-api.rule=Host(`lrpp.ybdn.fr`) || Host(`137.74.41.101`) && PathPrefix(`/api`)"
@@ -65,7 +65,7 @@ services:
       - api
     networks:
       - lrpp-internal
-      - traefik-public
+      - proxy
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.lrpp-web.rule=Host(`lrpp.ybdn.fr`) || Host(`137.74.41.101`)"
@@ -79,5 +79,5 @@ volumes:
 networks:
   lrpp-internal:
     driver: bridge
-  traefik-public:
+  proxy:
     external: true
