@@ -77,17 +77,17 @@ jobs:
             POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }}
             POSTGRES_DB=lrpp
             JWT_SECRET=${{ secrets.JWT_SECRET }}
-            NEXT_PUBLIC_API_URL=http://${{ secrets.VPS_HOST }}:3001
+            NEXT_PUBLIC_API_URL=http://${{ secrets.VPS_HOST }}/api
             ENVEOF
             fi
 
             # Build and restart containers
-            docker compose -f docker-compose.prod.yml down
-            docker compose -f docker-compose.prod.yml build --no-cache
-            docker compose -f docker-compose.prod.yml up -d
+            docker compose -f docker-compose.traefik.yml down
+            docker compose -f docker-compose.traefik.yml build --no-cache
+            docker compose -f docker-compose.traefik.yml up -d
 
             # Cleanup old images
             docker image prune -f
 
             # Show status
-            docker compose -f docker-compose.prod.yml ps
+            docker compose -f docker-compose.traefik.yml ps
