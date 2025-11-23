@@ -39,15 +39,21 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nestjs
 
+# Copy package files for prod install
+COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
+COPY apps/lrpp-api/package.json ./apps/lrpp-api/
+
+# Install production dependencies only
+RUN pnpm install --prod --frozen-lockfile --filter lrpp-api
+
 # Copy built application
-COPY --from=builder /app/apps/lrpp-api/dist ./dist
-COPY --from=builder /app/apps/lrpp-api/package.json ./
-COPY --from=builder /app/data ../data
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/apps/lrpp-api/node_modules ./apps/lrpp-api/node_modules
+COPY --from=builder /app/apps/lrpp-api/dist ./apps/lrpp-api/dist
+COPY --from=builder /app/data ./data
 
 USER nestjs
 
 EXPOSE 3001
 
+# Run from the app directory to ensure paths are correct
+WORKDIR /app/apps/lrpp-api
 CMD ["node", "dist/main"]
