@@ -1,0 +1,83 @@
+# ===========================================
+# LRPP - Docker Compose avec Traefik
+# ===========================================
+# Prérequis: docker network create traefik-public
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: lrpp-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-lrpp}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-lrpp}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-lrpp}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - lrpp-internal
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/lrpp-api/Dockerfile
+    container_name: lrpp-api
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: ${POSTGRES_USER:-lrpp}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_NAME: ${POSTGRES_DB:-lrpp}
+      API_PORT: 3001
+      JWT_SECRET: ${JWT_SECRET}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - lrpp-internal
+      - traefik-public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.lrpp-api.rule=Host(`137.74.41.101`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.lrpp-api.entrypoints=web"
+      - "traefik.http.services.lrpp-api.loadbalancer.server.port=3001"
+      - "traefik.http.routers.lrpp-api.priority=10"
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/lrpp-web/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://137.74.41.101/api}
+    container_name: lrpp-web
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+    depends_on:
+      - api
+    networks:
+      - lrpp-internal
+      - traefik-public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.lrpp-web.rule=Host(`137.74.41.101`)"
+      - "traefik.http.routers.lrpp-web.entrypoints=web"
+      - "traefik.http.services.lrpp-web.loadbalancer.server.port=3000"
+      - "traefik.http.routers.lrpp-web.priority=1"
+
+volumes:
+  postgres_data:
+
+networks:
+  lrpp-internal:
+    driver: bridge
+  traefik-public:
+    external: true
