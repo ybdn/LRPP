@@ -3,13 +3,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { join, resolve } from "path";
 import { PvModule } from "./modules/pv/pv.module";
-import { BlockModule } from "./modules/block/block.module";
-import { AttemptModule } from "./modules/attempt/attempt.module";
-import { StatsModule } from "./modules/stats/stats.module";
-import { ExerciseModule } from "./modules/exercise/exercise.module";
-import { ExamModule } from "./modules/exam/exam.module";
 import { DatabaseModule } from "./database/database.module";
-import { CompletionModule } from "./modules/completion/completion.module";
 
 @Module({
   imports: [
@@ -66,13 +60,7 @@ import { CompletionModule } from "./modules/completion/completion.module";
       inject: [ConfigService],
     }),
     PvModule,
-    BlockModule,
-    AttemptModule,
-    StatsModule,
-    ExerciseModule,
-    ExamModule,
     DatabaseModule,
-    CompletionModule,
   ],
 })
 export class AppModule { }

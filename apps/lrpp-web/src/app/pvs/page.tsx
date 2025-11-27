@@ -18,7 +18,7 @@ export default function PvsPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Procès-verbaux</h1>
         <p className="text-lg text-gray-600 mb-8">
-          Liste des PV disponibles pour la révision.
+          Choisissez un PV pour commencer la révision ou consulter le cours.
         </p>
 
         {isLoading && <p className="text-gray-500">Chargement...</p>}
@@ -41,7 +41,7 @@ export default function PvsPage() {
                     Titre du PV
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Action
+                    Actions
                   </th>
                 </tr>
               </thead>
@@ -52,20 +52,25 @@ export default function PvsPage() {
                       {pv.order}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <Link
-                        href={`/pvs/${pv.id}`}
-                        className="text-sm font-medium text-blue-600 hover:text-blue-800"
-                      >
+                      <div className="text-sm font-medium text-gray-900">
                         {pv.title}
-                      </Link>
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <Link
-                        href={`/exercise/fill-blanks?pvId=${pv.id}`}
-                        className="btn btn-primary text-sm"
-                      >
-                        S&apos;exercer
-                      </Link>
+                      <div className="flex gap-2">
+                        <Link
+                          href={`/pvs/${pv.id}/revision`}
+                          className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                        >
+                          Réviser
+                        </Link>
+                        <Link
+                          href={`/pvs/${pv.id}`}
+                          className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+                        >
+                          Cours
+                        </Link>
+                      </div>
                     </td>
                   </tr>
                 ))}
