@@ -31,8 +31,12 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 
 cd "$PROJECT_DIR"
 
-echo -e "${YELLOW}Pulling latest changes...${NC}"
-git pull origin main
+if [ -d .git ]; then
+    echo -e "${YELLOW}Pulling latest changes...${NC}"
+    git pull origin main
+else
+    echo -e "${YELLOW}No git repo found, skipping pull (files synced by CI)...${NC}"
+fi
 
 echo -e "${YELLOW}Stopping existing containers...${NC}"
 docker compose -f docker-compose.prod.yml down || true

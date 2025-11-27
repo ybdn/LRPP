@@ -12,10 +12,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Create deploy archive
+        run: |
+          tar -czf lrpp-deploy.tar.gz \
+            --exclude='.git' \
+            --exclude='node_modules' \
+            --exclude='.next' \
+            --exclude='dist' \
+            --exclude='lrpp-dev.sqlite' \
+            .
+
       - name: Add VPS host key
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Upload project to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          source: "lrpp-deploy.tar.gz"
+          target: "/tmp"
 
       - name: Deploy over SSH
         uses: appleboy/ssh-action@v1.0.3
@@ -25,7 +45,19 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT || 22 }}
           script: |
-            cat > /opt/apps/lrpp/.env <<'ENVEOF'
+            set -euo pipefail
+
+            APP_DIR=/opt/apps/lrpp
+            ARCHIVE_PATH=/tmp/lrpp-deploy.tar.gz
+
+            sudo rm -rf "$APP_DIR"
+            sudo mkdir -p "$APP_DIR"
+            sudo chown -R "$USER":"$USER" "$APP_DIR"
+
+            tar -xzf "$ARCHIVE_PATH" -C "$APP_DIR"
+            rm -f "$ARCHIVE_PATH"
+
+            cat > "$APP_DIR/.env" <<'ENVEOF'
             POSTGRES_USER=lrpp
             POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }}
             POSTGRES_DB=lrpp
@@ -33,6 +65,8 @@ jobs:
             NEXT_PUBLIC_API_URL=https://lrpp.ybdn.fr/api
             DATABASE_CLIENT=postgres
             ENVEOF
-            chmod 600 /opt/apps/lrpp/.env
+            chmod 600 "$APP_DIR/.env"
 
-            /opt/apps/lrpp/deploy.sh
+            cd "$APP_DIR"
+            chmod +x scripts/deploy.sh
+            bash scripts/deploy.sh
