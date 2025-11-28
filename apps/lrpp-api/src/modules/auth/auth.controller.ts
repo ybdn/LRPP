@@ -29,6 +29,9 @@ export class AuthController {
       email: user.email,
       name: user.name,
       role: user.role,
+      subscriptionTier: user.subscriptionTier || 'free',
+      supabaseId: user.supabaseId,
+      onboardingCompleted: user.onboardingCompleted || false,
       createdAt: user.createdAt,
     };
   }
@@ -47,6 +50,9 @@ export class AuthController {
       email: user.email,
       name: user.name,
       role: user.role,
+      subscriptionTier: user.subscriptionTier || 'free',
+      supabaseId: user.supabaseId,
+      onboardingCompleted: user.onboardingCompleted || false,
       createdAt: user.createdAt,
     };
   }

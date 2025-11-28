@@ -50,4 +50,16 @@ export class UserService {
     await this.userRepository.update(userId, { role });
     return this.findById(userId);
   }
+
+  async updateProfile(
+    userId: string,
+    data: {
+      name?: string;
+      studyGoal?: string;
+      onboardingCompleted?: boolean;
+    },
+  ): Promise<User | null> {
+    await this.userRepository.update(userId, data);
+    return this.findById(userId);
+  }
 }

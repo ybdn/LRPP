@@ -83,6 +83,15 @@ export default function DashboardPage() {
   return (
     <Modal title="Tableau de bord" widthClass="max-w-6xl">
       <div className="space-y-6">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Retour au site
+        </Link>
         <p className="text-sm text-gray-600 dark:text-gray-400">
           Suivez votre progression et identifiez les PV à réviser.
         </p>
