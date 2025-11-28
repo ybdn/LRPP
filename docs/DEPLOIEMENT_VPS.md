@@ -24,6 +24,10 @@ DATABASE_URL=postgres://lrpp:<mot_de_passe_postgres>@postgres:5432/lrpp
 JWT_SECRET=<chaine_aleatoire>
 NEXT_PUBLIC_API_URL=https://lrpp.ybdn.fr
 CORS_ORIGIN=https://lrpp.ybdn.fr
+SUPABASE_URL=https://votre-projet.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=<service_role_key>
+NEXT_PUBLIC_SUPABASE_URL=https://votre-projet.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon_key>
 ```
 
 > ⚠️ Ce fichier contient des secrets : il est ignoré par git et doit rester uniquement sur le serveur.
@@ -281,7 +285,7 @@ services:
       context: .
       dockerfile: apps/lrpp-web/Dockerfile
       args:
-        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://137.74.41.101/api}
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://137.74.41.101}
     container_name: lrpp-web
     restart: unless-stopped
     environment:
@@ -316,10 +320,10 @@ networks:
 nano .env
 ```
 
-Assurez-vous que `NEXT_PUBLIC_API_URL` pointe vers `/api` :
+Assurez-vous que `NEXT_PUBLIC_API_URL` pointe vers la racine (pas de suffixe `/api`, il sera ajouté automatiquement dans l'app) :
 
 ```env
-NEXT_PUBLIC_API_URL=http://137.74.41.101/api
+NEXT_PUBLIC_API_URL=http://137.74.41.101
 ```
 
 ---

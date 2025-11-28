@@ -28,8 +28,16 @@ fi
 # Get script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+ENV_FILE="${ENV_FILE:-.env.production}"
+COMPOSE_FILE="${COMPOSE_FILE:-docker-compose.traefik.yml}"
 
 cd "$PROJECT_DIR"
+
+if [ ! -f "$ENV_FILE" ]; then
+    echo -e "${RED}Error: environment file '$ENV_FILE' not found${NC}"
+    echo "Create it from .env.production.example and include the production secrets."
+    exit 1
+fi
 
 if [ -d .git ]; then
     echo -e "${YELLOW}Pulling latest changes...${NC}"
@@ -39,13 +47,13 @@ else
 fi
 
 echo -e "${YELLOW}Stopping existing containers...${NC}"
-docker compose -f docker-compose.prod.yml down || true
+docker compose --env-file "$ENV_FILE" -f "$COMPOSE_FILE" down || true
 
 echo -e "${YELLOW}Building containers...${NC}"
-docker compose -f docker-compose.prod.yml build
+docker compose --env-file "$ENV_FILE" -f "$COMPOSE_FILE" build
 
 echo -e "${YELLOW}Starting containers...${NC}"
-docker compose -f docker-compose.prod.yml up -d
+docker compose --env-file "$ENV_FILE" -f "$COMPOSE_FILE" up -d
 
 echo -e "${YELLOW}Cleaning up old images...${NC}"
 docker image prune -f
@@ -53,8 +61,8 @@ docker image prune -f
 echo -e "${GREEN}=== Deployment Complete ===${NC}"
 echo ""
 echo "Services status:"
-docker compose -f docker-compose.prod.yml ps
+docker compose --env-file "$ENV_FILE" -f "$COMPOSE_FILE" ps
 echo ""
 echo -e "${GREEN}Application available at:${NC}"
-echo "  - Web: http://137.74.41.101"
-echo "  - API: http://137.74.41.101:3001"
+echo "  - Web: https://lrpp.ybdn.fr"
+echo "  - API: https://lrpp.ybdn.fr/api"

@@ -59,29 +59,33 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
 
-            echo "=== Creating .env file ==="
-            cat > "$APP_DIR/.env" <<ENVEOF
+            echo "=== Creating .env.production file ==="
+            cat > "$APP_DIR/.env.production" <<ENVEOF
             POSTGRES_USER=lrpp
             POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }}
             POSTGRES_DB=lrpp
+            DATABASE_URL=postgres://lrpp:${{ secrets.DB_PASSWORD }}@postgres:5432/lrpp
             JWT_SECRET=${{ secrets.JWT_SECRET }}
-            NEXT_PUBLIC_API_URL=https://lrpp.ybdn.fr/api
+            CORS_ORIGIN=https://lrpp.ybdn.fr
+            NEXT_PUBLIC_API_URL=https://lrpp.ybdn.fr
             DATABASE_CLIENT=postgres
             SUPABASE_URL=${{ secrets.SUPABASE_URL }}
             SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
             NEXT_PUBLIC_SUPABASE_URL=${{ secrets.SUPABASE_URL }}
             NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}
             ENVEOF
+            chmod 600 "$APP_DIR/.env.production"
+            cp "$APP_DIR/.env.production" "$APP_DIR/.env"
             chmod 600 "$APP_DIR/.env"
 
             echo "=== Rebuilding and deploying containers ==="
             cd "$APP_DIR"
-            sudo docker compose -f docker-compose.prod.yml down || true
-            sudo docker compose -f docker-compose.prod.yml build --no-cache
-            sudo docker compose -f docker-compose.prod.yml up -d
+            sudo docker compose --env-file .env.production -f docker-compose.traefik.yml down || true
+            sudo docker compose --env-file .env.production -f docker-compose.traefik.yml build --no-cache
+            sudo docker compose --env-file .env.production -f docker-compose.traefik.yml up -d
 
             echo "=== Cleaning up old images ==="
             sudo docker image prune -f
 
             echo "=== Deployment complete ==="
-            sudo docker compose -f docker-compose.prod.yml ps
+            sudo docker compose --env-file .env.production -f docker-compose.traefik.yml ps
