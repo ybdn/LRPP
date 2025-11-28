@@ -19,7 +19,6 @@ export default function AdminPvsPage() {
   const [pvs, setPvs] = useState<Pv[]>([]);
   const [loadingPvs, setLoadingPvs] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [editingPv, setEditingPv] = useState<Pv | null>(null);
 
   useEffect(() => {
     if (!loading && (!user || user.role !== 'admin')) {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '../../stores/auth';
 import Link from 'next/link';
@@ -19,25 +19,15 @@ export default function ProfilePage() {
   const [stats, setStats] = useState<UserStats | null>(null);
   const [loadingStats, setLoadingStats] = useState(true);
 
-  useEffect(() => {
-    if (!loading && !user) {
-      router.push('/login');
-    }
-  }, [user, loading, router]);
+  const fetchStats = useCallback(async () => {
+    if (!session || !user?.id) return;
 
-  useEffect(() => {
-    if (session && user) {
-      fetchStats();
-    }
-  }, [session, user]);
-
-  const fetchStats = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/users/${user?.id}/stats`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users/${user.id}/stats`,
         {
           headers: {
-            Authorization: `Bearer ${session?.access_token}`,
+            Authorization: `Bearer ${session.access_token}`,
           },
         }
       );
@@ -59,7 +49,17 @@ export default function ProfilePage() {
     } finally {
       setLoadingStats(false);
     }
-  };
+  }, [session, user]);
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push('/login');
+    }
+  }, [user, loading, router]);
+
+  useEffect(() => {
+    fetchStats();
+  }, [fetchStats]);
 
   if (loading || !user) {
     return (

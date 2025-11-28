@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '../../stores/auth';
+import { useCallback } from 'react';
 
 interface PvProgress {
   pvId: string;
@@ -20,25 +21,15 @@ export default function DashboardPage() {
   const [progress, setProgress] = useState<PvProgress[]>([]);
   const [loadingProgress, setLoadingProgress] = useState(true);
 
-  useEffect(() => {
-    if (!loading && !user) {
-      router.push('/login');
-    }
-  }, [user, loading, router]);
+  const fetchProgress = useCallback(async () => {
+    if (!session || !user?.id) return;
 
-  useEffect(() => {
-    if (session && user) {
-      fetchProgress();
-    }
-  }, [session, user]);
-
-  const fetchProgress = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/users/${user?.id}/progress`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users/${user.id}/progress`,
         {
           headers: {
-            Authorization: `Bearer ${session?.access_token}`,
+            Authorization: `Bearer ${session.access_token}`,
           },
         }
       );
@@ -53,7 +44,17 @@ export default function DashboardPage() {
     } finally {
       setLoadingProgress(false);
     }
-  };
+  }, [session, user]);
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push('/login');
+    }
+  }, [user, loading, router]);
+
+  useEffect(() => {
+    fetchProgress();
+  }, [fetchProgress]);
 
   const getMasteryColor = (score: number) => {
     if (score >= 80) return 'bg-green-500';

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '../../stores/auth';
@@ -24,25 +24,15 @@ export default function HistoryPage() {
   const [filter, setFilter] = useState<'all' | 'fill_blanks' | 'dictation' | 'exam'>('all');
   const [sortBy, setSortBy] = useState<'date' | 'score'>('date');
 
-  useEffect(() => {
-    if (!loading && !user) {
-      router.push('/login');
-    }
-  }, [user, loading, router]);
+  const fetchAttempts = useCallback(async () => {
+    if (!session || !user?.id) return;
 
-  useEffect(() => {
-    if (session && user) {
-      fetchAttempts();
-    }
-  }, [session, user]);
-
-  const fetchAttempts = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/users/${user?.id}/attempts`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users/${user.id}/attempts`,
         {
           headers: {
-            Authorization: `Bearer ${session?.access_token}`,
+            Authorization: `Bearer ${session.access_token}`,
           },
         }
       );
@@ -57,7 +47,17 @@ export default function HistoryPage() {
     } finally {
       setLoadingAttempts(false);
     }
-  };
+  }, [session, user]);
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push('/login');
+    }
+  }, [user, loading, router]);
+
+  useEffect(() => {
+    fetchAttempts();
+  }, [fetchAttempts]);
 
   const getModeLabel = (mode: string) => {
     switch (mode) {
@@ -121,7 +121,11 @@ export default function HistoryPage() {
               </label>
               <select
                 value={filter}
-                onChange={(e) => setFilter(e.target.value as any)}
+                onChange={(e) =>
+                  setFilter(
+                    e.target.value as 'all' | 'fill_blanks' | 'dictation' | 'exam'
+                  )
+                }
                 className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
               >
                 <option value="all">Tous</option>
@@ -137,7 +141,7 @@ export default function HistoryPage() {
               </label>
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as any)}
+                onChange={(e) => setSortBy(e.target.value as 'date' | 'score')}
                 className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
               >
                 <option value="date">Date</option>

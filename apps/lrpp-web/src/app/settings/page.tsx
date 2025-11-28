@@ -10,7 +10,6 @@ export default function SettingsPage() {
   const { user, session, loading } = useAuthStore();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [saving, setSaving] = useState(false);
@@ -49,6 +48,7 @@ export default function SettingsPage() {
         throw new Error('Erreur lors de la mise à jour du profil');
       }
     } catch (error) {
+      console.error('Error updating profile', error);
       setMessage({ type: 'error', text: 'Erreur lors de la mise à jour du profil' });
     } finally {
       setSaving(false);
@@ -69,8 +69,10 @@ export default function SettingsPage() {
         type: 'success',
         text: 'Un email de confirmation a été envoyé à votre nouvelle adresse',
       });
-    } catch (error: any) {
-      setMessage({ type: 'error', text: error.message || 'Erreur lors du changement d\'email' });
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : 'Erreur lors du changement d\'email';
+      setMessage({ type: 'error', text: message });
     } finally {
       setSaving(false);
     }
@@ -98,11 +100,12 @@ export default function SettingsPage() {
       if (error) throw error;
 
       setMessage({ type: 'success', text: 'Mot de passe mis à jour avec succès!' });
-      setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
-    } catch (error: any) {
-      setMessage({ type: 'error', text: error.message || 'Erreur lors du changement de mot de passe' });
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : 'Erreur lors du changement de mot de passe';
+      setMessage({ type: 'error', text: message });
     } finally {
       setSaving(false);
     }
