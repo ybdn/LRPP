@@ -37,6 +37,30 @@ interface PvSeed {
   elementsFond: string;
 }
 
+interface LegacyPvSection {
+  type: string;
+  title?: string;
+  order?: number;
+  content?: string;
+  optional?: boolean;
+  frameworks?: Record<string, { articles?: string; content?: string }>;
+  subSections?: Array<{ title?: string; content?: string }>;
+}
+
+interface LegacyPvFile {
+  id: string;
+  title: string;
+  order?: number;
+  hasNotification?: boolean;
+  hasDeroulement?: boolean;
+  sections?: LegacyPvSection[];
+  contents?: PvContentSeed[];
+  motivation?: string;
+  notification?: string;
+  deroulement?: string;
+  elementsFond?: string;
+}
+
 @Injectable()
 export class DatabaseSeedService implements OnModuleInit {
   private readonly logger = new Logger(DatabaseSeedService.name);
@@ -96,7 +120,7 @@ export class DatabaseSeedService implements OnModuleInit {
 
     for (const file of files) {
       const raw = await fs.readFile(join(pvsDir, file), "utf-8");
-      const pvData = JSON.parse(raw) as PvSeed;
+      const pvData = this.normalizePvData(JSON.parse(raw) as LegacyPvFile);
 
       await this.pvRepository.save({
         id: pvData.id,
@@ -113,10 +137,15 @@ export class DatabaseSeedService implements OnModuleInit {
 
   private async seedPvContents(pvData: PvSeed) {
     for (const content of pvData.contents) {
+      const cadreLegal = content.cadreLegal?.trim();
+      if (!cadreLegal) {
+        continue;
+      }
+
       await this.pvContentRepository.save({
         pvId: pvData.id,
         frameworkId: content.frameworkId ?? null,
-        cadreLegal: content.cadreLegal,
+        cadreLegal,
         motivation: pvData.motivation,
         notification: pvData.notification ?? null,
         deroulement: pvData.deroulement ?? null,
@@ -211,7 +240,7 @@ export class DatabaseSeedService implements OnModuleInit {
     text: string | undefined,
     tags: string[],
   ) {
-    if (!section || !text) {
+    if (!section || !text || text.trim().length === 0) {
       return;
     }
 
@@ -222,5 +251,84 @@ export class DatabaseSeedService implements OnModuleInit {
       textTemplate: text,
       tags,
     });
+  }
+
+  private normalizePvData(raw: LegacyPvFile): PvSeed {
+    if (Array.isArray(raw.contents) && raw.contents.length > 0) {
+      return raw as PvSeed;
+    }
+
+    const sections = Array.isArray(raw.sections) ? raw.sections : [];
+    const findSection = (type: string) =>
+      sections.find((section) => section.type === type);
+
+    const cadreSection = findSection("cadre_legal");
+    const motivationSection = findSection("motivation");
+    const notificationSection = findSection("notification");
+    const deroulementSection = findSection("deroulement");
+    const elementsSection = findSection("elements_fond");
+
+    const contents: PvContentSeed[] = [];
+
+    if (cadreSection?.frameworks) {
+      for (const [frameworkId, data] of Object.entries(
+        cadreSection.frameworks,
+      )) {
+        const parts = [data.articles, data.content]
+          .filter((value): value is string => Boolean(value?.trim().length));
+        if (parts.length > 0) {
+          contents.push({
+            frameworkId,
+            cadreLegal: parts.join("\n\n"),
+          });
+        }
+      }
+    }
+
+    if (contents.length === 0) {
+      contents.push({
+        frameworkId: null,
+        cadreLegal:
+          motivationSection?.content ||
+          notificationSection?.content ||
+          raw.title,
+      });
+    }
+
+    return {
+      id: raw.id,
+      title: raw.title,
+      order: raw.order ?? 0,
+      hasNotification:
+        raw.hasNotification ?? Boolean(notificationSection?.content),
+      hasDeroulement:
+        raw.hasDeroulement ?? Boolean(deroulementSection?.content),
+      contents,
+      motivation: motivationSection?.content ?? raw.motivation ?? "",
+      notification: notificationSection?.content ?? raw.notification,
+      deroulement: deroulementSection?.content ?? raw.deroulement,
+      elementsFond:
+        this.resolveElementsFond(elementsSection) ??
+        raw.elementsFond ??
+        "",
+    };
+  }
+
+  private resolveElementsFond(section?: LegacyPvSection): string | undefined {
+    if (!section) {
+      return undefined;
+    }
+
+    if (section.subSections?.length) {
+      return section.subSections
+        .map((sub) => {
+          const title = sub.title ? `${sub.title}\n` : "";
+          return `${title}${sub.content ?? ""}`.trim();
+        })
+        .filter((chunk) => chunk.length > 0)
+        .join("\n\n");
+    }
+
+    return section.content;
   }
 }

@@ -1,7 +1,7 @@
 # ===========================================
 # LRPP - Docker Compose avec Traefik
 # ===========================================
-# Prérequis: docker network create traefik-public
+# Se connecte au Traefik global (network externe traefik_proxy)
 
 services:
   postgres:
@@ -36,8 +36,10 @@ services:
       DATABASE_USER: ${POSTGRES_USER:-lrpp}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
       DATABASE_NAME: ${POSTGRES_DB:-lrpp}
+      DATABASE_URL: ${DATABASE_URL}
       API_PORT: 3001
       JWT_SECRET: ${JWT_SECRET}
+      CORS_ORIGIN: ${CORS_ORIGIN:-https://lrpp.ybdn.fr}
     depends_on:
       postgres:
         condition: service_healthy
@@ -58,7 +60,7 @@ services:
       context: .
       dockerfile: apps/lrpp-web/Dockerfile
       args:
-        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://lrpp.ybdn.fr/api}
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://lrpp.ybdn.fr}
     container_name: lrpp-web
     restart: unless-stopped
     environment:
@@ -86,3 +88,4 @@ networks:
     driver: bridge
   proxy:
     external: true
+    name: traefik_proxy

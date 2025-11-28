@@ -8,6 +8,55 @@
 
 ---
 
+## 0. État de la production (novembre 2025)
+
+> Traefik (stack globale déjà déployée dans `/opt/infra/traefik`) publie les ports 80/443 pour l'ensemble du VPS via le réseau Docker `traefik_proxy`. LRPP se contente donc d'exposer ses services sur ce réseau et de déclarer les routers Traefik via des labels.
+
+### 0.1 Variables d'environnement utilisées par `docker-compose.traefik.yml`
+
+Créer / mettre à jour `.env.production` à la racine du dépôt :
+
+```env
+POSTGRES_USER=lrpp
+POSTGRES_PASSWORD=<mot_de_passe_postgres>
+POSTGRES_DB=lrpp
+DATABASE_URL=postgres://lrpp:<mot_de_passe_postgres>@postgres:5432/lrpp
+JWT_SECRET=<chaine_aleatoire>
+NEXT_PUBLIC_API_URL=https://lrpp.ybdn.fr
+CORS_ORIGIN=https://lrpp.ybdn.fr
+```
+
+> ⚠️ Ce fichier contient des secrets : il est ignoré par git et doit rester uniquement sur le serveur.
+
+### 0.2 Commandes d'exploitation
+
+```bash
+# (Re)construction + démarrage des 3 services
+cd /opt/LRPP
+sudo docker compose --env-file .env.production -f docker-compose.traefik.yml up -d --build
+
+# Premier déploiement uniquement : création + remplissage de la base
+sudo docker compose --env-file .env.production -f docker-compose.traefik.yml run --rm api node dist/database/seed.js
+
+# Arrêt propre
+sudo docker compose --env-file .env.production -f docker-compose.traefik.yml down
+
+# Logs applicatifs
+sudo docker compose --env-file .env.production -f docker-compose.traefik.yml logs -f api
+sudo docker compose --env-file .env.production -f docker-compose.traefik.yml logs -f web
+```
+
+Les services `api` et `web` se connectent automatiquement au réseau `traefik_proxy` et exposent :
+
+- `lrpp.ybdn.fr` → Next.js (port 3000)
+- `lrpp.ybdn.fr/api` → API NestJS (port 3001)
+
+Les certificats TLS sont gérés par Traefik (resolver `letsencrypt`) sans action supplémentaire.
+
+> ℹ️ Les sections suivantes restent valables si vous devez repartir d'un VPS vierge et réinstaller Traefik/Docker entièrement.
+
+---
+
 ## 1. Prérequis sur le VPS
 
 ### 1.1 Connexion SSH
@@ -78,8 +127,8 @@ POSTGRES_DB=lrpp
 # Sécurité
 JWT_SECRET=une_chaine_aleatoire_de_64_caracteres_minimum_pour_securite
 
-# API URL (avec votre domaine ou IP)
-NEXT_PUBLIC_API_URL=http://137.74.41.101/api
+# API URL (sans le suffixe /api, ajouté automatiquement par l'app)
+NEXT_PUBLIC_API_URL=http://137.74.41.101
 ```
 
 ---
