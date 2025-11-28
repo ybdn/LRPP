@@ -3,8 +3,8 @@ import {
   CanActivate,
   ExecutionContext,
   ForbiddenException,
-} from '@nestjs/common';
-import { UserRole } from '../../../common/entities/user.entity';
+} from "@nestjs/common";
+import { UserRole } from "../../../common/entities/user.entity";
 
 @Injectable()
 export class AdminGuard implements CanActivate {
@@ -13,11 +13,11 @@ export class AdminGuard implements CanActivate {
     const user = request.user;
 
     if (!user) {
-      throw new ForbiddenException('User not authenticated');
+      throw new ForbiddenException("User not authenticated");
     }
 
     if (user.role !== UserRole.ADMIN) {
-      throw new ForbiddenException('Admin access required');
+      throw new ForbiddenException("Admin access required");
     }
 
     return true;

@@ -35,6 +35,6 @@ export class UserPromoRedemption {
   @CreateDateColumn({ name: "redeemed_at" })
   redeemedAt: Date;
 
-  @Column({ name: "expires_at", type: "datetime" })
+  @Column({ name: "expires_at", type: "timestamp" })
   expiresAt: Date;
 }

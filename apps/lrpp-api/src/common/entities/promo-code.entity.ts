@@ -47,7 +47,7 @@ export class PromoCode {
   @Column({ name: "used_count", type: "int", default: 0 })
   usedCount: number;
 
-  @Column({ name: "expires_at", type: "datetime", nullable: true })
+  @Column({ name: "expires_at", type: "timestamp", nullable: true })
   expiresAt: Date | null;
 
   @Column({ name: "is_active", type: "boolean", default: true })

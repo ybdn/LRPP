@@ -6,10 +6,7 @@ import { TicketController } from "./ticket.controller";
 import { AuthModule } from "../auth/auth.module";
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Ticket]),
-    AuthModule,
-  ],
+  imports: [TypeOrmModule.forFeature([Ticket]), AuthModule],
   controllers: [TicketController],
   providers: [TicketService],
   exports: [TicketService],

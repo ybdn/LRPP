@@ -159,7 +159,9 @@ export class SubscriptionService {
     return user?.subscriptionTier || SubscriptionTier.FREE;
   }
 
-  async manualUpgrade(email: string): Promise<{ success: boolean; message: string }> {
+  async manualUpgrade(
+    email: string,
+  ): Promise<{ success: boolean; message: string }> {
     const user = await this.userRepository.findOne({ where: { email } });
 
     if (!user) {
@@ -170,7 +172,9 @@ export class SubscriptionService {
     return { success: true, message: `User ${email} upgraded to premium` };
   }
 
-  async manualDowngrade(email: string): Promise<{ success: boolean; message: string }> {
+  async manualDowngrade(
+    email: string,
+  ): Promise<{ success: boolean; message: string }> {
     const user = await this.userRepository.findOne({ where: { email } });
 
     if (!user) {

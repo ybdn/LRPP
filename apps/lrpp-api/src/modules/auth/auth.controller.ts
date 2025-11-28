@@ -7,21 +7,21 @@ import {
   Headers,
   UnauthorizedException,
   NotFoundException,
-} from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { CurrentUser } from './decorators/current-user.decorator';
-import { User, UserRole } from '../../common/entities/user.entity';
-import { UserService } from '../user/user.service';
+} from "@nestjs/common";
+import { AuthService } from "./auth.service";
+import { JwtAuthGuard } from "./guards/jwt-auth.guard";
+import { CurrentUser } from "./decorators/current-user.decorator";
+import { User, UserRole } from "../../common/entities/user.entity";
+import { UserService } from "../user/user.service";
 
-@Controller('auth')
+@Controller("auth")
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService,
   ) {}
 
-  @Get('profile')
+  @Get("profile")
   @UseGuards(JwtAuthGuard)
   getProfile(@CurrentUser() user: User) {
     return {
@@ -29,17 +29,19 @@ export class AuthController {
       email: user.email,
       name: user.name,
       role: user.role,
-      subscriptionTier: user.subscriptionTier || 'free',
+      subscriptionTier: user.subscriptionTier || "free",
       supabaseId: user.supabaseId,
       onboardingCompleted: user.onboardingCompleted || false,
       createdAt: user.createdAt,
     };
   }
 
-  @Post('validate')
-  async validateToken(@Headers('authorization') authorization: string) {
-    if (!authorization || !authorization.startsWith('Bearer ')) {
-      throw new UnauthorizedException('Missing or invalid authorization header');
+  @Post("validate")
+  async validateToken(@Headers("authorization") authorization: string) {
+    if (!authorization || !authorization.startsWith("Bearer ")) {
+      throw new UnauthorizedException(
+        "Missing or invalid authorization header",
+      );
     }
 
     const token = authorization.substring(7);
@@ -50,18 +52,18 @@ export class AuthController {
       email: user.email,
       name: user.name,
       role: user.role,
-      subscriptionTier: user.subscriptionTier || 'free',
+      subscriptionTier: user.subscriptionTier || "free",
       supabaseId: user.supabaseId,
       onboardingCompleted: user.onboardingCompleted || false,
       createdAt: user.createdAt,
     };
   }
 
-  @Post('promote-admin')
+  @Post("promote-admin")
   async promoteToAdmin(@Body() body: { email: string }) {
     const user = await this.userService.findByEmail(body.email);
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException("User not found");
     }
 
     const updatedUser = await this.userService.updateRole(
@@ -70,7 +72,7 @@ export class AuthController {
     );
 
     if (!updatedUser) {
-      throw new NotFoundException('User not found after update');
+      throw new NotFoundException("User not found after update");
     }
 
     return {
