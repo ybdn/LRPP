@@ -24,13 +24,7 @@ export class User {
   @PrimaryColumn("uuid")
   id: string;
 
-  @Column({
-    name: "supabase_id",
-    type: "varchar",
-    length: 255,
-    unique: true,
-    nullable: true,
-  })
+  @Column({ name: "supabase_id", type: "varchar", length: 255, unique: true, nullable: true })
   supabaseId: string | null;
 
   @Column({ type: "varchar", length: 255, unique: true, nullable: true })

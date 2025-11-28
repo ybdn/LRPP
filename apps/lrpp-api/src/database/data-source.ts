@@ -27,7 +27,7 @@ if (client === "postgres") {
       type: "postgres",
       url,
       ...baseOptions,
-      synchronize: false, // Always use migrations
+      synchronize: false, // Never auto-sync in PostgreSQL - use migrations
     } as DataSourceOptions;
   } else {
     options = {
@@ -38,7 +38,7 @@ if (client === "postgres") {
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
       ...baseOptions,
-      synchronize: false, // Always use migrations
+      synchronize: false, // Never auto-sync in PostgreSQL - use migrations
     } as DataSourceOptions;
   }
 } else {

@@ -30,8 +30,8 @@ import { PromoModule } from "./modules/promo/promo.module";
               url,
               autoLoadEntities: true,
               migrations: [join(__dirname, "database/migrations/*{.ts,.js}")],
-              synchronize: false, // Always use migrations in Postgres
-              migrationsRun: true,
+              synchronize: false, // Never auto-sync PostgreSQL - use migrations
+              migrationsRun: true, // Automatically run migrations on startup
               logging: configService.get("NODE_ENV") === "development",
             };
           }
@@ -48,8 +48,8 @@ import { PromoModule } from "./modules/promo/promo.module";
             database: configService.get<string>("DATABASE_NAME"),
             autoLoadEntities: true,
             migrations: [join(__dirname, "database/migrations/*{.ts,.js}")],
-            synchronize: false, // Always use migrations in Postgres
-            migrationsRun: true,
+            synchronize: false, // Never auto-sync PostgreSQL - use migrations
+            migrationsRun: true, // Automatically run migrations on startup
             logging: configService.get("NODE_ENV") === "development",
           };
         }
