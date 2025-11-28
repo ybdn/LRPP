@@ -20,7 +20,7 @@ export class AnonymousAccess {
   @Column({ name: "ip_address", length: 45 })
   ipAddress: string;
 
-  @Column({ name: "fingerprint", length: 64, nullable: true })
+  @Column({ name: "fingerprint", type: "varchar", length: 64, nullable: true })
   fingerprint: string | null;
 
   @ManyToOne(() => Pv, { onDelete: "CASCADE" })
