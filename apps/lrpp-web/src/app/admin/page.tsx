@@ -71,6 +71,17 @@ export default function AdminPage() {
       href: '/admin/reorder',
       color: 'bg-orange-500',
     },
+    {
+      title: 'Tickets support',
+      description: 'Bug signalés et demandes de contact',
+      icon: (
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6M4 6h16v12H5.172a2 2 0 01-1.414-.586l-.172-.172V6z" />
+        </svg>
+      ),
+      href: '/admin/tickets',
+      color: 'bg-red-500',
+    },
   ];
 
   return (

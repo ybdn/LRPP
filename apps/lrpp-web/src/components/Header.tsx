@@ -51,6 +51,9 @@ export function Header() {
               <Link href="/revision" className={navLinkClass('/revision')}>
                 Revision
               </Link>
+              <Link href="/contact" className={navLinkClass('/contact')}>
+                Contact
+              </Link>
             </div>
           </div>
 
@@ -170,6 +173,13 @@ export function Header() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Revision
+              </Link>
+              <Link
+                href="/contact"
+                className={navLinkClass('/contact')}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact
               </Link>
             </div>
           </div>

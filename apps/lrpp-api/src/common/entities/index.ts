@@ -7,3 +7,4 @@ export * from "./user.entity";
 export * from "./attempt.entity";
 export * from "./exam-session.entity";
 export * from "./user-block-stats.entity";
+export * from "./ticket.entity";
