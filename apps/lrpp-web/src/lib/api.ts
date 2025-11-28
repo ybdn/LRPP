@@ -1,7 +1,7 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+import { API_BASE_URL } from "@/lib/api-url";
 
 async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(`${API_URL}/api${endpoint}`, {
+  const res = await fetch(`${API_BASE_URL}${endpoint}`, {
     headers: {
       'Content-Type': 'application/json',
       ...options?.headers,

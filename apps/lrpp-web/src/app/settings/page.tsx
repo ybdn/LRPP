@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '../../stores/auth';
 import { supabase } from '../../lib/supabase';
+import { buildApiUrl } from '@/lib/api-url';
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -30,17 +31,14 @@ export default function SettingsPage() {
     setSaving(true);
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/users/${user?.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${session?.access_token}`,
-          },
-          body: JSON.stringify({ name }),
-        }
-      );
+      const response = await fetch(buildApiUrl(`/users/${user?.id}`), {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.access_token}`,
+        },
+        body: JSON.stringify({ name }),
+      });
 
       if (response.ok) {
         setMessage({ type: 'success', text: 'Profil mis à jour avec succès!' });

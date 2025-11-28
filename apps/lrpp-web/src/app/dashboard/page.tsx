@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '../../stores/auth';
 import { useCallback } from 'react';
+import { buildApiUrl } from '@/lib/api-url';
 
 interface PvProgress {
   pvId: string;
@@ -25,14 +26,11 @@ export default function DashboardPage() {
     if (!session || !user?.id) return;
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/users/${user.id}/progress`,
-        {
-          headers: {
-            Authorization: `Bearer ${session.access_token}`,
-          },
-        }
-      );
+      const response = await fetch(buildApiUrl(`/users/${user.id}/progress`), {
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
 
       if (response.ok) {
         const data = await response.json();

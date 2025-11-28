@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { supabase } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
+import { buildApiUrl } from '@/lib/api-url';
 
 export interface AuthUser {
   id: string;
@@ -23,6 +24,8 @@ interface AuthState {
   signOut: () => Promise<void>;
   initialize: () => Promise<void>;
 }
+
+const AUTH_PROFILE_URL = buildApiUrl("/auth/profile");
 
 const memoryStorage = {
   getItem: () => null,
@@ -54,14 +57,11 @@ export const useAuthStore = create<AuthState>()(
             set({ session: data.session });
 
             // Fetch user profile from backend
-            const response = await fetch(
-              `${process.env.NEXT_PUBLIC_API_URL}/api/auth/profile`,
-              {
-                headers: {
-                  Authorization: `Bearer ${data.session.access_token}`,
-                },
-              }
-            );
+            const response = await fetch(AUTH_PROFILE_URL, {
+              headers: {
+                Authorization: `Bearer ${data.session.access_token}`,
+              },
+            });
 
             if (response.ok) {
               const userProfile = await response.json();
@@ -93,14 +93,11 @@ export const useAuthStore = create<AuthState>()(
             set({ session: data.session });
 
             // Fetch user profile from backend
-            const response = await fetch(
-              `${process.env.NEXT_PUBLIC_API_URL}/api/auth/profile`,
-              {
-                headers: {
-                  Authorization: `Bearer ${data.session.access_token}`,
-                },
-              }
-            );
+            const response = await fetch(AUTH_PROFILE_URL, {
+              headers: {
+                Authorization: `Bearer ${data.session.access_token}`,
+              },
+            });
 
             if (response.ok) {
               const userProfile = await response.json();
@@ -127,14 +124,11 @@ export const useAuthStore = create<AuthState>()(
             set({ session });
 
             // Fetch user profile from backend
-            const response = await fetch(
-              `${process.env.NEXT_PUBLIC_API_URL}/api/auth/profile`,
-              {
-                headers: {
-                  Authorization: `Bearer ${session.access_token}`,
-                },
-              }
-            );
+            const response = await fetch(AUTH_PROFILE_URL, {
+              headers: {
+                Authorization: `Bearer ${session.access_token}`,
+              },
+            });
 
             if (response.ok) {
               const userProfile = await response.json();
@@ -147,14 +141,11 @@ export const useAuthStore = create<AuthState>()(
             set({ session });
 
             if (session) {
-              const response = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/api/auth/profile`,
-                {
-                  headers: {
-                    Authorization: `Bearer ${session.access_token}`,
-                  },
-                }
-              );
+              const response = await fetch(AUTH_PROFILE_URL, {
+                headers: {
+                  Authorization: `Bearer ${session.access_token}`,
+                },
+              });
 
               if (response.ok) {
                 const userProfile = await response.json();

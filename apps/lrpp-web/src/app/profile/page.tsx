@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '../../stores/auth';
 import Link from 'next/link';
+import { buildApiUrl } from '@/lib/api-url';
 
 interface UserStats {
   totalAttempts: number;
@@ -23,14 +24,11 @@ export default function ProfilePage() {
     if (!session || !user?.id) return;
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/users/${user.id}/stats`,
-        {
-          headers: {
-            Authorization: `Bearer ${session.access_token}`,
-          },
-        }
-      );
+      const response = await fetch(buildApiUrl(`/users/${user.id}/stats`), {
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
 
       if (response.ok) {
         const data = await response.json();

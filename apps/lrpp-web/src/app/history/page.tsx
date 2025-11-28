@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '../../stores/auth';
+import { buildApiUrl } from '@/lib/api-url';
 
 interface Attempt {
   id: string;
@@ -29,7 +30,7 @@ export default function HistoryPage() {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/users/${user.id}/attempts`,
+        buildApiUrl(`/users/${user.id}/attempts`),
         {
           headers: {
             Authorization: `Bearer ${session.access_token}`,

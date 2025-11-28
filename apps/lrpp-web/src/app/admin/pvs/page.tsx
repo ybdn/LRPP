@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '../../../stores/auth';
+import { buildApiUrl } from '@/lib/api-url';
 
 interface Pv {
   id: string;
@@ -34,7 +35,7 @@ export default function AdminPvsPage() {
 
   const fetchPvs = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pvs`);
+      const response = await fetch(buildApiUrl('/pvs'));
       if (response.ok) {
         const data = await response.json();
         setPvs(data);
@@ -50,15 +51,12 @@ export default function AdminPvsPage() {
     if (!confirm('Êtes-vous sûr de vouloir supprimer ce PV?')) return;
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/pvs/${id}`,
-        {
-          method: 'DELETE',
-          headers: {
-            Authorization: `Bearer ${session?.access_token}`,
-          },
-        }
-      );
+      const response = await fetch(buildApiUrl(`/pvs/${id}`), {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${session?.access_token}`,
+        },
+      });
 
       if (response.ok) {
         fetchPvs();
