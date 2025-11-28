@@ -187,9 +187,7 @@ export const useAccessStore = create<AccessState>()(
       ),
       partialize: (state) => ({
         fingerprint: state.fingerprint,
-        accessedPvIds: state.accessedPvIds,
-        tier: state.tier,
-        maxAllowed: state.maxAllowed,
+        // Ne pas persister tier/maxAllowed/accessedPvIds - toujours récupérer depuis l'API
       }),
     }
   )
