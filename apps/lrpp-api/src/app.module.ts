@@ -5,6 +5,10 @@ import { join, resolve } from "path";
 import { PvModule } from "./modules/pv/pv.module";
 import { DatabaseModule } from "./database/database.module";
 import { AuthModule } from "./modules/auth/auth.module";
+import { TicketModule } from "./modules/ticket/ticket.module";
+import { AccessModule } from "./modules/access/access.module";
+import { SubscriptionModule } from "./modules/subscription/subscription.module";
+import { PromoModule } from "./modules/promo/promo.module";
 
 @Module({
   imports: [
@@ -63,6 +67,10 @@ import { AuthModule } from "./modules/auth/auth.module";
     PvModule,
     DatabaseModule,
     AuthModule,
+    TicketModule,
+    AccessModule,
+    SubscriptionModule,
+    PromoModule,
   ],
 })
 export class AppModule { }

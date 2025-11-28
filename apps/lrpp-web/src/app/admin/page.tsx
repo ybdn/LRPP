@@ -71,6 +71,28 @@ export default function AdminPage() {
       href: '/admin/reorder',
       color: 'bg-orange-500',
     },
+    {
+      title: 'Tickets support',
+      description: 'Bug signalés et demandes de contact',
+      icon: (
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6M4 6h16v12H5.172a2 2 0 01-1.414-.586l-.172-.172V6z" />
+        </svg>
+      ),
+      href: '/admin/tickets',
+      color: 'bg-red-500',
+    },
+    {
+      title: 'Codes promo',
+      description: 'Gérer les accès beta, démo et licences',
+      icon: (
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+        </svg>
+      ),
+      href: '/admin/promo-codes',
+      color: 'bg-yellow-500',
+    },
   ];
 
   return (

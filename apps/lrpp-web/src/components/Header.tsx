@@ -35,6 +35,11 @@ export function Header() {
     router.push('/login');
   };
 
+  const getFirstName = (fullName: string | undefined) => {
+    if (!fullName) return null;
+    return fullName.split(' ')[0];
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-800">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,6 +56,9 @@ export function Header() {
               <Link href="/revision" className={navLinkClass('/revision')}>
                 Revision
               </Link>
+              <Link href="/contact" className={navLinkClass('/contact')}>
+                Contact
+              </Link>
             </div>
           </div>
 
@@ -66,7 +74,7 @@ export function Header() {
                   <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold">
                     {user.name ? user.name.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase() || 'U'}
                   </div>
-                  <span className="hidden md:inline">{user.name || user.email}</span>
+                  <span className="hidden md:inline">{getFirstName(user.name) || user.email}</span>
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
@@ -111,13 +119,13 @@ export function Header() {
               <div className="hidden sm:flex items-center gap-2">
                 <Link
                   href="/login"
-                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                  className="btn btn-ghost text-sm"
                 >
                   Connexion
                 </Link>
                 <Link
                   href="/signup"
-                  className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+                  className="btn btn-primary text-sm"
                 >
                   Inscription
                 </Link>
@@ -170,6 +178,13 @@ export function Header() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Revision
+              </Link>
+              <Link
+                href="/contact"
+                className={navLinkClass('/contact')}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact
               </Link>
             </div>
           </div>
