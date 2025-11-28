@@ -4,11 +4,14 @@ import { supabase } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import { buildApiUrl } from '@/lib/api-url';
 
+export type SubscriptionTier = 'free' | 'premium';
+
 export interface AuthUser {
   id: string;
   email: string | null;
   name: string | null;
   role: 'user' | 'admin';
+  subscriptionTier: SubscriptionTier;
   supabaseId: string;
 }
 

@@ -7,6 +7,8 @@ import { DatabaseModule } from "./database/database.module";
 import { AuthModule } from "./modules/auth/auth.module";
 import { TicketModule } from "./modules/ticket/ticket.module";
 import { AccessModule } from "./modules/access/access.module";
+import { SubscriptionModule } from "./modules/subscription/subscription.module";
+import { PromoModule } from "./modules/promo/promo.module";
 
 @Module({
   imports: [
@@ -67,6 +69,8 @@ import { AccessModule } from "./modules/access/access.module";
     AuthModule,
     TicketModule,
     AccessModule,
+    SubscriptionModule,
+    PromoModule,
   ],
 })
 export class AppModule { }

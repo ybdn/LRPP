@@ -413,47 +413,166 @@ function checkAnswer(expected: string, actual: string): boolean {
 }
 ```
 
-## 7. Phases de développement
+## 7. Système d'accès et monétisation
 
-### Phase 1 - Setup (actuelle)
+### 7.1 Niveaux d'accès
+
+| Niveau | Authentification | Limite PV | Tracking |
+|--------|------------------|-----------|----------|
+| Anonyme | Non | 1 | IP + fingerprint |
+| Gratuit | Supabase | 6 | user_pv_access |
+| Premium | Supabase + paiement/promo | Illimité | - |
+
+### 7.2 Entités d'accès
+
+```typescript
+// Accès utilisateur authentifié
+interface UserPvAccess {
+  id: string;
+  userId: string;
+  pvId: string;
+  accessedAt: Date;
+}
+
+// Accès anonyme
+interface AnonymousAccess {
+  id: string;
+  ipAddress: string;
+  fingerprint?: string;
+  pvId: string;
+  accessedAt: Date;
+}
+```
+
+### 7.3 Abonnement Premium
+
+**Intégration Lemon Squeezy** :
+- Webhook `/api/subscription/webhook/lemonsqueezy`
+- Événements traités : `order_created`, `subscription_created`
+- Mise à jour automatique du `subscriptionTier` utilisateur
+
+### 7.4 Codes promo
+
+```typescript
+enum PromoCodeType {
+  BETA = 'beta',      // 30 jours
+  DEMO = 'demo',      // 7 jours
+  LICENSE = 'license' // 365 jours
+}
+
+interface PromoCode {
+  id: string;
+  code: string;           // BETA-XXXXXX, DEMO-XXXXXX, LICENSE-XXXXXXXX
+  type: PromoCodeType;
+  description?: string;
+  durationDays: number;
+  maxUses?: number;
+  usedCount: number;
+  expiresAt?: Date;
+  isActive: boolean;
+}
+
+interface UserPromoRedemption {
+  id: string;
+  userId: string;
+  promoCodeId: string;
+  redeemedAt: Date;
+  expiresAt: Date;
+}
+```
+
+**Endpoints promo** :
+- `GET /api/promo-codes` (admin)
+- `POST /api/promo-codes` (admin)
+- `PUT /api/promo-codes/:id` (admin)
+- `DELETE /api/promo-codes/:id` (admin)
+- `GET /api/promo-codes/validate/:code` (public)
+- `POST /api/promo-codes/redeem` (authentifié)
+- `GET /api/promo-codes/my-access` (authentifié)
+
+## 8. Authentification
+
+### 8.1 Provider
+
+**Supabase Auth** avec :
+- Email/password
+- Magic link (optionnel)
+
+### 8.2 Entité User
+
+```typescript
+enum UserRole {
+  USER = 'user',
+  ADMIN = 'admin'
+}
+
+enum SubscriptionTier {
+  FREE = 'free',
+  PREMIUM = 'premium'
+}
+
+interface User {
+  id: string;              // UUID Supabase
+  email: string;
+  name?: string;
+  role: UserRole;
+  subscriptionTier: SubscriptionTier;
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+### 8.3 Guards NestJS
+
+- `JwtAuthGuard` : Routes protégées
+- `OptionalAuthGuard` : Routes avec auth optionnelle
+- `AdminGuard` : Routes admin uniquement
+
+## 9. Phases de développement
+
+### Phase 1 - Setup
 - [x] Documentation
-- [ ] Monorepo pnpm
-- [ ] API NestJS
-- [ ] Frontend Next.js
-- [ ] Docker Compose
+- [x] Monorepo pnpm
+- [x] API NestJS
+- [x] Frontend Next.js
+- [x] Docker Compose
 
 ### Phase 2 - Modèle métier
-- [ ] Entités TypeORM
-- [ ] Endpoints CRUD
-- [ ] Import données PV
+- [x] Entités TypeORM
+- [x] Endpoints CRUD
+- [x] Import données PV
 
-### Phase 3 - Mode 1 MVP
-- [ ] Génération exercice
-- [ ] UI PV à trous
-- [ ] Correction
-- [ ] Persistence tentatives
+### Phase 3 - Mode Cours/Révision MVP
+- [x] Affichage PV structuré
+- [x] Navigation sections
+- [x] Mode cours (lecture)
+- [x] Mode révision (trous)
 
-### Phase 4 - Stats
-- [ ] Calcul maîtrise
-- [ ] Dashboard
-- [ ] Suggestions
+### Phase 4 - Authentification & Accès
+- [x] Intégration Supabase
+- [x] Système d'accès à 3 niveaux
+- [x] Tracking anonyme (IP + fingerprint)
+- [x] Page profil
 
-### Phase 5 - Mode 4
-- [ ] Dictée visuelle
-- [ ] Dictée audio (optionnel)
-- [ ] Correction diff
+### Phase 5 - Monétisation
+- [x] Intégration Lemon Squeezy
+- [x] Page pricing
+- [x] Webhook paiement
+- [x] Système codes promo
 
-### Phase 6 - Mode 5
-- [ ] Génération examen
-- [ ] Timer
-- [ ] Résultats détaillés
+### Phase 6 - Administration
+- [x] Dashboard admin
+- [x] Gestion PV et contenus
+- [x] Gestion tickets support
+- [x] Gestion codes promo
 
-### Phase 7 - Polish
+### Phase 7 - À venir
+- [ ] Mode dictée juridique
+- [ ] Examens blancs
+- [ ] Statistiques avancées
 - [ ] PWA
-- [ ] Responsive
-- [ ] Animations
 
-## 8. Métriques de succès
+## 10. Métriques de succès
 
 - **Couverture** : 100% des PV du guide encodés
 - **Rétention** : Score moyen de maîtrise > 70% après 2 semaines

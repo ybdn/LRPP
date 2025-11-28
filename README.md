@@ -1,63 +1,56 @@
-# LRPP - Logiciel de Révision de la Procédure Pénale
+# LRPP - Apprentissage des Procès-Verbaux
 
-Application web de type jeu sérieux destinée à la révision de la procédure pénale, à partir du **Guide ultime de l'OPJ**.
-
-## Objectif
-
-Permettre à l'utilisateur de **réécrire les PV et blocs de procédure de mémoire**, comme à l'examen OPJ ou en service.
+Application web d'entraînement à la procédure pénale pour la préparation OPJ. Permet de mémoriser les procès-verbaux et cadres d'enquête du Guide ultime de l'OPJ par répétition active.
 
 ## Fonctionnalités
 
-### Mode 1 - PV à trous
+### Modes d'apprentissage
 
-- Sélection d'un PV : GAV, perquisition, saisie, TCMP, auditions, réquisitions, etc.
-- Affichage du PV structuré en sections (cadre légal, motivation, notifications, déroulement, fond)
-- Masquage partiel du texte selon 3 niveaux :
-  - **Niveau 1** : trous sur articles et mots-clés
-  - **Niveau 2** : trous sur phrases types
-  - **Niveau 3** : reconstruction complète par section
+- **Mode Cours** : Lecture structurée des PV avec navigation par sections
+- **Mode Révision** : PV à trous avec 3 niveaux de difficulté
+  - Niveau 1 : Articles et mots-clés masqués
+  - Niveau 2 : Phrases types masquées
+  - Niveau 3 : Reconstruction complète
 
-### Mode 4 - Dictée juridique / réécriture
+### Système d'accès
 
-- Travail bloc par bloc (ex : "notification des droits GAV majeur", "cadre légal perquisition CR")
-- Deux variantes :
-  - Mémorisation visuelle (affichage temporaire → saisie de mémoire)
-  - Dictée audio (lecture → saisie)
-- Comparaison texte saisi / texte modèle, surlignage des différences
+| Niveau | Accès | Limite |
+|--------|-------|--------|
+| Anonyme | Sans inscription | 1 PV |
+| Gratuit | Compte créé | 6 PVs |
+| Premium | Abonnement ou code promo | Illimité |
 
-### Mode 5 - Examens blancs
+### Administration
 
-- Paramétrage d'une session (durée, thèmes)
-- Génération automatique d'un mix d'exercices PV à trous et dictées juridiques
-- Priorisation des blocs les moins bien maîtrisés
-- Note globale + analyse par PV / bloc / thème + recommandations
+- Gestion des PV et contenus pédagogiques
+- Gestion des codes promo (beta, demo, licence)
+- Suivi des tickets support
 
 ## Stack technique
 
-| Composant         | Technologie                           |
-| ----------------- | ------------------------------------- |
-| Langage           | TypeScript                            |
-| Frontend          | Next.js (React), TanStack Query       |
-| Backend           | NestJS                                |
-| Base de données   | PostgreSQL                            |
-| ORM               | TypeORM                               |
-| Gestion de projet | monorepo pnpm, Docker, Docker Compose |
-| CI/CD             | GitHub Actions                        |
+| Composant | Technologie |
+|-----------|-------------|
+| Frontend | Next.js 15 (App Router) + Tailwind CSS |
+| Backend | NestJS + TypeORM |
+| Base de données | SQLite (dev) / PostgreSQL (prod) |
+| Authentification | Supabase Auth |
+| Paiement | Lemon Squeezy |
+| Déploiement | Docker + Traefik sur VPS |
 
 ## Structure du projet
 
-```text
-lrpp/
+```
+LRPP/
 ├── apps/
-│   ├── lrpp-web/          # Frontend Next.js
-│   └── lrpp-api/          # Backend NestJS
-├── packages/
-│   └── shared/            # Types et utils partagés
+│   ├── lrpp-api/          # API NestJS (port 3001)
+│   └── lrpp-web/          # Frontend Next.js (port 3000)
 ├── data/
-│   └── pv/                # Données JSON des PV
-├── docker-compose.yml
-├── pnpm-workspace.yaml
-└── README.md
+│   └── pvs/               # Données PV au format JSON
+├── docs/
+│   ├── SPEC.md            # Spécifications fonctionnelles
+│   ├── CONSIGNE.md        # Consignes internes
+│   └── DEPLOIEMENT_VPS.md # Guide de déploiement
+└── docker-compose*.yml    # Configurations Docker
 ```
 
 ## Installation
@@ -66,111 +59,119 @@ lrpp/
 
 - Node.js >= 20
 - pnpm >= 9
-- Docker & Docker Compose
 
 ### Développement
 
 ```bash
-# 1. Cloner le dépôt
-git clone <url> lrpp
-cd lrpp
+# Cloner le dépôt
+git clone https://github.com/ybdn/LRPP.git
+cd LRPP
 
-# 2. Installer les dépendances
+# Installer les dépendances
 pnpm install
 
-# 3. Lancer l'app (SQLite incluse)
-pnpm dev                      # API + Web en parallèle
+# Configurer les variables d'environnement
+cp .env.example .env
+# Éditer .env avec vos valeurs Supabase
 
-# Optionnel : basculer sur PostgreSQL
-# docker compose up -d       # lance PostgreSQL
-# DATABASE_CLIENT=postgres pnpm dev
-
-# Les données pédagogiques sont chargées automatiquement (SQLite).
-# Pour réinitialiser la base : pnpm --filter lrpp-api seed
+# Lancer l'application
+pnpm dev                    # API + Web en parallèle
+pnpm dev:api                # API seule (http://localhost:3001)
+pnpm dev:web                # Web seul (http://localhost:3000)
 ```
 
-### Variables d'environnement
+### Base de données
 
-Créer un fichier `.env` à la racine :
+```bash
+# SQLite par défaut (aucune configuration)
+pnpm dev
+
+# PostgreSQL (optionnel)
+docker compose up postgres -d
+DATABASE_CLIENT=postgres pnpm dev
+
+# Réinitialiser les données
+pnpm --filter lrpp-api seed
+```
+
+## Variables d'environnement
+
+Voir `.env.example` pour le développement et `.env.production.example` pour la production.
+
+### Variables principales
 
 ```env
-# Database
-DATABASE_CLIENT=sqlite
-# DATABASE_URL=postgresql://lrpp:lrpp@localhost:5432/lrpp
+# Base de données
+DATABASE_CLIENT=sqlite              # ou postgres
 SQLITE_PATH=lrpp-dev.sqlite
 
 # API
 API_PORT=3001
-
-# Web
 NEXT_PUBLIC_API_URL=http://localhost:3001
+
+# Supabase (authentification)
+SUPABASE_URL=https://xxx.supabase.co
+SUPABASE_ANON_KEY=xxx
+SUPABASE_SERVICE_ROLE_KEY=xxx
+NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=xxx
+
+# Lemon Squeezy (paiement)
+LEMONSQUEEZY_WEBHOOK_SECRET=xxx
+LEMONSQUEEZY_CHECKOUT_URL=https://xxx.lemonsqueezy.com/buy/xxx
 ```
+
+## Codes promo
+
+L'administration (`/admin/promo-codes`) permet de générer des codes d'accès temporaires :
+
+| Type | Durée par défaut | Usage |
+|------|------------------|-------|
+| Beta | 30 jours | Beta-testeurs |
+| Demo | 7 jours | Démonstration |
+| License | 365 jours | Licences gratuites |
+
+## Déploiement
+
+Le déploiement se fait automatiquement via GitHub Actions vers le VPS.
+
+URL production : https://lrpp.ybdn.fr
+
+Voir `docs/DEPLOIEMENT_VPS.md` pour les détails.
+
+## Build
+
+```bash
+pnpm build                  # Build API + Web
+pnpm lint                   # Vérification ESLint
+```
+
+## Documentation
+
+- [Spécifications fonctionnelles](docs/SPEC.md)
+- [Consignes internes](docs/CONSIGNE.md)
+- [Guide de déploiement VPS](docs/DEPLOIEMENT_VPS.md)
 
 ## Contenu pédagogique
 
 ### Cadres d'enquête (7)
 
-| Code | Nom                                    | Articles CPP |
-| ---- | -------------------------------------- | ------------ |
-| EP   | Enquête préliminaire                   | 75 à 78      |
-| EF   | Enquête de flagrance                   | 53 à 67      |
-| CR   | Commission rogatoire                   | 151 à 154-2  |
-| DC   | Découverte de cadavre                  | 74           |
-| DPGB | Découverte personne grièvement blessée | 74           |
-| DI   | Disparition inquiétante                | 74-1         |
-| RPF  | Recherche personne en fuite            | 74-2         |
+| Code | Nom | Articles CPP |
+|------|-----|--------------|
+| EP | Enquête préliminaire | 75 à 78 |
+| EF | Enquête de flagrance | 53 à 67 |
+| CR | Commission rogatoire | 151 à 154-2 |
+| DC | Découverte de cadavre | 74 |
+| DPGB | Découverte personne grièvement blessée | 74 |
+| DI | Disparition inquiétante | 74-1 |
+| RPF | Recherche personne en fuite | 74-2 |
 
 ### Procès-verbaux (25+)
 
-1. TCMP (Transport, constatation et mesures prises)
-2. Perquisition
-3. Saisie
-4. Saisie incidente
-5. Bris de scellé et restitution/destruction
-6. Audition de victime
-7. Audition représentant légal (mineur victime)
-8. Audition représentant légal (mineur auteur)
-9. Audition de témoin
-10. Audition sous couvert d'anonymat
-11. Audition libre MEC
-12. Retenue judiciaire (10-13 ans)
-13. GAV mineur (13-18)
-14. GAV majeur
-15. Investigations
-16. Interpellation et remise à OPJ
-17. Assistance autopsie
-18. Réquisition à prestataire de service
-19. Réquisition à personne qualifiée
-20. Réquisition aux fins de remise d'informations
-21. Réquisition à autorité militaire
-22. Réquisition de géolocalisation
-23. Réquisition de sonorisation et fixation d'images
-24. Réquisition d'interception
-25. Transcription
-26. Mandats
+GAV, perquisition, saisie, auditions, réquisitions, mandats, etc.
 
-### Structure d'un PV
-
-Chaque PV est découpé en blocs pédagogiques :
-
-- **Cadre légal** : articles CPP selon le cadre d'enquête
-- **Motivation / Saisine** : justification de la mesure
-- **Notification des droits** : droits notifiés à l'intéressé
-- **Déroulement** : exécution de la mesure
-- **Éléments de fond** : contenu factuel du PV
-
-## Roadmap
-
-- [x] Phase 0 : Cadrage & modèle de données
-- [ ] Phase 1 : Setup technique & squelette
-- [ ] Phase 2 : Modèle métier & import
-- [ ] Phase 3 : Mode 1 (PV à trous) - MVP
-- [ ] Phase 4 : Profil & statistiques
-- [ ] Phase 5 : Mode 4 (Dictée juridique)
-- [ ] Phase 6 : Mode 5 (Examens blancs)
-- [ ] Phase 7 : UX, PWA & polish
-- [ ] Phase 8 : Multi-utilisateurs
+Chaque PV est structuré en sections : cadre légal, motivation, notification des droits, déroulement, éléments de fond.
 
 ## Licence
 
-Projet privé - Usage personnel pour préparation examen OPJ.
+Projet privé - Ne pas redistribuer les contenus pédagogiques sans accord écrit.

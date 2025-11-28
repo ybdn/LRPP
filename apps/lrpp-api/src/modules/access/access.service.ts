@@ -1,11 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { Repository, MoreThan } from "typeorm";
 import {
   UserPvAccess,
   AnonymousAccess,
   User,
   SubscriptionTier,
+  UserPromoRedemption,
 } from "@/common/entities";
 
 export const ACCESS_LIMITS = {
@@ -30,7 +31,19 @@ export class AccessService {
     private userPvAccessRepository: Repository<UserPvAccess>,
     @InjectRepository(AnonymousAccess)
     private anonymousAccessRepository: Repository<AnonymousAccess>,
+    @InjectRepository(UserPromoRedemption)
+    private promoRedemptionRepository: Repository<UserPromoRedemption>,
   ) {}
+
+  async hasActivePromoAccess(userId: string): Promise<boolean> {
+    const redemption = await this.promoRedemptionRepository.findOne({
+      where: {
+        userId,
+        expiresAt: MoreThan(new Date()),
+      },
+    });
+    return !!redemption;
+  }
 
   async checkAccess(
     pvId: string,
@@ -40,6 +53,18 @@ export class AccessService {
   ): Promise<AccessCheckResult> {
     // Premium users have unlimited access
     if (user?.subscriptionTier === SubscriptionTier.PREMIUM) {
+      const accessedPvIds = await this.getUserAccessedPvIds(user.id);
+      return {
+        canAccess: true,
+        currentCount: accessedPvIds.length,
+        maxAllowed: ACCESS_LIMITS.PREMIUM,
+        accessedPvIds,
+        tier: SubscriptionTier.PREMIUM,
+      };
+    }
+
+    // Check for active promo access (treated as premium)
+    if (user && (await this.hasActivePromoAccess(user.id))) {
       const accessedPvIds = await this.getUserAccessedPvIds(user.id);
       return {
         canAccess: true,
@@ -240,6 +265,17 @@ export class AccessService {
     accessedPvIds: string[];
   }> {
     if (user?.subscriptionTier === SubscriptionTier.PREMIUM) {
+      const accessedPvIds = await this.getUserAccessedPvIds(user.id);
+      return {
+        tier: SubscriptionTier.PREMIUM,
+        currentCount: accessedPvIds.length,
+        maxAllowed: ACCESS_LIMITS.PREMIUM,
+        accessedPvIds,
+      };
+    }
+
+    // Check for active promo access
+    if (user && (await this.hasActivePromoAccess(user.id))) {
       const accessedPvIds = await this.getUserAccessedPvIds(user.id);
       return {
         tier: SubscriptionTier.PREMIUM,

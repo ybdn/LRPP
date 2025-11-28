@@ -21,6 +21,8 @@ jobs:
           check SUPABASE_URL "$SUPABASE_URL"
           check SUPABASE_SERVICE_ROLE_KEY "$SUPABASE_SERVICE_ROLE_KEY"
           check SUPABASE_ANON_KEY "$SUPABASE_ANON_KEY"
+          check LEMONSQUEEZY_WEBHOOK_SECRET "$LEMONSQUEEZY_WEBHOOK_SECRET"
+          check LEMONSQUEEZY_CHECKOUT_URL "$LEMONSQUEEZY_CHECKOUT_URL"
 
           if [ -z "$VPS_SSH_KEY" ] && [ -z "$VPS_PASSWORD" ]; then
             echo "::error::Provide VPS_SSH_KEY (preferred) or VPS_PASSWORD for SSH authentication"
@@ -40,6 +42,8 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          LEMONSQUEEZY_WEBHOOK_SECRET: ${{ secrets.LEMONSQUEEZY_WEBHOOK_SECRET }}
+          LEMONSQUEEZY_CHECKOUT_URL: ${{ secrets.LEMONSQUEEZY_CHECKOUT_URL }}
 
       - name: Deploy over SSH
         uses: appleboy/ssh-action@v1.0.3
@@ -73,6 +77,8 @@ jobs:
             SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
             NEXT_PUBLIC_SUPABASE_URL=${{ secrets.SUPABASE_URL }}
             NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}
+            LEMONSQUEEZY_WEBHOOK_SECRET=${{ secrets.LEMONSQUEEZY_WEBHOOK_SECRET }}
+            LEMONSQUEEZY_CHECKOUT_URL=${{ secrets.LEMONSQUEEZY_CHECKOUT_URL }}
             ENVEOF
             chmod 600 "$APP_DIR/.env.production"
             cp "$APP_DIR/.env.production" "$APP_DIR/.env"

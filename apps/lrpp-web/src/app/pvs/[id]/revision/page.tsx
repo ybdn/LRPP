@@ -5,8 +5,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { UpgradeModal } from '@/components/UpgradeModal';
 import { api } from '@/lib/api';
 import { calculateGlobalScore, GlobalScore } from '@/lib/scoring';
+import { useAuthStore } from '@/stores/auth';
+import { useAccessStore } from '@/stores/access';
 
 interface PvSection {
   type: string;
@@ -28,19 +31,47 @@ interface PvData {
 export default function RevisionPage(props: { params: Promise<{ id: string }> }) {
   const params = use(props.params);
   const router = useRouter();
+  const { session } = useAuthStore();
+  const { initialize, canAccessPv, recordAccess, initialized } = useAccessStore();
   const [pvData, setPvData] = useState<PvData | null>(null);
   const [allPvs, setAllPvs] = useState<Array<{id: string, title: string, order: number}>>([]);
   const [userInputs, setUserInputs] = useState<Record<string, string>>({});
   const [showCorrection, setShowCorrection] = useState(false);
   const [scores, setScores] = useState<GlobalScore | null>(null);
   const [showScores, setShowScores] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [loading, setLoading] = useState(true);
 
+  // Initialize access store
   useEffect(() => {
+    initialize(session?.access_token);
+  }, [session?.access_token, initialize]);
+
+  // Check access when initialized
+  useEffect(() => {
+    if (!initialized) return;
+
+    const hasAccess = canAccessPv(params.id);
+    if (!hasAccess) {
+      setShowUpgradeModal(true);
+      setLoading(false);
+      return;
+    }
+
+    // Record access and load PV data
+    recordAccess(params.id, session?.access_token);
+
     fetch(`/data/pvs/${params.id}.json`)
       .then(res => res.json())
-      .then(data => setPvData(data))
-      .catch(err => console.error('Error loading PV:', err));
-  }, [params.id]);
+      .then(data => {
+        setPvData(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Error loading PV:', err);
+        setLoading(false);
+      });
+  }, [params.id, initialized, canAccessPv, recordAccess, session?.access_token]);
 
   useEffect(() => {
     api.getPvs()
@@ -272,7 +303,7 @@ export default function RevisionPage(props: { params: Promise<{ id: string }> })
     );
   };
 
-  if (!pvData) {
+  if (loading || !pvData) {
     return (
       <div className="min-h-screen">
         <Header />
@@ -281,6 +312,15 @@ export default function RevisionPage(props: { params: Promise<{ id: string }> })
             <div className="animate-pulse text-gray-500 dark:text-gray-400">Chargement du PV...</div>
           </div>
         </main>
+        {showUpgradeModal && (
+          <UpgradeModal
+            onClose={() => {
+              setShowUpgradeModal(false);
+              router.push('/pvs');
+            }}
+          />
+        )}
+        <Footer />
       </div>
     );
   }

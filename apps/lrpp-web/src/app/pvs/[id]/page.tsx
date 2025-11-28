@@ -5,8 +5,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { UpgradeModal } from '@/components/UpgradeModal';
 import { api, TicketSeverity } from '@/lib/api';
 import { useAuthStore } from '@/stores/auth';
+import { useAccessStore } from '@/stores/access';
 
 interface PvSection {
   type: string;
@@ -29,10 +31,12 @@ export default function PvDetailPage(props: { params: Promise<{ id: string }> })
   const params = use(props.params);
   const router = useRouter();
   const { user, session } = useAuthStore();
+  const { initialize, canAccessPv, recordAccess, initialized } = useAccessStore();
   const [pvData, setPvData] = useState<PvData | null>(null);
   const [allPvs, setAllPvs] = useState<Array<{id: string, title: string, order: number}>>([]);
   const [pageUrl, setPageUrl] = useState('');
   const [showBugModal, setShowBugModal] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [bugEmail, setBugEmail] = useState('');
   const [bugDescription, setBugDescription] = useState('');
   const [bugSeverity, setBugSeverity] = useState<TicketSeverity>('medium');
@@ -42,8 +46,25 @@ export default function PvDetailPage(props: { params: Promise<{ id: string }> })
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Initialize access store
   useEffect(() => {
-    setLoading(true);
+    initialize(session?.access_token);
+  }, [session?.access_token, initialize]);
+
+  // Check access when initialized
+  useEffect(() => {
+    if (!initialized) return;
+
+    const hasAccess = canAccessPv(params.id);
+    if (!hasAccess) {
+      setShowUpgradeModal(true);
+      setLoading(false);
+      return;
+    }
+
+    // Record access and load PV data
+    recordAccess(params.id, session?.access_token);
+
     fetch(`/data/pvs/${params.id}.json`)
       .then(res => {
         if (!res.ok) throw new Error('PV non trouve');
@@ -57,7 +78,7 @@ export default function PvDetailPage(props: { params: Promise<{ id: string }> })
         setError(err.message);
         setLoading(false);
       });
-  }, [params.id]);
+  }, [params.id, initialized, canAccessPv, recordAccess, session?.access_token]);
 
   useEffect(() => {
     api.getPvs()
@@ -395,6 +416,15 @@ export default function PvDetailPage(props: { params: Promise<{ id: string }> })
             </form>
           </div>
         </div>
+      )}
+
+      {showUpgradeModal && (
+        <UpgradeModal
+          onClose={() => {
+            setShowUpgradeModal(false);
+            router.push('/pvs');
+          }}
+        />
       )}
 
       <Footer />
