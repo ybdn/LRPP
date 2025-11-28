@@ -181,7 +181,7 @@ export const useAccessStore = create<AccessState>()(
       },
     }),
     {
-      name: 'lrpp-access',
+      name: 'lrpp-access-v2',
       storage: createJSONStorage(() =>
         typeof window !== 'undefined' ? localStorage : memoryStorage
       ),
