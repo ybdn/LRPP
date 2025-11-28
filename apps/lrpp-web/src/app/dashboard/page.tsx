@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuthStore } from '../../stores/auth';
 import { useCallback } from 'react';
 import { buildApiUrl } from '@/lib/api-url';
+import { Modal } from '@/components/Modal';
 
 interface PvProgress {
   pvId: string;
@@ -70,52 +71,45 @@ export default function DashboardPage() {
 
   if (loading || !user) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-400">Chargement...</p>
+          <p className="text-gray-200">Chargement...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Tableau de bord
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">
-            Suivez votre progression et identifiez les PV à réviser
-          </p>
-        </div>
+    <Modal title="Tableau de bord" widthClass="max-w-6xl">
+      <div className="space-y-6">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          Suivez votre progression et identifiez les PV à réviser.
+        </p>
 
-        {/* Stats globales */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
             <p className="text-sm text-gray-600 dark:text-gray-400">PV maîtrisés</p>
             <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
               {progress.filter((p) => p.masteryScore >= 80).length}
             </p>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
             <p className="text-sm text-gray-600 dark:text-gray-400">PV en cours</p>
             <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
               {progress.filter((p) => p.masteryScore >= 40 && p.masteryScore < 80).length}
             </p>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
             <p className="text-sm text-gray-600 dark:text-gray-400">PV à améliorer</p>
             <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
               {progress.filter((p) => p.masteryScore > 0 && p.masteryScore < 40).length}
             </p>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
             <p className="text-sm text-gray-600 dark:text-gray-400">Total des révisions</p>
             <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
               {progress.reduce((sum, p) => sum + p.attemptCount, 0)}
@@ -123,8 +117,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Liste des PV */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white">
               Progression par PV
@@ -223,6 +216,6 @@ export default function DashboardPage() {
           )}
         </div>
       </div>
-    </div>
+    </Modal>
   );
 }

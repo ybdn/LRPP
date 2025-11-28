@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuthStore } from '../../stores/auth';
 import Link from 'next/link';
 import { buildApiUrl } from '@/lib/api-url';
+import { Modal } from '@/components/Modal';
 
 interface UserStats {
   totalAttempts: number;
@@ -61,50 +62,46 @@ export default function ProfilePage() {
 
   if (loading || !user) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-400">Chargement...</p>
+          <p className="text-gray-200">Chargement...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-6">
-          <div className="flex items-center gap-4">
-            <div className="w-20 h-20 rounded-full bg-blue-600 flex items-center justify-center text-white text-3xl font-bold">
-              {user.name ? user.name.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase() || 'U'}
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                {user.name || 'Utilisateur'}
-              </h1>
-              <p className="text-gray-600 dark:text-gray-400">{user.email}</p>
-              <div className="mt-2">
-                <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
-                  user.role === 'admin'
-                    ? 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200'
-                    : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
-                }`}>
-                  {user.role === 'admin' ? 'Administrateur' : 'Utilisateur'}
-                </span>
-              </div>
-            </div>
-            <Link
-              href="/settings"
-              className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-            >
-              Modifier le profil
-            </Link>
+    <Modal title="Profil" widthClass="max-w-5xl">
+      <div className="space-y-6">
+        <div className="flex items-center gap-4">
+          <div className="w-20 h-20 rounded-full bg-blue-600 flex items-center justify-center text-white text-3xl font-bold">
+            {user.name ? user.name.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase() || 'U'}
           </div>
+          <div className="flex-1">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+              {user.name || 'Utilisateur'}
+            </h1>
+            <p className="text-gray-600 dark:text-gray-400">{user.email}</p>
+            <div className="mt-2">
+              <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
+                user.role === 'admin'
+                  ? 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200'
+                  : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
+              }`}>
+                {user.role === 'admin' ? 'Administrateur' : 'Utilisateur'}
+              </span>
+            </div>
+          </div>
+          <Link
+            href="/settings"
+            className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+          >
+            Modifier le profil
+          </Link>
         </div>
 
-        {/* Statistiques */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
             Statistiques
           </h2>
@@ -152,8 +149,7 @@ export default function ProfilePage() {
           )}
         </div>
 
-        {/* Actions rapides */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
             Actions rapides
           </h2>
@@ -213,6 +209,6 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
-    </div>
+    </Modal>
   );
 }
