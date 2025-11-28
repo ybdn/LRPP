@@ -7,10 +7,14 @@ Application web d'entraînement à la procédure pénale pour la préparation OP
 ### Modes d'apprentissage
 
 - **Mode Cours** : Lecture structurée des PV avec navigation par sections
-- **Mode Révision** : PV à trous avec 3 niveaux de difficulté
-  - Niveau 1 : Articles et mots-clés masqués
-  - Niveau 2 : Phrases types masquées
-  - Niveau 3 : Reconstruction complète
+  - Interface unifiée avec sélection rapide de PV
+  - Bouton aléatoire pour découverte
+  - Accès direct au mode révision
+- **Mode Révision** : Entraînement interactif avec évaluation en temps réel
+  - Remplissage de zones à compléter
+  - Notation automatique avec correction détaillée
+  - Indicateurs de score par section et globaux
+- **Support utilisateur** : Système de bug report intégré aux pages de cours et révision
 
 ### Système d'accès
 
@@ -30,12 +34,20 @@ Application web d'entraînement à la procédure pénale pour la préparation OP
 
 | Composant | Technologie |
 |-----------|-------------|
-| Frontend | Next.js 15 (App Router) + Tailwind CSS |
+| Frontend | Next.js 15 (App Router) + Tailwind CSS + Design System cohérent |
 | Backend | NestJS + TypeORM |
 | Base de données | SQLite (dev) / PostgreSQL (prod) |
 | Authentification | Supabase Auth |
 | Paiement | Lemon Squeezy |
 | Déploiement | Docker + Traefik sur VPS |
+
+### Design System
+
+L'application utilise un système de design cohérent basé sur Tailwind CSS avec :
+- Classes de composants réutilisables (`.btn`, `.card`, `.badge`, `.input`, `.select`)
+- Support du dark mode automatique
+- États hover/focus uniformes
+- Design responsive mobile-first
 
 ## Structure du projet
 

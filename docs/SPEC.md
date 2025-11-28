@@ -316,16 +316,31 @@ interface CorrectionResult {
 |-------|-------------|
 | `/` | Dashboard avec stats et suggestions |
 | `/pvs` | Liste des PV disponibles |
-| `/pvs/:id` | Détail d'un PV |
+| `/pvs/:id` | Détail d'un PV (mode cours) |
+| `/pvs/:id/revision` | Mode révision pour un PV |
 | `/exercise/fill-blanks/:pvId` | Exercice PV à trous |
 | `/exercise/dictation/:blockId` | Exercice dictée |
 | `/exam/new` | Configuration d'un examen |
 | `/exam/:id` | Session d'examen en cours |
 | `/exam/:id/results` | Résultats d'examen |
 | `/stats` | Statistiques détaillées |
+| `/contact` | Formulaire de contact et support |
+| `/profile` | Profil utilisateur et gestion d'abonnement |
+| `/pricing` | Page tarifs et codes promo |
+| `/admin` | Dashboard d'administration |
+| `/admin/pvs` | Gestion des PV |
+| `/admin/frameworks` | Gestion des cadres légaux |
+| `/admin/content` | Édition du contenu des PV |
+| `/admin/promo-codes` | Gestion des codes promo |
+
+**Fonctionnalités transversales** :
+- **Bug report** : Bouton dans les pages cours/révision ouvrant une modale de signalement
+- **Navigation PV** : Select + bouton aléatoire dans les pages cours/révision
+- **Mode toggle** : Bascule facile entre mode cours et révision
 
 ### 5.2 Composants clés
 
+**Composants d'exercice** :
 - `BlankInput` : Champ de saisie pour un trou
 - `TextWithBlanks` : Texte avec trous interactifs
 - `DictationPlayer` : Lecteur pour dictée (affichage/audio)
@@ -333,12 +348,40 @@ interface CorrectionResult {
 - `MasteryChart` : Graphique de progression
 - `ExamTimer` : Chronomètre d'examen
 
+**Interface utilisateur** :
+- `Header` : Navigation principale avec authentification
+- `Footer` : Pied de page
+- `Modal` : Composant de modale réutilisable
+- `UpgradeModal` : Modale d'upgrade vers premium
+- `ThemeToggle` : Bascule dark/light mode
+- `AccessBadge` : Badge d'affichage du niveau d'accès
+- `AccessStatusBar` : Barre d'état des quotas
+
+**Layout pages** :
+- Card englobante pour les contrôles (cours/révision)
+- Header avec titre, badge de mode, et bouton bug report
+- Section de sélection de PV avec bouton aléatoire
+- Boutons d'action avec icônes descriptives
+
 ### 5.3 Design System
 
-Utilisation du **DSFR** (Design System de l'État français) :
-- Composants React officiels
-- Couleurs et typographie conformes
-- Accessibilité garantie
+Système de design personnalisé basé sur **Tailwind CSS** :
+
+**Classes de composants** (`apps/lrpp-web/src/app/globals.css`) :
+- `.btn`, `.btn-primary`, `.btn-secondary`, `.btn-success`, `.btn-danger`, `.btn-warning`, `.btn-ghost` : Boutons
+- `.card`, `.card-hover` : Cartes
+- `.input`, `.select`, `.select-title` : Éléments de formulaire
+- `.label` : Labels de formulaire
+- `.badge`, `.badge-primary`, `.badge-success`, `.badge-warning`, `.badge-error`, `.badge-info` : Badges
+- `.info-box` : Boîtes d'information
+- `.gradient-text` : Texte avec dégradé
+
+**Caractéristiques** :
+- Support automatique du dark mode
+- États hover/focus cohérents
+- Transitions fluides
+- Design responsive mobile-first
+- Accessibilité via focus rings et disabled states
 
 ## 6. Algorithmes
 

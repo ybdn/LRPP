@@ -236,13 +236,36 @@ export default function PvDetailPage(props: { params: Promise<{ id: string }> })
       <Header />
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
-          <div className="flex-1">
-            <div className="flex items-center gap-3">
+        {/* Header with controls */}
+        <div className="card mb-6">
+          {/* Mode badge */}
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Cours Interactif</h2>
+            <div className="flex items-center gap-2">
+              <span className="badge badge-success">Mode Cours</span>
+              <button
+                onClick={() => {
+                  setBugError(null);
+                  setShowBugModal(true);
+                }}
+                className="btn btn-ghost p-2"
+                title="Reporter un bug"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* PV Selection */}
+          <div className="mb-6">
+            <label className="label">Sélectionner un procès-verbal</label>
+            <div className="flex gap-2">
               <select
                 value={params.id}
                 onChange={(e) => router.push(`/pvs/${e.target.value}`)}
-                className="text-xl font-bold text-gray-900 dark:text-white border-2 border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2 bg-white dark:bg-gray-900 hover:border-primary-500 focus:border-primary-500 focus:outline-none cursor-pointer transition-colors"
+                className="select flex-1"
               >
                 {allPvs.map(pv => (
                   <option key={pv.id} value={pv.id}>
@@ -250,26 +273,33 @@ export default function PvDetailPage(props: { params: Promise<{ id: string }> })
                   </option>
                 ))}
               </select>
+              <button
+                onClick={() => {
+                  if (allPvs.length === 0) return;
+                  const randomPv = allPvs[Math.floor(Math.random() * allPvs.length)];
+                  router.push(`/pvs/${randomPv.id}`);
+                }}
+                className="btn btn-warning p-2"
+                title="PV aléatoire"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </button>
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Mode Cours</p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-3">
+
+          {/* Action buttons */}
+          <div className="border-t border-gray-200 dark:border-gray-800 pt-4">
             <Link
               href={`/pvs/${params.id}/revision`}
-              className="btn btn-primary"
+              className="btn btn-primary w-full flex items-center justify-center gap-2"
             >
-              Reviser ce PV
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              </svg>
+              Réviser ce PV
             </Link>
-            <button
-              type="button"
-              onClick={() => {
-                setBugError(null);
-                setShowBugModal(true);
-              }}
-              className="btn btn-secondary"
-            >
-              Signaler un bug
-            </button>
           </div>
         </div>
 
