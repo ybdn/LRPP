@@ -8,3 +8,5 @@ export * from "./attempt.entity";
 export * from "./exam-session.entity";
 export * from "./user-block-stats.entity";
 export * from "./ticket.entity";
+export * from "./user-pv-access.entity";
+export * from "./anonymous-access.entity";

@@ -7,10 +7,16 @@ import {
 } from "typeorm";
 import { Attempt } from "./attempt.entity";
 import { ExamSession } from "./exam-session.entity";
+import { UserPvAccess } from "./user-pv-access.entity";
 
 export enum UserRole {
   USER = "user",
   ADMIN = "admin",
+}
+
+export enum SubscriptionTier {
+  FREE = "free",
+  PREMIUM = "premium",
 }
 
 @Entity("users")
@@ -34,6 +40,13 @@ export class User {
   })
   role: UserRole;
 
+  @Column({
+    type: "varchar",
+    length: 20,
+    default: SubscriptionTier.FREE,
+  })
+  subscriptionTier: SubscriptionTier;
+
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
 
@@ -42,4 +55,7 @@ export class User {
 
   @OneToMany(() => ExamSession, (exam) => exam.user)
   examSessions: ExamSession[];
+
+  @OneToMany(() => UserPvAccess, (access) => access.user)
+  pvAccesses: UserPvAccess[];
 }

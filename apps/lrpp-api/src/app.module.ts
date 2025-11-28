@@ -6,6 +6,7 @@ import { PvModule } from "./modules/pv/pv.module";
 import { DatabaseModule } from "./database/database.module";
 import { AuthModule } from "./modules/auth/auth.module";
 import { TicketModule } from "./modules/ticket/ticket.module";
+import { AccessModule } from "./modules/access/access.module";
 
 @Module({
   imports: [
@@ -65,6 +66,7 @@ import { TicketModule } from "./modules/ticket/ticket.module";
     DatabaseModule,
     AuthModule,
     TicketModule,
+    AccessModule,
   ],
 })
 export class AppModule { }

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '../../../stores/auth';
 import { buildApiUrl } from '@/lib/api-url';
+import { Modal } from '@/components/Modal';
 
 interface Pv {
   id: string;
@@ -19,7 +20,17 @@ export default function AdminPvsPage() {
   const { user, session, loading } = useAuthStore();
   const [pvs, setPvs] = useState<Pv[]>([]);
   const [loadingPvs, setLoadingPvs] = useState(true);
-  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [form, setForm] = useState<Omit<Pv, 'order'> & { order?: number }>({
+    id: '',
+    title: '',
+    order: undefined,
+    hasNotification: false,
+    hasDeroulement: false,
+  });
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!loading && (!user || user.role !== 'admin')) {
@@ -69,6 +80,71 @@ export default function AdminPvsPage() {
     }
   };
 
+  const openCreate = () => {
+    setEditingId(null);
+    setForm({
+      id: '',
+      title: '',
+      order: (pvs.length || 0) + 1,
+      hasNotification: false,
+      hasDeroulement: false,
+    });
+    setError(null);
+    setShowModal(true);
+  };
+
+  const openEdit = (pv: Pv) => {
+    setEditingId(pv.id);
+    setForm({
+      id: pv.id,
+      title: pv.title,
+      order: pv.order,
+      hasNotification: pv.hasNotification,
+      hasDeroulement: pv.hasDeroulement,
+    });
+    setError(null);
+    setShowModal(true);
+  };
+
+  const handleSave = async () => {
+    if (!session) return;
+    setSaving(true);
+    setError(null);
+    const payload = {
+      id: form.id.trim(),
+      title: form.title.trim(),
+      order: Number(form.order) || 0,
+      hasNotification: form.hasNotification,
+      hasDeroulement: form.hasDeroulement,
+    };
+
+    try {
+      const response = await fetch(
+        buildApiUrl(editingId ? `/pvs/${editingId}` : '/pvs'),
+        {
+          method: editingId ? 'PUT' : 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${session.access_token}`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (!response.ok) {
+        const err = await response.json().catch(() => ({}));
+        throw new Error(err.message || 'Erreur API');
+      }
+
+      await fetchPvs();
+      setShowModal(false);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setSaving(false);
+    }
+  };
+
   if (loading || !user || user.role !== 'admin') {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -104,7 +180,7 @@ export default function AdminPvsPage() {
             </p>
           </div>
           <button
-            onClick={() => setShowCreateModal(true)}
+            onClick={openCreate}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -183,12 +259,12 @@ export default function AdminPvsPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <div className="flex justify-end gap-2">
-                          <Link
-                            href={`/admin/pvs/${pv.id}/edit`}
+                          <button
+                            onClick={() => openEdit(pv)}
                             className="text-blue-600 dark:text-blue-400 hover:underline"
                           >
                             Éditer
-                          </Link>
+                          </button>
                           <Link
                             href={`/admin/pvs/${pv.id}/sections`}
                             className="text-green-600 dark:text-green-400 hover:underline"
@@ -213,23 +289,83 @@ export default function AdminPvsPage() {
       </div>
 
       {/* Modal de création (simplifié) */}
-      {showCreateModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full p-6">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-              Créer un nouveau PV
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
-              Cette fonctionnalité sera bientôt disponible. Pour l&apos;instant, utilisez l&apos;API directement ou modifiez les fichiers de seed.
-            </p>
-            <button
-              onClick={() => setShowCreateModal(false)}
-              className="w-full px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-            >
-              Fermer
-            </button>
+      {showModal && (
+        <Modal title={editingId ? 'Modifier le PV' : 'Créer un PV'} widthClass="max-w-lg" onClose={() => setShowModal(false)}>
+          <div className="space-y-4">
+            {error && (
+              <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/20 dark:text-red-200">
+                {error}
+              </div>
+            )}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">ID</label>
+              <input
+                type="text"
+                value={form.id}
+                onChange={(e) => setForm({ ...form, id: e.target.value })}
+                disabled={!!editingId}
+                className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/30 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 disabled:bg-gray-100 disabled:dark:bg-gray-700"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Titre</label>
+              <input
+                type="text"
+                value={form.title}
+                onChange={(e) => setForm({ ...form, title: e.target.value })}
+                className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/30 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
+              />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Ordre</label>
+                <input
+                  type="number"
+                  value={form.order ?? ''}
+                  onChange={(e) => setForm({ ...form, order: Number(e.target.value) })}
+                  className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/30 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
+                />
+              </div>
+              <div className="flex items-center gap-4">
+                <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+                  <input
+                    type="checkbox"
+                    checked={form.hasNotification}
+                    onChange={(e) => setForm({ ...form, hasNotification: e.target.checked })}
+                    className="h-4 w-4"
+                  />
+                  Notification
+                </label>
+                <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+                  <input
+                    type="checkbox"
+                    checked={form.hasDeroulement}
+                    onChange={(e) => setForm({ ...form, hasDeroulement: e.target.checked })}
+                    className="h-4 w-4"
+                  />
+                  Déroulement
+                </label>
+              </div>
+            </div>
+            <div className="flex justify-end gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => setShowModal(false)}
+                className="btn btn-secondary"
+              >
+                Annuler
+              </button>
+              <button
+                type="button"
+                disabled={saving || !form.id || !form.title}
+                onClick={handleSave}
+                className="btn btn-primary disabled:opacity-70"
+              >
+                {saving ? 'Enregistrement...' : 'Enregistrer'}
+              </button>
+            </div>
           </div>
-        </div>
+        </Modal>
       )}
     </div>
   );
