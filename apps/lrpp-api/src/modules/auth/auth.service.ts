@@ -18,7 +18,7 @@ export class AuthService {
 
     const user = await this.userService.findOrCreateFromSupabase(
       supabaseUser.id,
-      supabaseUser.email,
+      supabaseUser.email ?? null,
     );
 
     return {

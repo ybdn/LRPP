@@ -63,6 +63,10 @@ export class AuthController {
       UserRole.ADMIN,
     );
 
+    if (!updatedUser) {
+      throw new NotFoundException('User not found after update');
+    }
+
     return {
       id: updatedUser.id,
       email: updatedUser.email,

@@ -46,7 +46,7 @@ export class UserService {
     return this.userRepository.findOne({ where: { id } });
   }
 
-  async updateRole(userId: string, role: UserRole): Promise<User> {
+  async updateRole(userId: string, role: UserRole): Promise<User | null> {
     await this.userRepository.update(userId, { role });
     return this.findById(userId);
   }

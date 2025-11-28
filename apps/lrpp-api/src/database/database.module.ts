@@ -6,6 +6,10 @@ import {
   Pv,
   PvContent,
   PvSection,
+  User,
+  Attempt,
+  ExamSession,
+  UserBlockStats,
 } from "@/common/entities";
 import { DatabaseSeedService } from "./seed.service";
 
@@ -17,8 +21,13 @@ import { DatabaseSeedService } from "./seed.service";
       PvContent,
       PvSection,
       Block,
+      User,
+      Attempt,
+      ExamSession,
+      UserBlockStats,
     ]),
   ],
   providers: [DatabaseSeedService],
+  exports: [TypeOrmModule],
 })
 export class DatabaseModule {}

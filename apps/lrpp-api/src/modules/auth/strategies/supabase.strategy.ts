@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-custom';
+import { Request } from 'express';
 import { SupabaseService } from '../../../common/supabase/supabase.client';
 import { UserService } from '../../user/user.service';
 
@@ -14,7 +15,7 @@ export class SupabaseStrategy extends PassportStrategy(Strategy, 'supabase') {
   }
 
   async validate(req: Request): Promise<any> {
-    const authHeader = req.headers['authorization'];
+    const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       throw new UnauthorizedException('Missing authorization header');
@@ -29,7 +30,7 @@ export class SupabaseStrategy extends PassportStrategy(Strategy, 'supabase') {
 
     const user = await this.userService.findOrCreateFromSupabase(
       supabaseUser.id,
-      supabaseUser.email,
+      supabaseUser.email ?? null,
     );
 
     return user;

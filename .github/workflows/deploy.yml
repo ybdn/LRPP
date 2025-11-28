@@ -57,13 +57,17 @@ jobs:
             tar -xzf "$ARCHIVE_PATH" -C "$APP_DIR"
             rm -f "$ARCHIVE_PATH"
 
-            cat > "$APP_DIR/.env" <<'ENVEOF'
+            cat > "$APP_DIR/.env" <<ENVEOF
             POSTGRES_USER=lrpp
             POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }}
             POSTGRES_DB=lrpp
             JWT_SECRET=${{ secrets.JWT_SECRET }}
             NEXT_PUBLIC_API_URL=https://lrpp.ybdn.fr/api
             DATABASE_CLIENT=postgres
+            SUPABASE_URL=${{ secrets.SUPABASE_URL }}
+            SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+            NEXT_PUBLIC_SUPABASE_URL=${{ secrets.SUPABASE_URL }}
+            NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}
             ENVEOF
             chmod 600 "$APP_DIR/.env"
 
