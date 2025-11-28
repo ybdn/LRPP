@@ -35,6 +35,11 @@ export function Header() {
     router.push('/login');
   };
 
+  const getFirstName = (fullName: string | undefined) => {
+    if (!fullName) return null;
+    return fullName.split(' ')[0];
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-800">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,7 +74,7 @@ export function Header() {
                   <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold">
                     {user.name ? user.name.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase() || 'U'}
                   </div>
-                  <span className="hidden md:inline">{user.name || user.email}</span>
+                  <span className="hidden md:inline">{getFirstName(user.name) || user.email}</span>
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
