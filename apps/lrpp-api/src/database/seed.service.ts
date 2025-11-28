@@ -274,8 +274,9 @@ export class DatabaseSeedService implements OnModuleInit {
       for (const [frameworkId, data] of Object.entries(
         cadreSection.frameworks,
       )) {
-        const parts = [data.articles, data.content]
-          .filter((value): value is string => Boolean(value?.trim().length));
+        const parts = [data.articles, data.content].filter(
+          (value): value is string => Boolean(value?.trim().length),
+        );
         if (parts.length > 0) {
           contents.push({
             frameworkId,
@@ -308,9 +309,7 @@ export class DatabaseSeedService implements OnModuleInit {
       notification: notificationSection?.content ?? raw.notification,
       deroulement: deroulementSection?.content ?? raw.deroulement,
       elementsFond:
-        this.resolveElementsFond(elementsSection) ??
-        raw.elementsFond ??
-        "",
+        this.resolveElementsFond(elementsSection) ?? raw.elementsFond ?? "",
     };
   }
 

@@ -71,10 +71,7 @@ export class PvController {
 
   @Put("sections/:sectionId")
   @UseGuards(JwtAuthGuard, AdminGuard)
-  updateSection(
-    @Param("sectionId") id: string,
-    @Body() updateSectionDto: any,
-  ) {
+  updateSection(@Param("sectionId") id: string, @Body() updateSectionDto: any) {
     return this.pvService.updateSection(id, updateSectionDto);
   }
 

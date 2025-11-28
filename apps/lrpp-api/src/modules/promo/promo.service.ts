@@ -130,7 +130,10 @@ export class PromoService {
     }
 
     if (promo.maxUses && promo.usedCount >= promo.maxUses) {
-      return { valid: false, reason: "Ce code a atteint sa limite d'utilisation" };
+      return {
+        valid: false,
+        reason: "Ce code a atteint sa limite d'utilisation",
+      };
     }
 
     return { valid: true, promo };
@@ -184,7 +187,9 @@ export class PromoService {
     };
   }
 
-  async getActiveRedemption(userId: string): Promise<UserPromoRedemption | null> {
+  async getActiveRedemption(
+    userId: string,
+  ): Promise<UserPromoRedemption | null> {
     return this.redemptionRepository.findOne({
       where: {
         userId,

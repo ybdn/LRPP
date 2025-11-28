@@ -1,6 +1,6 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { SupabaseService } from '../../common/supabase/supabase.client';
-import { UserService } from '../user/user.service';
+import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { SupabaseService } from "../../common/supabase/supabase.client";
+import { UserService } from "../user/user.service";
 
 @Injectable()
 export class AuthService {
@@ -13,7 +13,7 @@ export class AuthService {
     const supabaseUser = await this.supabaseService.verifyToken(token);
 
     if (!supabaseUser) {
-      throw new UnauthorizedException('Invalid token');
+      throw new UnauthorizedException("Invalid token");
     }
 
     const user = await this.userService.findOrCreateFromSupabase(

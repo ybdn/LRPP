@@ -49,10 +49,7 @@ export class TicketController {
 
   @Put(":id/status")
   @UseGuards(JwtAuthGuard, AdminGuard)
-  async updateStatus(
-    @Param("id") id: string,
-    @Body() dto: UpdateTicketDto,
-  ) {
+  async updateStatus(@Param("id") id: string, @Body() dto: UpdateTicketDto) {
     return this.ticketService.updateStatus(id, dto);
   }
 }

@@ -20,7 +20,6 @@ import { PromoModule } from "./modules/promo/promo.module";
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => {
         const client = configService.get<string>("DATABASE_CLIENT") || "sqlite";
-        const isDev = configService.get("NODE_ENV") !== "production";
 
         if (client === "postgres") {
           const url = configService.get<string>("DATABASE_URL");
@@ -40,7 +39,10 @@ import { PromoModule } from "./modules/promo/promo.module";
           return {
             type: "postgres",
             host: configService.get<string>("DATABASE_HOST"),
-            port: parseInt(configService.get<string>("DATABASE_PORT") || "5432", 10),
+            port: parseInt(
+              configService.get<string>("DATABASE_PORT") || "5432",
+              10,
+            ),
             username: configService.get<string>("DATABASE_USER"),
             password: configService.get<string>("DATABASE_PASSWORD"),
             database: configService.get<string>("DATABASE_NAME"),
@@ -77,4 +79,4 @@ import { PromoModule } from "./modules/promo/promo.module";
     PromoModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}

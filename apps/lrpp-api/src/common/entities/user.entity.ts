@@ -48,6 +48,12 @@ export class User {
   })
   subscriptionTier: SubscriptionTier;
 
+  @Column({ name: "study_goal", type: "varchar", length: 100, nullable: true })
+  studyGoal: string | null;
+
+  @Column({ name: "onboarding_completed", type: "boolean", default: false })
+  onboardingCompleted: boolean;
+
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
 

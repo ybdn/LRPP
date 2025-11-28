@@ -10,7 +10,11 @@ import {
   Req,
 } from "@nestjs/common";
 import { Request } from "express";
-import { PromoService, CreatePromoCodeDto, UpdatePromoCodeDto } from "./promo.service";
+import {
+  PromoService,
+  CreatePromoCodeDto,
+  UpdatePromoCodeDto,
+} from "./promo.service";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { AdminGuard } from "../auth/guards/admin.guard";
 import { User, PromoCodeType } from "@/common/entities";
