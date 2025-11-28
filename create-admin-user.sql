@@ -2,13 +2,13 @@
 -- À exécuter dans le SQL Editor de Supabase
 
 -- 1. D'abord, créez l'utilisateur via l'interface Supabase (Authentication > Users)
---    Email: ybdn@example.com
+--    Email: baudrin.yoann@gmail.com
 --    Password: Ibanez_347498*
 
 -- 2. Ensuite, récupérez l'ID Supabase de l'utilisateur
 SELECT id as supabase_id, email, created_at
 FROM auth.users
-WHERE email = 'ybdn@example.com';
+WHERE email = 'baudrin.yoann@gmail.com';
 
 -- 3. Copiez le supabase_id retourné ci-dessus
 
@@ -37,7 +37,7 @@ INSERT INTO users (id, supabase_id, email, name, role, created_at)
 VALUES (
   gen_random_uuid(),
   'VOTRE_SUPABASE_ID',
-  'ybdn@example.com',
+  'baudrin.yoann@gmail.com',
   'YBDN Admin',
   'admin',
   NOW()

@@ -39,7 +39,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=votre_anon_key
 3. Allez dans **Authentication** > **Users**
 4. Cliquez sur **Add user** > **Create new user**
 5. Remplissez :
-   - Email: `ybdn@example.com` (ou votre email)
+   - Email: `baudrin.yoann@gmail.com`
    - Password: `Ibanez_347498*`
    - Auto-confirm user: **Coché**
 6. Cliquez sur **Create user**
@@ -71,7 +71,7 @@ VALUES (
   gen_random_uuid(),
   'authenticated',
   'authenticated',
-  'ybdn@example.com',
+  'baudrin.yoann@gmail.com',
   crypt('Ibanez_347498*', gen_salt('bf')),
   NOW(),
   NOW(),
@@ -88,7 +88,7 @@ VALUES (
 1. Démarrez l'application frontend et backend
 2. Allez sur http://localhost:3000/signup
 3. Inscrivez-vous avec :
-   - Email: `ybdn@example.com`
+   - Email: `baudrin.yoann@gmail.com`
    - Mot de passe: `Ibanez_347498*`
    - Nom: `YBDN Admin`
 
@@ -100,7 +100,7 @@ Après avoir créé l'utilisateur, vous devez le promouvoir en administrateur :
 
 ```sql
 -- Récupérer l'ID Supabase de l'utilisateur
-SELECT id, email FROM auth.users WHERE email = 'ybdn@example.com';
+SELECT id, email FROM auth.users WHERE email = 'baudrin.yoann@gmail.com';
 
 -- Mettre à jour le rôle dans votre base de données LRPP
 -- Remplacez 'SUPABASE_USER_ID' par l'ID récupéré ci-dessus
@@ -128,7 +128,7 @@ Puis appelez-le avec :
 ```bash
 curl -X POST http://localhost:3001/api/auth/promote-admin \
   -H "Content-Type: application/json" \
-  -d '{"email": "ybdn@example.com"}'
+  -d '{"email": "baudrin.yoann@gmail.com"}'
 ```
 
 ## 5. Structure de la base de données
@@ -153,7 +153,7 @@ L'application sera disponible sur :
 
 1. Allez sur http://localhost:3000/login
 2. Connectez-vous avec :
-   - Email: `ybdn@example.com`
+   - Email: `baudrin.yoann@gmail.com`
    - Mot de passe: `Ibanez_347498*`
 3. Vous devriez voir votre profil dans le menu utilisateur en haut à droite
 4. Le lien "Administration" devrait être visible car vous êtes admin

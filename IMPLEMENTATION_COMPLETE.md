@@ -229,21 +229,21 @@ Accessible sur:
 **Méthode 1 (Recommandée):**
 1. Allez sur http://localhost:3000/signup
 2. Créez un compte:
-   - Email: `ybdn@example.com`
+   - Email: `baudrin.yoann@gmail.com`
    - Mot de passe: `Ibanez_347498*`
    - Nom: `YBDN Admin`
 
 3. Promouvoir en admin:
 ```bash
 chmod +x promote-admin.sh
-./promote-admin.sh ybdn@example.com
+./promote-admin.sh baudrin.yoann@gmail.com
 ```
 
 **Méthode 2 (Alternative):**
 ```bash
 curl -X POST http://localhost:3001/api/auth/promote-admin \
   -H "Content-Type: application/json" \
-  -d '{"email": "ybdn@example.com"}'
+  -d '{"email": "baudrin.yoann@gmail.com"}'
 ```
 
 ### 4. Tester
@@ -505,11 +505,11 @@ pnpm dev
 
 # 3. Créer le super utilisateur
 # Aller sur http://localhost:3000/signup
-# S'inscrire avec ybdn@example.com / Ibanez_347498*
+# S'inscrire avec baudrin.yoann@gmail.com / Ibanez_347498*
 
 # 4. Promouvoir en admin
 chmod +x promote-admin.sh
-./promote-admin.sh ybdn@example.com
+./promote-admin.sh baudrin.yoann@gmail.com
 
 # 5. Profiter! 🎉
 ```

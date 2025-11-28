@@ -36,14 +36,14 @@ pnpm dev
 
 1. **S'inscrire**
    Allez sur http://localhost:3000/signup et créez un compte avec :
-   - Email: `ybdn@example.com`
+   - Email: `baudrin.yoann@gmail.com`
    - Mot de passe: `Ibanez_347498*`
-   - Nom: `YBDN Admin`
+   - Nom: `ybdn`
 
 2. **Promouvoir en admin**
    ```bash
    chmod +x promote-admin.sh
-   ./promote-admin.sh ybdn@example.com
+   ./promote-admin.sh baudrin.yoann@gmail.com
    ```
 
 3. **Se reconnecter**
