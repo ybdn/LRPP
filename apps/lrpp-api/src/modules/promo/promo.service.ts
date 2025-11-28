@@ -12,6 +12,7 @@ import {
   PROMO_TYPE_DEFAULTS,
   UserPromoRedemption,
   User,
+  SubscriptionTier,
 } from "@/common/entities";
 
 export interface CreatePromoCodeDto {
@@ -172,6 +173,11 @@ export class PromoService {
     });
 
     await this.redemptionRepository.save(redemption);
+
+    // Update user subscription tier to PREMIUM
+    await this.userRepository.update(userId, {
+      subscriptionTier: SubscriptionTier.PREMIUM,
+    });
 
     // Increment usage count
     await this.promoCodeRepository.update(promo.id, {
