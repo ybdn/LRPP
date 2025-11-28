@@ -24,7 +24,7 @@ export class User {
   @PrimaryColumn("uuid")
   id: string;
 
-  @Column({ type: "varchar", length: 255, unique: true, nullable: true })
+  @Column({ name: "supabase_id", type: "varchar", length: 255, unique: true, nullable: true })
   supabaseId: string | null;
 
   @Column({ type: "varchar", length: 255, unique: true, nullable: true })
@@ -41,6 +41,7 @@ export class User {
   role: UserRole;
 
   @Column({
+    name: "subscription_tier",
     type: "varchar",
     length: 20,
     default: SubscriptionTier.FREE,

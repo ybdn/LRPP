@@ -30,7 +30,9 @@ import { PromoModule } from "./modules/promo/promo.module";
               type: "postgres",
               url,
               autoLoadEntities: true,
-              synchronize: isDev,
+              migrations: [join(__dirname, "database/migrations/*{.ts,.js}")],
+              synchronize: false, // Never auto-sync PostgreSQL - use migrations
+              migrationsRun: true, // Automatically run migrations on startup
               logging: configService.get("NODE_ENV") === "development",
             };
           }
@@ -43,7 +45,9 @@ import { PromoModule } from "./modules/promo/promo.module";
             password: configService.get<string>("DATABASE_PASSWORD"),
             database: configService.get<string>("DATABASE_NAME"),
             autoLoadEntities: true,
-            synchronize: isDev,
+            migrations: [join(__dirname, "database/migrations/*{.ts,.js}")],
+            synchronize: false, // Never auto-sync PostgreSQL - use migrations
+            migrationsRun: true, // Automatically run migrations on startup
             logging: configService.get("NODE_ENV") === "development",
           };
         }
