@@ -35,7 +35,7 @@ export function Header() {
     router.push('/login');
   };
 
-  const getFirstName = (fullName: string | undefined) => {
+  const getFirstName = (fullName: string | null): string | null => {
     if (!fullName) return null;
     return fullName.split(' ')[0];
   };
